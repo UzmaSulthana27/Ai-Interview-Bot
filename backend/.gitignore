@@ -1,0 +1,41 @@
+
+# Secrets — never push these
+
+.env
+
+*.env
+
+src/main/resources/application.properties
+
+
+
+# Maven build output
+
+target/
+
+*.jar
+
+*.war
+
+*.class
+
+
+
+# Eclipse files
+
+.classpath
+
+.project
+
+.settings/
+
+.factorypath
+
+
+
+# OS files
+
+.DS_Store
+
+Thumbs.db
+
