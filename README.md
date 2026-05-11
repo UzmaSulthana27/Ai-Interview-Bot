@@ -16,7 +16,7 @@ A full-stack AI interview practice platform where users can simulate technical i
 
 | Service | URL |
 |--------|-----|
-| 🎨 Frontend | [ai-interview-bot-nexus.vercel.app](https://ai-interview-bot-nexus.vercel.app) |
+| 🎨 Frontend | [ai-interview-bot-nexus.vercel.app](https://astra-ai00.vercel.app/) |
 | ⚙️ Backend API | [ai-interview-bot-wmkk.onrender.com](https://ai-interview-bot-wmkk.onrender.com) |
 
 ---
