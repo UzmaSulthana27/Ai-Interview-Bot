@@ -25,7 +25,8 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
   const handleLogout = () => {
     logout();
     setUserMenuOpen(false);
-    navigate('/login');
+    // Keep auth UX consistent: landing page + login modal if needed
+    navigate('/', { replace: true });
   };
 
   const themeToggleVariants = {

@@ -4,8 +4,6 @@ import { ThemeProvider } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import LandingPage from './pages/LandingPage';
-import LoginPage from './pages/LoginPage';
-import SignupPage from './pages/SignupPage';
 import DashboardPage from './pages/DashboardPage';
 import InterviewPage from './pages/InterviewPage';
 import ResumePage from './pages/ResumePage';
@@ -30,8 +28,9 @@ function App() {
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<LandingPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
+            {/* Kept for backwards compatibility — shows popup modal, not a dedicated page */}
+            <Route path="/login" element={<LandingPage />} />
+            <Route path="/signup" element={<LandingPage />} />
 
             {/* Protected Routes — new */}
             <Route path="/home" element={

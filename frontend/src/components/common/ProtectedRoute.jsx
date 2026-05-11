@@ -19,7 +19,8 @@ const ProtectedRoute = ({ children }) => {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    // Redirect to landing page and open login modal there
+    return <Navigate to="/?auth=login" replace />;
   }
 
   return children;
