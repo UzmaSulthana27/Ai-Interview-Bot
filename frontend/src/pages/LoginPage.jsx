@@ -1,96 +1,204 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import API from '../api/axios';
-import FeatureCarousel from '../components/FeatureCarousel';
+import { motion } from 'framer-motion';
+import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
+import apiService from '../api/apiService';
+import Input from '../components/common/Input';
+import Button from '../components/common/Button';
+import Card from '../components/common/Card';
 
-export default function LoginPage() {
-  const [email, setEmail]    = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError]    = useState('');
-  const [loading, setLoading]= useState(false);
+/* Inline spinner — no extra library */
+const Spinner = () => (
+  <div style={{
+    width: 16, height: 16,
+    border: '2px solid rgba(255,255,255,0.4)',
+    borderTop: '2px solid #fff',
+    borderRadius: '50%',
+    animation: 'spin-btn 0.8s linear infinite',
+    display: 'inline-block',
+  }} />
+);
+
+const LoginPage = () => {
   const navigate = useNavigate();
+  const { login, setAuthError } = useAuth();
+  const { isDark } = useTheme();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    if (!email || !password) {
-      setError('Please fill in all fields.');
-      return;
-    }
-    setLoading(true);
-    setError('');
-    
+  const [formData, setFormData] = useState({ email: '', password: '' });
+  const [errors, setErrors]     = useState({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [generalError, setGeneralError] = useState('');
+
+  const validateForm = () => {
+    const e = {};
+    if (!formData.email)    e.email    = 'Please enter your email';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
+      e.email = 'Please enter a valid email';
+    if (!formData.password) e.password = 'Please enter your password';
+    return e;
+  };
+
+  const handleChange = (ev) => {
+    const { name, value } = ev.target;
+    setFormData(p => ({ ...p, [name]: value }));
+    if (errors[name]) setErrors(p => ({ ...p, [name]: '' }));
+  };
+
+  const handleSubmit = async (e) => {
+    e?.preventDefault();
+    setGeneralError('');
+    const newErrors = validateForm();
+    if (Object.keys(newErrors).length) { setErrors(newErrors); return; }
+
+    setIsLoading(true);
     try {
-      const res = await API.post('/auth/login', { email, password });
-      
-      // Robustly pull the ID and Name depending on backend JSON structure
-      const parsedUserId = res.data.userId || res.data._id || res.data?.user?._id || res.data?.user?.id;
-      const parsedUserName = res.data.userName || res.data.name || res.data.user?.name || res.data.user?.userName || 'User';
-
-      localStorage.setItem('userId', parsedUserId);
-      localStorage.setItem('userName', parsedUserName);
-      
+      const response = await apiService.login(formData.email, formData.password);
+      const { user, token } = response.data;
+      login(user, token);
       navigate('/home');
-    } catch (err) {
-      setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+    } catch (error) {
+      const message =
+        error.response?.data?.error ||
+        error.response?.data?.message ||
+        'Login failed. Please try again.';
+      setGeneralError(message);
+      setAuthError(message);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') handleSubmit();
+  };
+
   return (
-    <div className="split-layout">
-      {/* Marketing / Carousel Side on the Left */}
-      <div className="split-right">
-        <FeatureCarousel />
-      </div>
-
-      {/* Auth Side on the Right */}
-      <div className="split-left">
-        <div className="auth-card">
-          <h1 className="mono-logo">nexus ai</h1>
-          <p className="subtitle">terminal initialization</p>
-
-          {error && (
-            <div className="error-message animate-slide-up">
-              {error}
-            </div>
-          )}
-
-          <form onSubmit={handleLogin}>
-            <div className="input-group">
-              <label className="input-label" htmlFor="email">$ email</label>
-              <input 
-                id="email"
-                type="email" 
-                className="input-field" 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="user@nexus.ai"
-              />
-            </div>
-
-            <div className="input-group mb-2">
-              <label className="input-label" htmlFor="password">$ password</label>
-              <input 
-                id="password"
-                type="password" 
-                className="input-field" 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-              />
-            </div>
-
-            <button type="submit" className="btn-primary mt-6" disabled={loading}>
-              {loading ? 'executing...' : '$ login --start'}
-            </button>
-          </form>
-
-          <div className="text-center mt-6">
-            <Link to="/register" className="link-button">no account? build sequence →</Link>
+    <div className="bg-white dark:bg-[#020617] min-h-screen transition-colors duration-300 flex items-center justify-center py-12 px-4">
+      <motion.div
+        className="w-full max-w-md"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+      >
+        {/* Logo */}
+        <motion.div
+          className="text-center mb-8"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+        >
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl mb-4 shadow-lg shadow-indigo-500/20">
+            <span className="material-symbols-outlined text-white text-2xl">login</span>
           </div>
-        </div>
-      </div>
+          <h1 className="font-headline text-3xl font-bold text-slate-900 dark:text-slate-100 transition-colors duration-300">
+            Welcome Back
+          </h1>
+          <p className="text-slate-600 dark:text-slate-400 mt-2 transition-colors duration-300">
+            Sign in to your account
+          </p>
+        </motion.div>
+
+        <Card variant="default" padding="large">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* General error */}
+            {generalError && (
+              <motion.div
+                className="p-4 bg-red-100 dark:bg-red-900/20 border border-red-300 dark:border-red-800 rounded-lg"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                style={{ animation: 'fadeSlideUp 0.3s ease' }}
+              >
+                <p className="text-red-800 dark:text-red-200 text-sm font-medium">{generalError}</p>
+              </motion.div>
+            )}
+
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+              <Input
+                label="Email Address"
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                error={errors.email}
+                placeholder="your@email.com"
+                icon="mail"
+              />
+            </motion.div>
+
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
+              <Input
+                label="Password"
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+                error={errors.password}
+                placeholder="••••••••"
+                icon="lock"
+              />
+            </motion.div>
+
+            {/* Remember & Forgot */}
+            <div className="flex items-center justify-between">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input type="checkbox" className="w-4 h-4 rounded border border-slate-300 dark:border-slate-600 cursor-pointer" />
+                <span className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">Remember me</span>
+              </label>
+              <Link to="/forgot-password" className="text-sm text-[#2563eb] dark:text-[#60a5fa] hover:underline transition-colors duration-300">
+                Forgot password?
+              </Link>
+            </div>
+
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+              <Button
+                type="submit"
+                variant="primary"
+                disabled={isLoading}
+                className="w-full"
+                style={{ cursor: 'pointer' }}
+              >
+                {isLoading
+                  ? <span className="flex items-center justify-center gap-2"><Spinner /> Signing in...</span>
+                  : 'Sign In'}
+              </Button>
+            </motion.div>
+
+            {/* Divider */}
+            <div className="relative my-2">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-slate-300 dark:border-slate-700 transition-colors duration-300" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors duration-300">
+                  New to Astra AI?
+                </span>
+              </div>
+            </div>
+
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.35 }}>
+              <Link to="/signup">
+                <Button type="button" variant="secondary" className="w-full">Create Account</Button>
+              </Link>
+            </motion.div>
+          </form>
+        </Card>
+
+        <motion.p
+          className="text-center text-sm text-slate-600 dark:text-slate-400 mt-6 transition-colors duration-300"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+        >
+          By signing in, you agree to our{' '}
+          <Link to="/terms" className="text-[#2563eb] dark:text-[#60a5fa] hover:underline">Terms of Service</Link>
+          {' '}and{' '}
+          <Link to="/privacy" className="text-[#2563eb] dark:text-[#60a5fa] hover:underline">Privacy Policy</Link>
+        </motion.p>
+      </motion.div>
     </div>
   );
-}
+};
+
+export default LoginPage;

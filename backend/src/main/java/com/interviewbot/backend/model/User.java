@@ -1,5 +1,6 @@
 package com.interviewbot.backend.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,5 +18,8 @@ public class User {
 	    private Long id;
 	    private String name;
 	    private String email;
-	    private String password; 
+	    private String password;
+
+	    @Column(length = 2000)
+	    private String bio;
 }

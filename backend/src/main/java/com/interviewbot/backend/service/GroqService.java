@@ -20,21 +20,108 @@ public class GroqService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
-    // Generates an interview question based on job role
-    public String generateQuestion(String jobRole) {
-        String prompt = "Generate exactly 1 technical interview question "
-                      + "for a " + jobRole + " developer role. "
-                      + "Return only the question, nothing else.";
+    // For Q/A format:
+    public String generateQuestion(String jobRole, String difficulty, List<String> previousQuestions, String resumeProfile) {
+        String avoidText = "";
+        if (previousQuestions != null && !previousQuestions.isEmpty()) {
+            avoidText = " To avoid repetition, DO NOT ask these questions: " + String.join(", ", previousQuestions);
+        }
+
+        String profileText = "";
+        if (resumeProfile != null && !resumeProfile.isEmpty()) {
+            profileText = " The candidate has the following resume profile: " + resumeProfile + ". Personalize the question based on their experience.";
+        }
+
+        String prompt = 
+            "Generate exactly 1 technical interview question "
+          + "for a " + jobRole + " role. "
+          + "Difficulty level: " + difficulty + "."
+          + profileText
+          + avoidText
+          + " Return ONLY the question. Nothing else.";
         return callGroq(prompt);
     }
-    
-    // Evaluates user's answer and gives feedback
+
+    // For MCQ format:
+    public String generateMCQQuestion(String jobRole, String difficulty, List<String> previousQuestions, String resumeProfile) {
+        String avoidText = "";
+        if (previousQuestions != null && !previousQuestions.isEmpty()) {
+            avoidText = " To avoid repetition, DO NOT ask these questions: " + String.join(", ", previousQuestions);
+        }
+
+        String profileText = "";
+        if (resumeProfile != null && !resumeProfile.isEmpty()) {
+            profileText = " The candidate has the following resume profile: " + resumeProfile + ". Personalize the question based on their experience.";
+        }
+
+        String prompt = 
+            "Generate exactly 1 multiple choice interview "
+          + "question for a " + jobRole + " role. "
+          + "Difficulty: " + difficulty + "."
+          + profileText
+          + avoidText
+          + " Format your response EXACTLY like this:\n"
+          + "QUESTION: [your question here]\n"
+          + "A) [option A]\n"
+          + "B) [option B]\n"
+          + "C) [option C]\n"
+          + "D) [option D]\n"
+          + "ANSWER: [correct letter]\n"
+          + "EXPLANATION: [brief explanation]\n"
+          + "Return ONLY this format. Nothing else.";
+        return callGroq(prompt);
+    }
+
+    // Evaluates user's answer and gives feedback for Q/A
     public String evaluateAnswer(String question, String answer) {
         String prompt = "Interview Question: " + question + "\n"
                       + "Candidate Answer: " + answer + "\n"
                       + "Give concise feedback in 3 lines "
                       + "and a score out of 10. "
                       + "Format: Feedback: ... Score: X/10";
+        return callGroq(prompt);
+    }
+
+    // Analyzes resume text and returns structured data
+    public String analyzeResume(String text) {
+        String prompt = 
+            "Analyze the following resume text and provide a structured JSON response with exactly these fields: "
+          + "skills (a list of top 6 technical skills), "
+          + "experienceSummary (a 2-3 sentence summary of experience), "
+          + "suggestedTopics (a list of 4 specific technical interview topics based on their projects/experience). "
+          + "Return ONLY the raw JSON. Nothing else.\n\n"
+          + "Resume Text:\n" + text;
+        return stripMarkdownCodeFence(callGroq(prompt));
+    }
+
+    /** LLMs often wrap JSON in ```json ... ```; Jackson needs bare JSON. */
+    private String stripMarkdownCodeFence(String raw) {
+        if (raw == null) {
+            return "{}";
+        }
+        String t = raw.trim();
+        if (t.startsWith("```")) {
+            int firstNl = t.indexOf('\n');
+            if (firstNl != -1) {
+                t = t.substring(firstNl + 1);
+            }
+            int fence = t.lastIndexOf("```");
+            if (fence != -1) {
+                t = t.substring(0, fence).trim();
+            }
+        }
+        return t;
+    }
+
+    public String evaluateMCQAnswer(String question, String correctAnswer, String userAnswer) {
+        boolean isCorrect = userAnswer.trim().equalsIgnoreCase(correctAnswer.trim());
+        String prompt =
+            "Interview Question: " + question + "\n"
+          + "Correct Answer: " + correctAnswer + "\n"
+          + "User Selected: " + userAnswer + "\n"
+          + "Give a brief explanation of why "
+          + correctAnswer + " is correct in 2-3 lines. "
+          + "Format: EXPLANATION: [your explanation]";
         return callGroq(prompt);
     }
 

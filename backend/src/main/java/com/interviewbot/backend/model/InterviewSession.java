@@ -23,6 +23,9 @@ public class InterviewSession {
 
 	    private LocalDateTime startedAt = LocalDateTime.now();
 
+	    private String difficulty;
+	    private String format;
+
 		public Long getId() {
 			return id;
 		}
@@ -61,6 +64,22 @@ public class InterviewSession {
 
 		public void setStartedAt(LocalDateTime startedAt) {
 			this.startedAt = startedAt;
+		}
+
+		public String getDifficulty() {
+			return difficulty;
+		}
+
+		public void setDifficulty(String difficulty) {
+			this.difficulty = difficulty;
+		}
+
+		public String getFormat() {
+			return format;
+		}
+
+		public void setFormat(String format) {
+			this.format = format;
 		}
 
 	    

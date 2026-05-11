@@ -3,7 +3,13 @@
 
 backend/src/main/resources/application.properties
 
+backend/src/main/resources/application-local.properties
+
+backend/src/main/resources/application-dev.properties
+
 backend/.env
+
+backend/.env.local
 
 backend/target/
 
@@ -46,4 +52,10 @@ frontend/dist/
 .DS_Store
 
 Thumbs.db
+
+# JVM crash / replay dumps (do not commit)
+
+hs_err_pid*.log
+
+replay_pid*.log
 
