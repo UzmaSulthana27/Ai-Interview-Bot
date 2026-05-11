@@ -1,11 +1,12 @@
 # 🤖 AI Interview Bot
 
-A full-stack AI-powered interview practice platform that helps developers prepare for technical interviews with real-time AI-generated questions and intelligent feedback.
+A full-stack AI interview practice platform where users can simulate technical interviews, get AI-generated follow-up questions, receive instant feedback, track performance, and analyze resumes.
 
-![Status](https://img.shields.io/badge/Status-Live-brightgreen)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 ![Java](https://img.shields.io/badge/Java-17-orange)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.5-green)
-![React](https://img.shields.io/badge/React-18-blue)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.1-green)
+![React](https://img.shields.io/badge/React-19-blue)
+![Vite](https://img.shields.io/badge/Vite-8-purple)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
 ![Groq](https://img.shields.io/badge/AI-Groq%20LLaMA%203.3-purple)
 
@@ -14,106 +15,112 @@ A full-stack AI-powered interview practice platform that helps developers prepar
 ## 🌐 Live Demo
 
 | Service | URL |
-|---------|-----|
+|--------|-----|
 | 🎨 Frontend | [ai-interview-bot-nexus.vercel.app](https://ai-interview-bot-nexus.vercel.app) |
 | ⚙️ Backend API | [ai-interview-bot-wmkk.onrender.com](https://ai-interview-bot-wmkk.onrender.com) |
 
 ---
 
-## 📋 Table of Contents
+## ✨ Latest Features
 
-- [Features](#-features)
-- [Tech Stack](#-tech-stack)
-- [Project Structure](#-project-structure)
-- [Getting Started](#-getting-started)
-- [API Endpoints](#-api-endpoints)
-- [Database Schema](#-database-schema)
-- [Deployment](#-deployment)
-- [Environment Variables](#-environment-variables)
-
----
-
-## ✨ Features
-
-- 🔐 **User Authentication** — Secure register and login with BCrypt password encryption
-- 🎯 **Job Role Selection** — Choose from 8+ technical roles
-- 🤖 **AI Question Generation** — Unlimited unique questions powered by Groq LLaMA 3.3
-- 📊 **AI Feedback & Scoring** — Intelligent evaluation with score out of 10
-- 💻 **Terminal Style UI** — Immersive code editor inspired interview experience
-- ⌨️ **Typing Animation** — Questions appear with realistic typing effect
-- 📈 **Progress Tracking** — Animated progress bar per session
-- 📋 **Session History** — View and manage all past interview sessions
-- 🗑️ **Delete Sessions** — Remove unwanted sessions from history
-- 📱 **Mobile Responsive** — Fully optimized for all screen sizes
+- 🔐 **Authentication flow** (Signup/Login) with BCrypt password hashing
+- 🧭 **Protected routes** for dashboard, interviews, history, analytics, resume, and settings
+- 🎯 **Role-based interview practice** (Q/A + MCQ formats)
+- 🧠 **AI-generated questions and feedback** powered by Groq
+- 📄 **Resume upload + AI analysis** (skills, experience summary, suggested topics)
+- 📊 **Analytics page** with performance metrics and role breakdown
+- 🧾 **Interview history management** (view and delete by user)
+- 👤 **User profile API + per-user bio** (saved and loaded from backend)
+- 🌙 **Modern responsive UI** with dark theme support (Tailwind + Framer Motion)
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### Frontend
-| Technology | Purpose |
-|-----------|---------|
-| React 18 | UI framework |
-| Vite | Build tool |
-| React Router DOM | Page navigation |
-| Axios | API calls |
+
+- React 19
+- Vite
+- React Router DOM 7
+- Axios
+- Tailwind CSS
+- Framer Motion
 
 ### Backend
-| Technology | Purpose |
-|-----------|---------|
-| Java 17 | Programming language |
-| Spring Boot 4.0.5 | Backend framework |
-| Spring Data JPA | Database ORM |
-| Spring Security | Authentication |
-| BCrypt | Password hashing |
-| Groq API (LLaMA 3.3) | AI integration |
-| Docker | Containerization |
 
-### Database & Cloud
-| Technology | Purpose |
-|-----------|---------|
-| MySQL 8.0 | Relational database |
-| Aiven Cloud | Managed MySQL hosting |
-| Render | Backend deployment |
-| Vercel | Frontend deployment |
-| UptimeRobot | Backend monitoring |
+- Java 17
+- Spring Boot 3.4.1
+- Spring Web
+- Spring Data JPA
+- Spring Security (currently permissive config)
+- MySQL Connector/J
+- Lombok
+- Apache PDFBox
+- Groq API (LLaMA 3.3 model via OpenAI-compatible endpoint)
+
+### Infra / Deployment
+
+- MySQL (Aiven or local)
+- Render (backend)
+- Vercel (frontend)
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Structure (Updated)
 
-```
+```text
 Ai-Interview-Bot/
-│
 ├── frontend/
-│   └── src/
-│       ├── api/
-│       │   └── axios.js
-│       ├── components/
-│       │   ├── Navbar.jsx
-│       │   ├── ProgressBar.jsx
-│       │   └── TerminalBox.jsx
-│       └── pages/
-│           ├── LoginPage.jsx
-│           ├── RegisterPage.jsx
-│           ├── HomePage.jsx
-│           ├── InterviewPage.jsx
-│           └── HistoryPage.jsx
+│   ├── public/
+│   ├── src/
+│   │   ├── api/
+│   │   │   ├── apiService.js
+│   │   │   └── axios.js
+│   │   ├── components/
+│   │   │   ├── common/
+│   │   │   ├── interview/
+│   │   │   ├── layout/
+│   │   │   └── Sections/
+│   │   ├── context/
+│   │   │   ├── AuthContext.jsx
+│   │   │   └── ThemeContext.jsx
+│   │   ├── data/
+│   │   ├── pages/
+│   │   │   ├── LandingPage.jsx
+│   │   │   ├── LoginPage.jsx
+│   │   │   ├── SignupPage.jsx
+│   │   │   ├── HomePage.jsx
+│   │   │   ├── DashboardPage.jsx
+│   │   │   ├── InterviewPage.jsx
+│   │   │   ├── ResumePage.jsx
+│   │   │   ├── AnalyticsPage.jsx
+│   │   │   ├── HistoryPage.jsx
+│   │   │   └── SettingsPage.jsx
+│   │   ├── App.jsx
+│   │   └── index.css
+│   ├── tailwind.config.js
+│   └── package.json
 │
 └── backend/
     ├── src/main/java/com/interviewbot/backend/
     │   ├── config/
-    │   │   ├── CorsConfig.java
-    │   │   └── SecurityConfig.java
+    │   │   ├── SecurityConfig.java
+    │   │   └── WebConfig.java
     │   ├── controller/
     │   │   ├── AuthController.java
     │   │   ├── InterviewController.java
+    │   │   ├── ResumeController.java
+    │   │   ├── AnalyticsController.java
+    │   │   ├── UserController.java
     │   │   └── HealthController.java
     │   ├── model/
     │   │   ├── User.java
     │   │   ├── InterviewSession.java
-    │   │   └── QuestionAnswer.java
+    │   │   ├── QuestionAnswer.java
+    │   │   └── ResumeAnalysis.java
     │   ├── repository/
+    │   │   └── ResumeAnalysisRepository.java
+    │   ├── respository/   (legacy package name in codebase)
     │   │   ├── UserRepository.java
     │   │   ├── SessionRepository.java
     │   │   └── QARepository.java
@@ -121,7 +128,7 @@ Ai-Interview-Bot/
     │       ├── AuthService.java
     │       ├── GroqService.java
     │       └── InterviewService.java
-    ├── Dockerfile
+    ├── run-local.ps1
     └── pom.xml
 ```
 
@@ -129,237 +136,142 @@ Ai-Interview-Bot/
 
 ## 🚀 Getting Started
 
-### Prerequisites
-
-- Java JDK 17
-- Node.js 18+
-- MySQL 8.0
-- Maven
-- Git
-
-### Clone the Repository
+### 1) Clone Repo
 
 ```bash
 git clone https://github.com/UzmaSulthana27/Ai-Interview-Bot.git
 cd Ai-Interview-Bot
 ```
 
-### Setup Database
+### 2) Backend Setup
 
-```sql
-CREATE DATABASE interviewbot;
-USE interviewbot;
+#### Prerequisites
 
-CREATE TABLE users (
-  id         BIGINT PRIMARY KEY AUTO_INCREMENT,
-  name       VARCHAR(100)        NOT NULL,
-  email      VARCHAR(100) UNIQUE NOT NULL,
-  password   VARCHAR(255)        NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+- Java 17
+- Maven (or use `mvnw`)
+- MySQL
 
-CREATE TABLE interview_sessions (
-  id         BIGINT PRIMARY KEY AUTO_INCREMENT,
-  user_id    BIGINT       NOT NULL,
-  job_role   VARCHAR(100) NOT NULL,
-  difficulty VARCHAR(20)  DEFAULT 'intermediate',
-  score      DECIMAL(4,2) DEFAULT 0,
-  started_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users(id)
-);
+#### Environment
 
-CREATE TABLE question_answers (
-  id          BIGINT PRIMARY KEY AUTO_INCREMENT,
-  session_id  BIGINT NOT NULL,
-  question    TEXT   NOT NULL,
-  user_answer TEXT,
-  ai_feedback TEXT,
-  score       INT    DEFAULT 0,
-  FOREIGN KEY (session_id) REFERENCES interview_sessions(id)
-);
-
-CREATE TABLE bookmarks (
-  id          BIGINT PRIMARY KEY AUTO_INCREMENT,
-  user_id     BIGINT       NOT NULL,
-  question    TEXT         NOT NULL,
-  ai_feedback TEXT,
-  topic       VARCHAR(100),
-  created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users(id)
-);
-```
-
-### Setup Backend
-
-Create `backend/src/main/resources/application.properties`:
+Create `backend/src/main/resources/application-local.properties` (recommended for local):
 
 ```properties
-spring.application.name=backend
-spring.datasource.url=${DB_URL}
-spring.datasource.username=${DB_USERNAME}
-spring.datasource.password=${DB_PASSWORD}
+spring.datasource.url=jdbc:mysql://localhost:3306/interview_bot
+spring.datasource.username=root
+spring.datasource.password=your_mysql_password
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
-groq.api.key=${GROQ_API_KEY}
+groq.api.key=your_groq_api_key
 server.port=8080
 ```
 
-Set environment variables:
+Or use env vars with `application.properties`:
 
-| Variable | Value |
-|----------|-------|
-| `DB_URL` | `jdbc:mysql://localhost:3306/interviewbot` |
-| `DB_USERNAME` | `root` |
-| `DB_PASSWORD` | `your_mysql_password` |
-| `GROQ_API_KEY` | `your_groq_api_key` |
+- `DB_URL`
+- `DB_USERNAME`
+- `DB_PASSWORD`
+- `GROQ_API_KEY`
+- `SPRING_PROFILES_ACTIVE=local` (if using local profile)
 
-Run backend:
+#### Run Backend
+
 ```bash
 cd backend
 ./mvnw spring-boot:run
 ```
 
-### Setup Frontend
+Windows PowerShell helper:
+
+```powershell
+cd backend
+./run-local.ps1
+```
+
+### 3) Frontend Setup
 
 ```bash
 cd frontend
 npm install
 ```
 
-Create `.env`:
-```
+Create `frontend/.env`:
+
+```env
 VITE_API_URL=http://localhost:8080/api
 ```
 
 Run frontend:
+
 ```bash
 npm run dev
 ```
 
-Open `http://localhost:5173`
+Open: `http://localhost:5173`
 
 ---
 
-## 📡 API Endpoints
+## 📡 API Endpoints (Current)
 
-### Authentication
+### Auth (`/api/auth`)
 
-| Method | Endpoint | Description | Body |
-|--------|---------|-------------|------|
-| POST | `/api/auth/register` | Register new user | `{name, email, password}` |
-| POST | `/api/auth/login` | Login user | `{email, password}` |
+- `POST /signup` — signup with `{ fullName, email, password }`
+- `POST /register` — legacy register with `{ name, email, password }`
+- `POST /login` — login with `{ email, password }`
 
-### Interview
+### Interview (`/api/interview`)
 
-| Method | Endpoint | Description |
-|--------|---------|-------------|
-| POST | `/api/interview/start` | Start session + get AI question |
-| POST | `/api/interview/answer` | Submit answer + get AI feedback |
-| GET | `/api/interview/history/{userId}` | Get all past sessions |
-| DELETE | `/api/interview/history/{sessionId}` | Delete a session |
+- `POST /start` — params: `jobRole`, `userId`, `difficulty`, `format`, `useResume`
+- `POST /answer` — body: `{ sessionId, question, answer, format, jobRole, difficulty, ... }`
+- `GET /history/{userId}` — interview history
+- `DELETE /history/{sessionId}?userId=...` — delete session
+- `GET /stats/{userId}` — total sessions, avg score, roles practiced
 
-### Health
+### Resume (`/api/resume`)
 
-| Method | Endpoint | Description |
-|--------|---------|-------------|
-| GET | `/api/health` | Check backend status |
+- `POST /upload` — multipart: `file`, `userId`
+- `GET /latest/{userId}` — latest saved resume analysis JSON
 
----
+### Analytics (`/api/analytics`)
 
-## 🗄️ Database Schema
+- `GET /performance/{userId}` — aggregated metrics for analytics page
 
-```
-users                    interview_sessions
-├── id (BIGINT PK)       ├── id (BIGINT PK)
-├── name                 ├── user_id (FK → users)
-├── email (UNIQUE)       ├── job_role
-├── password (BCrypt)    ├── difficulty
-└── created_at           ├── score
-                         └── started_at
+### User Profile (`/api/user`)
 
-question_answers          bookmarks
-├── id (BIGINT PK)        ├── id (BIGINT PK)
-├── session_id (FK)       ├── user_id (FK → users)
-├── question              ├── question
-├── user_answer           ├── ai_feedback
-├── ai_feedback           ├── topic
-└── score                 └── created_at
-```
+- `GET /{userId}/profile` — get profile (fullName, email, bio)
+- `PUT /{userId}/profile` — update profile (currently bio-focused)
+
+### Utility (`/api`)
+
+- `GET /health` — health check
+- `GET /dashboard/stats` — dashboard summary
+- `GET /admin/clear-db` — admin utility endpoint (use carefully)
 
 ---
 
-## ☁️ Deployment
+## 🧠 Interview Flow
 
-### Backend — Render
-1. Connect GitHub repo on [render.com](https://render.com)
-2. Set Root Directory: `backend`
-3. Runtime: `Docker`
-4. Add environment variables
-
-### Frontend — Vercel
-1. Connect GitHub repo on [vercel.com](https://vercel.com)
-2. Set Root Directory: `frontend`
-3. Framework: `Vite`
-4. Add `VITE_API_URL` environment variable
-
-### Database — Aiven
-1. Create free MySQL on [aiven.io](https://aiven.io)
-2. Run schema SQL
-3. Add IP whitelist: `0.0.0.0/0`
-
----
-
-## 🔐 Environment Variables
-
-### Backend (Render)
-
-| Variable | Description |
-|----------|-------------|
-| `SPRING_PROFILES_ACTIVE` | `prod` |
-| `AIVEN_HOST` | Aiven MySQL hostname |
-| `AIVEN_PORT` | Aiven MySQL port |
-| `AIVEN_USERNAME` | Database username |
-| `AIVEN_PASSWORD` | Database password |
-| `GROQ_API_KEY` | Groq API key |
-
-### Frontend (Vercel)
-
-| Variable | Description |
-|----------|-------------|
-| `VITE_API_URL` | Render backend URL + `/api` |
-
----
-
-## 🧠 How It Works
-
-```
-User opens website
-      ↓
-Registers / Logs in
-      ↓
-Selects job role
-      ↓
-Spring Boot calls Groq AI
-      ↓
-AI generates unique question
-      ↓
-Question appears with typing animation
-      ↓
+```text
+User logs in
+   ↓
+Select role + difficulty + format (Q/A or MCQ)
+   ↓
+Backend creates session
+   ↓
+Groq generates question
+   ↓
 User submits answer
-      ↓
-AI evaluates → feedback + score
-      ↓
-Next question auto-generated
-      ↓
-All saved to Aiven MySQL
-      ↓
-View / delete history anytime
+   ↓
+Groq evaluates answer + backend stores Q&A
+   ↓
+Next question generated based on previous context
+   ↓
+History + stats + analytics updated
 ```
 
 ---
 
-## 🎯 Supported Job Roles
+## 👩‍💻 Supported Roles (UI)
 
 - Java Developer
 - React Developer
@@ -369,42 +281,63 @@ View / delete history anytime
 - Backend Developer
 - Data Analyst
 - DevOps Engineer
+- Mobile Developer
+- UI/UX Designer
+- QA Engineer
+- Data Scientist
+- Cloud Architect
+- Security Engineer
+- Product Manager
+- ML Engineer
 
 ---
 
-## 🔮 Future Improvements
+## 🔐 Environment Variables
 
-- [ ] Difficulty levels (Beginner / Intermediate / Senior)
-- [ ] No-repeat question tracking
-- [ ] Performance dashboard with charts
-- [ ] Resume upload for tailored questions
-- [ ] Voice answer support
+### Backend
+
+- `DB_URL`
+- `DB_USERNAME`
+- `DB_PASSWORD`
+- `GROQ_API_KEY`
+- `SPRING_PROFILES_ACTIVE` (`local` / `prod`)
+
+### Frontend
+
+- `VITE_API_URL` (example: `http://localhost:8080/api`)
+
+---
+
+## 📝 Notes
+
+- Resume extraction is strongest for **PDF** files (PDFBox).
+- `.doc/.docx` are accepted by UI, but text extraction quality may vary.
+- Current auth uses app-managed session state with stored token; **JWT can be added as a future upgrade**.
+
+---
+
+## 🔮 Roadmap Ideas
+
+- [ ] JWT + refresh tokens
+- [ ] Stronger role/difficulty adaptive question engine
+- [ ] Better `.docx` parsing support (Apache POI)
+- [ ] More detailed scoring rubric and charts
 - [ ] Company-specific interview modes
-- [ ] Leaderboard system
-- [ ] JWT authentication
+- [ ] Voice-based interview input
 
 ---
 
 ## 👩‍💻 Author
 
-**Uzma Sulthana**
-- GitHub: [@UzmaSulthana27](https://github.com/UzmaSulthana27)
-
----
-
-## 🙏 Acknowledgements
-
-- [Groq](https://groq.com) — Free and fast LLaMA 3.3 API
-- [Aiven](https://aiven.io) — Free managed MySQL database
-- [Render](https://render.com) — Free backend hosting
-- [Vercel](https://vercel.com) — Free frontend hosting
+**Uzma Sulthana**  
+GitHub: [@UzmaSulthana27](https://github.com/UzmaSulthana27)
 
 ---
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
+MIT License (add a `LICENSE` file if not already present).
 
 ---
 
-⭐ If you found this helpful, please give it a star!
+⭐ If this project helped you, consider starring the repo.
