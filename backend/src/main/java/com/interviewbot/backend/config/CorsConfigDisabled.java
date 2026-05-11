@@ -15,9 +15,10 @@ import org.springframework.web.filter.CorsFilter;
 
 
 
-@Configuration
+// @Configuration - Disabled: CORS is now configured in SecurityConfig
+// public class CorsConfig {
 
-public class CorsConfig {
+public class CorsConfigDisabled {
 
 
 
