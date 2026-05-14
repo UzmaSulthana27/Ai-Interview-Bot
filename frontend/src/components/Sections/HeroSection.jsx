@@ -88,32 +88,40 @@ const HeroSection = ({ onStartTrial }) => {
           )}
         </motion.div>
 
-        <motion.h1 
-          className={`font-headline text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl transition-colors duration-300 ${isDark ? 'text-[var(--text-heading)] drop-shadow-[0_0_6px_rgba(74,222,128,0.25)]' : 'text-[#1a3d16]'}`}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1, duration: 0.6 }}
+        {/* Terminal Headline Box */}
+        <motion.div 
+          className="w-full max-w-4xl mx-auto mb-12 bg-[#000000] p-6 md:p-8 font-mono text-left relative overflow-hidden"
+          style={isDark ? {
+            borderRadius: '4px',
+            border: '1px solid #00ffa3',
+            boxShadow: '0 0 24px rgba(0,255,163,0.1), inset 0 0 20px rgba(0,0,0,0.5)',
+          } : {
+            borderRadius: '12px',
+            border: '1px solid #2d5a27',
+            background: '#ffffff'
+          }}
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
         >
-          {isDark ? (
-            <>
-              <TypingText text="Master Your Next " />
-              <motion.span 
-                className="italic inline-block text-[var(--text-secondary)] drop-shadow-[0_0_12px_#00ffa3]"
-                whileHover={{ scale: 1.05, rotate: -1 }}
-              >
-                <TypingText text="Interview" delay={1} />
-              </motion.span>
-              <TypingText text=" with AI" delay={2} />
-            </>
-          ) : (
-            <>
-              Master Your Next <motion.span 
-                className="italic inline-block text-[#2d5a27]"
-                whileHover={{ scale: 1.05, rotate: -1 }}
-              >Interview</motion.span> with AI
-            </>
-          )}
-        </motion.h1>
+          <div className="absolute top-0 left-0 w-1.5 h-full bg-[#00ffa3]" />
+          
+          <div className="flex justify-between items-center mb-6 border-b border-[#00ffa3]/20 pb-4">
+            <span className="text-[#006b4a] font-bold text-sm md:text-base tracking-widest">
+              {isDark ? '// AI_AGENT_CORE' : '$ AI_SYSTEM'}
+            </span>
+            <div className="flex gap-2">
+              <div className="w-2.5 h-2.5 rounded-full bg-red-500/30"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/30"></div>
+              <div className="w-2.5 h-2.5 rounded-full bg-[#00ffa3]/50"></div>
+            </div>
+          </div>
+
+          <h1 className={`font-headline text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight transition-colors duration-300 ${isDark ? 'text-[#00ffa3] text-shadow-teal' : 'text-[#1a3d16]'}`}>
+            <TypingText text="Master Your Next Interview with " />
+            <span className="italic text-[#f0fffb]">AI</span>
+          </h1>
+        </motion.div>
 
         <motion.p 
           className={`font-body text-base md:text-lg max-w-2xl mb-10 leading-relaxed transition-colors duration-300 ${isDark ? 'font-mono text-[#006b4a]' : 'text-slate-600'}`}
