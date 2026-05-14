@@ -30,16 +30,28 @@ const TypingText = ({ text, className = "", delay = 0 }) => {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    if (index < text.length) {
-      const timeout = setTimeout(() => {
+    const timer = setTimeout(() => {
+      if (index < text.length) {
         setDisplayedText((prev) => prev + text[index]);
         setIndex((prev) => prev + 1);
-      }, 50 + Math.random() * 50); // Natural typing speed
-      return () => clearTimeout(timeout);
-    }
+      }
+    }, 80 + Math.random() * 40); // Slower, more rhythmic typing
+    return () => clearTimeout(timer);
   }, [index, text]);
 
-  return <span className={className}>{displayedText}</span>;
+  return (
+    <span className={className}>
+      {displayedText}
+      {index < text.length && (
+        <motion.span 
+          className="inline-block w-2 h-8 ml-1 bg-[#00ffa3] align-middle"
+          animate={{ opacity: [1, 0, 1] }}
+          transition={{ duration: 0.8, repeat: Infinity }}
+          style={{ boxShadow: '0 0 8px #00ffa3' }}
+        />
+      )}
+    </span>
+  );
 };
 
 const HeroSection = ({ onStartTrial }) => {
