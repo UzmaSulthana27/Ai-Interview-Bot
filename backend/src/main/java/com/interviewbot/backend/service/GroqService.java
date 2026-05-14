@@ -127,35 +127,41 @@ public class GroqService {
 
     // Core method that calls Groq API
     private String callGroq(String prompt) {
+        if (apiKey == null || apiKey.isEmpty() || apiKey.equals("your_groq_api_key")) {
+            return "ERROR: Groq API Key is not configured. Please set GROQ_API_KEY in your environment.";
+        }
 
         String url = "https://api.groq.com/openai/v1/chat/completions";
 
-        // Set headers — Authorization with your key
+        // Set headers
         HttpHeaders headers = new HttpHeaders();
-        headers.set("Authorization", "Bearer " + apiKey);
         headers.set("Content-Type", "application/json");
+        headers.set("Authorization", "Bearer " + apiKey);
 
-        // Build request body
-        Map<String, Object> message = Map.of(
-            "role",    "user",
-            "content", prompt
-        );
-
+        // Build request body in Groq (OpenAI-compatible) format
+        Map<String, Object> message = Map.of("role", "user", "content", prompt);
         Map<String, Object> body = Map.of(
-            "model",    "llama-3.3-70b-versatile",
-            "messages", List.of(message)
+            "model", "llama-3.3-70b-versatile",
+            "messages", List.of(message),
+            "temperature", 0.7
         );
 
         // Send request
-        HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
-        ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
+        try {
+            HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
+            ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
 
-        // Extract text from response
-        var choices = (List<?>) response.getBody().get("choices");
-        var first   = (Map<?, ?>) choices.get(0);
-        var msg     = (Map<?, ?>) first.get("message");
-
-        return msg.get("content").toString();
+            // Extract text from Groq response
+            List<?> choices = (List<?>) response.getBody().get("choices");
+            if (choices == null || choices.isEmpty()) return "Error: No response from AI.";
+            
+            Map<?, ?> firstChoice = (Map<?, ?>) choices.get(0);
+            Map<?, ?> messageObj = (Map<?, ?>) firstChoice.get("message");
+            return messageObj.get("content").toString();
+        } catch (Exception e) {
+            System.err.println("Error calling Groq API: " + e.getMessage());
+            return "Error connecting to AI service: " + e.getMessage();
+        }
     }
 
 }

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { ThemeProvider } from './context/ThemeContext';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import LandingPage from './pages/LandingPage';
@@ -19,9 +19,25 @@ const ScrollToTop = () => {
   return null;
 };
 
+const ScanlineOverlay = () => {
+  const { isDark } = useTheme();
+  if (!isDark) return null;
+  return (
+    <div style={{
+      position: 'fixed',
+      top: 0, left: 0,
+      right: 0, bottom: 0,
+      background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(74,222,128,0.015) 2px, rgba(74,222,128,0.015) 4px)',
+      pointerEvents: 'none',
+      zIndex: 9999,
+    }} />
+  );
+};
+
 function App() {
   return (
     <ThemeProvider>
+      <ScanlineOverlay />
       <AuthProvider>
         <Router>
           <ScrollToTop />

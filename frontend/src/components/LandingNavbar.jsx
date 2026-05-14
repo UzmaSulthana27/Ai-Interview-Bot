@@ -25,7 +25,7 @@ const HowItWorks = () => {
         <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-start">
           {/* Sticky Title */}
           <div className="md:w-1/3 md:sticky md:top-32 w-full">
-            <h2 className="font-headline text-3xl md:text-4xl font-extrabold mb-6 tracking-tight text-slate-900 dark:text-slate-100 transition-colors duration-300">
+            <h2 className="font-headline text-3xl md:text-4xl font-extrabold mb-6 tracking-tight text-[#1a3d16] dark:text-[#4ade80] transition-colors duration-300">
               The Astra AI Architecture
             </h2>
             <p className="text-slate-600 dark:text-slate-400 mb-8 transition-colors duration-300">
@@ -50,14 +50,14 @@ const HowItWorks = () => {
             {steps.map((step, idx) => (
               <div 
                 key={step.number} 
-                className="flex gap-4 md:gap-8 group glass-panel p-6 rounded-2xl transition-all duration-300 relative z-10 bg-white/80 dark:bg-slate-900/80 opacity-0 w-full"
+                className="flex gap-4 md:gap-8 group glass-panel p-6 rounded-2xl transition-all duration-300 relative z-10 bg-white/80 dark:bg-[#0d0d0d]/80 opacity-0 w-full"
                 style={{ animation: `fadeSlideUp 0.6s ease forwards ${idx * 0.2}s` }}
               >
-                <div className="flex-none w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-primary-fixed text-primary font-headline font-extrabold flex items-center justify-center text-lg md:text-xl transition-all shadow-lg bg-white dark:bg-slate-900 group-hover:animate-pulse-soft">
+                <div className="flex-none w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-primary-fixed text-primary font-headline font-extrabold flex items-center justify-center text-lg md:text-xl transition-all shadow-lg bg-white dark:bg-[#0d0d0d] group-hover:animate-pulse-soft">
                   {step.number}
                 </div>
                 <div className="pt-1 md:pt-2 flex-1">
-                  <h4 className="font-headline text-xl md:text-2xl font-bold mb-2 md:mb-3 text-slate-900 dark:text-slate-100">
+                  <h4 className="font-headline text-xl md:text-2xl font-bold mb-2 md:mb-3 text-[#1a3d16] dark:text-[#4ade80]">
                     {step.title}
                   </h4>
                   <p className="text-sm md:text-base text-slate-600 dark:text-slate-400 leading-relaxed transition-colors duration-300">

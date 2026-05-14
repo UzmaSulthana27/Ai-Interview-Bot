@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { useMotionValue, useTransform, animate } from 'framer-motion';
+import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 import TopNavBar from '../components/layout/TopNavBar';
 import Footer from '../components/layout/Footer';
 import InteractiveCard, { InteractiveCardsGrid } from '../components/common/InteractiveCard';
@@ -9,6 +9,7 @@ import apiService from '../api/apiService';
 
 const DashboardPage = () => {
   const navigate = useNavigate();
+  const { isDark } = useTheme();
   const [stats, setStats] = useState({
     totalInterviews: 0,
     averageScore: 0,
@@ -69,48 +70,50 @@ const DashboardPage = () => {
 
     return (
       <motion.div 
-        className="relative bg-white dark:bg-[#0a1128] rounded-2xl p-6 border border-slate-200 dark:border-white/5 transition-all duration-300 group overflow-hidden shadow-sm"
+        className={`relative bg-white rounded-2xl p-6 border transition-all duration-300 group overflow-hidden shadow-sm ${isDark ? 'dark:bg-[#000000] dark:border-[#004d38]' : 'border-[#c8d5b9]'}`}
+        style={isDark ? { borderRadius: '4px' } : {}}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: index * 0.1 }}
-        whileHover={{ y: -8, boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }}
+        whileHover={{ y: -8, boxShadow: isDark ? "0 20px 40px rgba(74,222,128,0.15)" : "0 20px 40px rgba(45,90,39,0.15)" }}
       >
         {/* Animated background gradient */}
         <motion.div 
-          className="absolute inset-0 bg-gradient-to-br from-indigo-500/0 to-purple-500/0 group-hover:from-indigo-500/5 group-hover:to-purple-500/5 transition-all duration-300"
+          className={`absolute inset-0 bg-gradient-to-br transition-all duration-300 ${isDark ? 'from-[#0d0d0d] to-[#004d38]/20 group-hover:from-[#004d38]/40 group-hover:to-[#00ffa3]/10' : 'from-[#2d5a27]/0 to-[#2d5a27]/0 group-hover:from-[#2d5a27]/5 group-hover:to-[#2d5a27]/10'}`}
           animate={{ backgroundPosition: ["0% 0%", "100% 100%"] }}
           transition={{ duration: 8, repeat: Infinity, repeatType: "reverse" }}
         />
 
         {/* Icon container with glow */}
         <motion.div 
-          className={`w-12 h-12 bg-indigo-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-4 relative transition-colors duration-300`}
+          className={`w-12 h-12 rounded-xl flex items-center justify-center mb-4 relative transition-colors duration-300 ${isDark ? 'bg-[#002e26]' : 'bg-[#002e26]'}`}
+          style={isDark ? { borderRadius: '4px' } : {}}
           whileHover={{ scale: 1.1 }}
         >
           <motion.div 
-            className="absolute inset-0 rounded-xl bg-indigo-400/20 blur-lg group-hover:bg-indigo-400/40 transition-all"
+            className={`absolute inset-0 rounded-xl blur-lg transition-all ${isDark ? 'bg-[#00ffa3]/20 group-hover:bg-[#00ffa3]/40' : 'bg-[#2d5a27]/20 group-hover:bg-[#2d5a27]/40'}`}
             animate={{ scale: [1, 1.2, 1] }}
             transition={{ duration: 3, repeat: Infinity }}
           />
-          <span className={`material-symbols-outlined text-[#2563eb] dark:text-[#60a5fa] relative z-10`}
+          <span className={`material-symbols-outlined relative z-10 ${isDark ? 'text-[#00ffa3]' : 'text-[#2d5a27]'}`}
                 style={{fontVariationSettings: "'FILL' 1"}}>
             {icon}
           </span>
         </motion.div>
 
-        <p className="text-sm text-slate-600 dark:text-slate-400 mb-1 transition-colors duration-300 relative z-10">
+        <p className={`text-sm mb-1 transition-colors duration-300 relative z-10 ${isDark ? 'text-[#006b4a] uppercase font-mono' : 'text-slate-600'}`}>
           {label}
         </p>
 
         {/* Animated value with glow */}
         <div className="relative">
           <motion.p 
-            className="font-headline text-3xl font-bold text-slate-900 dark:text-slate-100 transition-colors duration-300 relative z-10"
+            className={`font-headline text-3xl font-bold transition-colors duration-300 relative z-10 ${isDark ? 'text-[#00ffa3] font-mono' : 'text-[#1a3d16]'}`}
           >
             {typeof value === 'string' && value.includes('%') ? value : <motion.span>{displayValue}</motion.span>}
           </motion.p>
           <motion.div 
-            className="absolute inset-0 text-3xl font-bold text-indigo-400/30 blur-sm"
+            className={`absolute inset-0 text-3xl font-bold blur-sm ${isDark ? 'text-[#00ffa3]/50' : 'text-[#2d5a27]/30'}`}
             animate={{ opacity: [0.5, 1, 0.5] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
@@ -123,7 +126,7 @@ const DashboardPage = () => {
 
   return (
     <motion.div 
-      className="bg-white dark:bg-[#020617] min-h-screen transition-colors duration-300"
+      className={`bg-[#f5f5f0] min-h-screen transition-colors duration-300 ${isDark ? 'dark:bg-[#000000]' : ''}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
@@ -133,17 +136,16 @@ const DashboardPage = () => {
       
       <main className="pt-24 px-4 md:px-8 pb-16">
         <div className="max-w-7xl mx-auto">
-          {/* Header */}
           <motion.div 
             className="mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
           >
-            <h1 className="font-headline text-3xl md:text-4xl font-extrabold mb-2 text-slate-900 dark:text-slate-100 transition-colors duration-300">
-              Welcome back! 👋
+            <h1 className={`font-headline text-3xl md:text-4xl font-extrabold mb-2 transition-colors duration-300 ${isDark ? 'text-[#00ffa3] font-mono uppercase tracking-wider' : 'text-[#1a3d16]'}`}>
+              {isDark ? '> Welcome back_ 👋' : 'Welcome back! 👋'}
             </h1>
-            <p className="text-slate-600 dark:text-slate-400 transition-colors duration-300">
+            <p className={`transition-colors duration-300 ${isDark ? 'text-[#006b4a] font-mono' : 'text-slate-600'}`}>
               Here's your interview preparation progress
             </p>
           </motion.div>
@@ -201,12 +203,12 @@ const DashboardPage = () => {
             transition={{ duration: 0.4, delay: 0.2 }}
           >
             <motion.h2
-              className="text-2xl font-bold font-headline text-slate-900 dark:text-slate-100 mb-6 transition-colors duration-300"
+              className={`text-2xl font-bold font-headline mb-6 transition-colors duration-300 ${isDark ? 'text-[#00ffa3] font-mono uppercase tracking-widest' : 'text-[#1a3d16]'}`}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4, delay: 0.3 }}
             >
-              Quick Actions
+              {isDark ? '> Quick Actions' : 'Quick Actions'}
             </motion.h2>
 
             <div className="flex flex-col gap-4 max-w-3xl">
@@ -256,18 +258,19 @@ const DashboardPage = () => {
 
           {/* Recent Activity */}
           <motion.div 
-            className="bg-white dark:bg-[#0a1128] rounded-2xl p-8 transition-all duration-300 border border-slate-200 dark:border-white/5 shadow-sm"
+            className={`bg-white rounded-2xl p-8 transition-all duration-300 border shadow-sm ${isDark ? 'dark:bg-[#000000] dark:border-[#004d38]' : 'border-[#c8d5b9]'}`}
+            style={isDark ? { borderRadius: '4px' } : {}}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.3 }}
           >
             <motion.h3 
-              className="font-headline text-2xl font-bold mb-6 text-slate-900 dark:text-slate-100 transition-colors duration-300"
+              className={`font-headline text-2xl font-bold mb-6 transition-colors duration-300 ${isDark ? 'text-[#00ffa3] font-mono uppercase tracking-widest' : 'text-[#1a3d16]'}`}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4, delay: 0.4 }}
             >
-              Recent Activity
+              {isDark ? '> Recent Activity' : 'Recent Activity'}
             </motion.h3>
             <div className="space-y-4">
               {stats.upcomingInterviews.length > 0 ? (
@@ -280,34 +283,37 @@ const DashboardPage = () => {
                     <motion.div 
                       key={index}
                       variants={itemVariants}
-                      className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-700 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-600 transition-all duration-300 group cursor-pointer"
-                      whileHover={{ x: 8, boxShadow: "0 4px 12px rgba(0,0,0,0.08)" }}
+                      className={`flex items-center justify-between p-4 rounded-lg transition-all duration-300 group cursor-pointer ${isDark ? 'bg-[#000000] border border-[#004d38] hover:border-[#00ffa3]' : 'bg-slate-50 hover:bg-slate-100'}`}
+                      style={isDark ? { borderRadius: '3px' } : {}}
+                      whileHover={{ x: 8, boxShadow: isDark ? "0 4px 12px rgba(74,222,128,0.1)" : "0 4px 12px rgba(0,0,0,0.08)" }}
                     >
                       <div className="flex items-center gap-4">
                         <motion.div 
-                          className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center"
+                          className={`w-10 h-10 flex items-center justify-center ${isDark ? 'bg-[#002e26] border border-[#004d38]' : 'bg-gradient-to-br from-[#1a3d16] to-[#2d5a27] rounded-full'}`}
+                          style={isDark ? { borderRadius: '2px' } : {}}
                           whileHover={{ scale: 1.15 }}
-                          animate={{ boxShadow: ["0 0 0 0 rgba(99, 102, 241, 0.7)", "0 0 0 10px rgba(99, 102, 241, 0)"] }}
+                          animate={isDark ? { boxShadow: ["0 0 0 0 rgba(74,222,128,0.7)", "0 0 0 10px rgba(74,222,128,0)"] } : { boxShadow: ["0 0 0 0 rgba(45,90,39,0.7)", "0 0 0 10px rgba(45,90,39,0)"] }}
                           transition={{ duration: 2, repeat: Infinity }}
                         >
-                          <span className="material-symbols-outlined text-white text-sm">
+                          <span className={`material-symbols-outlined text-sm ${isDark ? 'text-[#00ffa3]' : 'text-white'}`}>
                             video_chat
                           </span>
                         </motion.div>
                         <div>
-                          <p className="font-headline font-bold text-slate-900 dark:text-slate-100 transition-colors duration-300 group-hover:text-[#2563eb] dark:group-hover:text-[#4ade80]">{interview.title}</p>
-                          <p className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">{interview.date}</p>
+                          <p className={`font-headline font-bold transition-colors duration-300 ${isDark ? 'text-[#00ffa3] group-hover:text-white font-mono' : 'text-[#1a3d16] group-hover:text-[#2d5a27]'}`}>{interview.title}</p>
+                          <p className={`text-sm transition-colors duration-300 ${isDark ? 'text-[#006b4a] font-mono' : 'text-slate-600'}`}>{interview.date}</p>
                         </div>
                       </div>
                       <motion.span 
-                        className={`px-3 py-1 rounded-full text-xs font-bold transition-colors duration-300 ${
+                        className={`px-3 py-1 text-xs font-bold transition-colors duration-300 ${
                           interview.status === 'completed' 
-                            ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300' 
-                            : 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300'
+                            ? (isDark ? 'bg-[#004d38] text-[#00ffa3] border border-[#00ffa3]' : 'bg-[#002e26] text-[#2d5a27]') 
+                            : (isDark ? 'bg-[#1a1a00] text-[#ffbd2e] border border-[#ffbd2e]' : 'bg-[#e8f0e0] text-[#2d5a27]')
                         }`}
+                        style={isDark ? { borderRadius: '2px', fontFamily: "'Courier New', monospace" } : { borderRadius: '9999px' }}
                         whileHover={{ scale: 1.1 }}
                       >
-                        {interview.status}
+                        {isDark ? interview.status.toUpperCase() : interview.status}
                       </motion.span>
                     </motion.div>
                   ))}
@@ -315,7 +321,8 @@ const DashboardPage = () => {
               ) : (
                 <>
                   <motion.div
-                  className="relative rounded-[2.5rem] overflow-hidden border border-white/5 bg-[#0a1128] min-h-[400px] flex items-center justify-center p-8 md:p-12 group"
+                  className={`relative overflow-hidden border flex items-center justify-center p-8 md:p-12 group ${isDark ? 'bg-[#000000] border-[#004d38]' : 'bg-[#002e26] border-[#c8d5b9]'}`}
+                  style={isDark ? { borderRadius: '6px' } : { borderRadius: '2.5rem' }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
@@ -326,29 +333,33 @@ const DashboardPage = () => {
                       src="/dashboard_activity.jpg" 
                       alt="Background" 
                       className="w-full h-full object-cover opacity-40 transition-all duration-700 group-hover:opacity-80 group-hover:blur-none"
-                      style={{ 
+                      style={isDark ? { 
+                        filter: 'blur(8px) saturate(0.5) hue-rotate(120deg) contrast(1.5)',
+                        objectPosition: 'center 25%'
+                      } : { 
                         filter: 'blur(8px) saturate(1.2) hue-rotate(50deg)',
                         objectPosition: 'center 25%'
                       }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0a1128] via-[#0a1128]/70 to-transparent transition-opacity duration-700 group-hover:opacity-40"></div>
+                    <div className={`absolute inset-0 bg-gradient-to-t transition-opacity duration-700 group-hover:opacity-40 ${isDark ? 'from-[#0d0d0d] via-[#0d0d0d]/70 to-transparent' : 'from-[#1a3d16] via-[#1a3d16]/70 to-transparent'}`}></div>
                   </div>
 
                   <div className="relative z-10 text-center max-w-lg">
-                    <h3 className="font-headline text-3xl md:text-4xl font-extrabold mb-4 text-white">
-                      Ready to ace your interviews?
+                    <h3 className={`font-headline text-3xl md:text-4xl font-extrabold mb-4 ${isDark ? 'text-[#00ffa3] font-mono uppercase' : 'text-white'}`}>
+                      {isDark ? '> Ready to ace interviews?' : 'Ready to ace your interviews?'}
                     </h3>
-                    <p className="font-body text-slate-300 mb-8 text-lg max-w-md mx-auto">
+                    <p className={`font-body mb-8 text-lg max-w-md mx-auto ${isDark ? 'text-[#006b4a] font-mono' : 'text-white/90'}`}>
                       Start your first AI-powered mock interview and get personalized feedback to improve your interview skills.
                     </p>
 
                     <motion.button
                       onClick={() => navigate('/interviews')}
-                      className="signature-glow text-white px-10 py-4 rounded-xl font-headline font-bold text-lg shadow-xl hover:shadow-primary/40 flex items-center gap-2 mx-auto"
-                      whileHover={{ scale: 1.05, y: -2 }}
+                      className={`px-10 py-4 font-headline font-bold text-lg shadow-xl flex items-center gap-2 mx-auto ${isDark ? 'bg-[#00ffa3] text-[#000000] border-none font-mono uppercase tracking-[2px]' : 'bg-[#2d5a27] text-white hover:shadow-primary/40 rounded-xl'}`}
+                      style={isDark ? { borderRadius: '3px' } : {}}
+                      whileHover={isDark ? { scale: 1.05, y: -2, boxShadow: '0 0 28px rgba(74,222,128,0.7)' } : { scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      Start Your First Interview
+                      {isDark ? 'START_INTERVIEW()' : 'Start Your First Interview'}
                       <span className="material-symbols-outlined">arrow_forward</span>
                     </motion.button>
                   </div>
@@ -368,20 +379,21 @@ const DashboardPage = () => {
                     ].map((stat, idx) => (
                       <motion.div 
                         key={idx}
-                        className="p-3 bg-indigo-50 dark:bg-blue-900/20 rounded-lg hover:bg-indigo-100 dark:hover:bg-blue-900/40 transition-colors duration-300"
+                        className={`p-3 transition-colors duration-300 ${isDark ? 'bg-[#000000] border border-[#004d38] hover:bg-[#002e26] hover:border-[#00ffa3]' : 'bg-[#e8f0e0] border border-[#c8d5b9] rounded-lg'}`}
+                        style={isDark ? { borderRadius: '3px' } : {}}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.4, delay: 0.5 + idx * 0.1 }}
                         whileHover={{ scale: 1.05, y: -4 }}
                       >
                         <motion.p 
-                          className="text-sm font-bold text-[#2563eb] dark:text-[#60a5fa]"
+                          className={`text-sm font-bold ${isDark ? 'text-[#00ffa3] font-mono' : 'text-[#2d5a27]'}`}
                           animate={{ scale: [1, 1.1, 1] }}
                           transition={{ duration: 2, repeat: Infinity, delay: idx * 0.2 }}
                         >
                           {stat.value}
                         </motion.p>
-                        <p className="text-xs text-slate-600 dark:text-slate-400">{stat.label}</p>
+                        <p className={`text-xs ${isDark ? 'text-[#006b4a] font-mono' : 'text-slate-600'}`}>{isDark ? stat.label.toUpperCase() : stat.label}</p>
                       </motion.div>
                     ))}
                   </motion.div>

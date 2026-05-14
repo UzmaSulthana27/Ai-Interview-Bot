@@ -13,7 +13,7 @@ const InterviewFeedback = ({ feedback }) => {
   }
 
   // Determine badge styling based on score
-  let badgeColorClass = 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300';
+  let badgeColorClass = 'bg-slate-100 text-slate-700 dark:bg-[#0a0a0a] dark:text-[#166534]';
   if (scoreNum !== null) {
     if (scoreNum >= 7) {
       badgeColorClass = 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400';
@@ -26,7 +26,7 @@ const InterviewFeedback = ({ feedback }) => {
 
   return (
     <div className="space-y-6">
-      <Card padding="large" className="text-slate-900 dark:text-slate-100 relative">
+      <Card padding="large" className="text-[#1a3d16] dark:text-[#4ade80] relative">
         {scoreNum !== null && (
           <div className="absolute top-6 right-6">
             <span className={`px-3 py-1 rounded-full text-sm font-bold ${badgeColorClass}`}>
@@ -36,7 +36,7 @@ const InterviewFeedback = ({ feedback }) => {
         )}
         
         <div className="flex items-center gap-3 mb-4">
-          <span className="material-symbols-outlined text-primary" 
+          <span className="material-symbols-outlined text-[#2d5a27]" 
                 style={{fontVariationSettings: "'FILL' 1"}}>
             auto_awesome
           </span>

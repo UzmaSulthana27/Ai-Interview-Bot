@@ -11,17 +11,17 @@ const QuestionCard = ({ question, isRecording, onStartRecording, onStopRecording
   }
 
   return (
-    <div className="bg-surface-container-lowest dark:bg-slate-800 rounded-2xl p-8 border-l-4 border-primary text-slate-900 dark:text-slate-100 transition-colors duration-300">
+    <div className="bg-surface-container-lowest dark:bg-[#0a0a0a] rounded-2xl p-8 border-l-4 border-[#2d5a27] text-[#1a3d16] dark:text-[#4ade80] transition-colors duration-300">
       <div className="flex items-start gap-4 mb-4">
-        <div className="w-12 h-12 bg-primary-fixed rounded-xl flex items-center justify-center flex-shrink-0">
-          <span className="material-symbols-outlined text-primary" 
+        <div className="w-12 h-12 bg-[#e8f0e0] rounded-xl flex items-center justify-center flex-shrink-0">
+          <span className="material-symbols-outlined text-[#2d5a27]" 
                 style={{fontVariationSettings: "'FILL' 1"}}>
             chat
           </span>
         </div>
         <div className="flex-1">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs uppercase tracking-wider font-bold text-primary dark:text-[#4ade80]">
+            <span className="text-xs uppercase tracking-wider font-bold text-[#2d5a27] dark:text-[#c8e6c0]">
               Question {question.number}
             </span>
             <span className="text-xs text-slate-600 dark:text-slate-400 transition-colors duration-300">

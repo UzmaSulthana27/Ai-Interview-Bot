@@ -33,24 +33,47 @@ const SignupPage = () => {
   const [successMsg, setSuccessMsg]  = useState('');
   const [agreedToTerms, setAgreedToTerms] = useState(false);
 
-  const validateForm = () => {
-    const e = {};
-    if (!formData.fullName)              e.fullName    = 'Please enter your name';
-    else if (formData.fullName.length < 2) e.fullName  = 'Name must be at least 2 characters';
+  const validateRegisterForm = () => {
+    const newErrors = {};
 
-    if (!formData.email)                 e.email       = 'Please enter your email';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
-      e.email = 'Please enter a valid email';
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = 'Full name is required';
+    } else if (formData.fullName.trim().length < 2) {
+      newErrors.fullName = 'Name must be at least 2 characters';
+    }
 
-    if (!formData.password)              e.password    = 'Please enter a password';
-    else if (formData.password.length < 6) e.password  = 'Password must be at least 6 characters';
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
 
-    if (!formData.confirmPassword)         e.confirmPassword = 'Please confirm your password';
-    else if (formData.password !== formData.confirmPassword)
-      e.confirmPassword = 'Passwords do not match';
+    if (!formData.password.trim()) {
+      newErrors.password = 'Password is required';
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
+      newErrors.password = 'Must have uppercase, lowercase and number';
+    }
 
-    if (!agreedToTerms) e.terms = 'You must agree to the terms';
-    return e;
+    if (!formData.confirmPassword.trim()) {
+      newErrors.confirmPassword = 'Please confirm your password';
+    } else if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = 'Passwords do not match';
+    }
+
+    if (!agreedToTerms) newErrors.terms = 'You must agree to the terms';
+    return newErrors;
+  };
+
+  const getPasswordStrength = (pwd) => {
+    if (!pwd) return null;
+    if (pwd.length < 6) return { label: 'Too short', color: '#cc0000', width: '20%' };
+    if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(pwd))
+      return { label: 'Weak', color: '#ff9800', width: '40%' };
+    if (pwd.length < 10)
+      return { label: 'Medium', color: '#ffbd2e', width: '65%' };
+    return { label: 'Strong', color: '#1D9E75', width: '100%' };
   };
 
   const handleChange = (ev) => {
@@ -62,7 +85,7 @@ const SignupPage = () => {
   const handleSubmit = async (e) => {
     e?.preventDefault();
     setGeneralError(''); setSuccessMsg('');
-    const newErrors = validateForm();
+    const newErrors = validateRegisterForm();
     if (Object.keys(newErrors).length) { setErrors(newErrors); return; }
 
     setIsLoading(true);
@@ -85,7 +108,7 @@ const SignupPage = () => {
   const handleKeyDown = (e) => { if (e.key === 'Enter') handleSubmit(); };
 
   return (
-    <div className="bg-white dark:bg-[#020617] min-h-screen transition-colors duration-300 flex items-center justify-center py-12 px-4">
+    <div className="bg-white dark:bg-[#000000] min-h-screen transition-colors duration-300 flex items-center justify-center py-12 px-4">
       <motion.div
         className="w-full max-w-md"
         initial={{ opacity: 0, y: 20 }}
@@ -102,7 +125,7 @@ const SignupPage = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl mb-4 shadow-lg shadow-indigo-500/20">
             <span className="material-symbols-outlined text-white text-2xl">person_add</span>
           </div>
-          <h1 className="font-headline text-3xl font-bold text-slate-900 dark:text-slate-100 transition-colors duration-300">
+          <h1 className="font-headline text-3xl font-bold text-[#1a3d16] dark:text-[#00ffa3] transition-colors duration-300">
             Create Account
           </h1>
           <p className="text-slate-600 dark:text-slate-400 mt-2 transition-colors duration-300">
@@ -134,22 +157,146 @@ const SignupPage = () => {
               </motion.div>
             )}
 
-            {[
-              { label: 'Full Name',        type: 'text',     name: 'fullName',        ph: 'John Doe',     icon: 'person',     delay: 0.2 },
-              { label: 'Email Address',    type: 'email',    name: 'email',           ph: 'your@email.com', icon: 'mail',     delay: 0.25 },
-              { label: 'Password',         type: 'password', name: 'password',        ph: '••••••••',     icon: 'lock',       delay: 0.3 },
-              { label: 'Confirm Password', type: 'password', name: 'confirmPassword', ph: '••••••••',     icon: 'lock_check', delay: 0.35 },
-            ].map(f => (
-              <motion.div key={f.name} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: f.delay }}>
-                <Input
-                  label={f.label} type={f.type} name={f.name}
-                  value={formData[f.name]} onChange={handleChange}
-                  onKeyDown={f.name === 'confirmPassword' ? handleKeyDown : undefined}
-                  error={errors[f.name]} placeholder={f.ph} icon={f.icon}
-                  helperText={f.name === 'password' ? 'At least 6 characters' : ''}
-                />
-              </motion.div>
-            ))}
+            {/* Full Name */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+              <Input
+                label="Full Name"
+                type="text"
+                name="fullName"
+                value={formData.fullName}
+                onChange={(e) => {
+                  setFormData(p => ({ ...p, fullName: e.target.value }));
+                  if (errors.fullName) setErrors(prev => ({...prev, fullName: ''}));
+                }}
+                error={errors.fullName}
+                placeholder="John Doe"
+                icon="person"
+              />
+              {errors.fullName && (
+                <p style={{
+                  color: '#cc0000',
+                  fontSize: 12,
+                  marginTop: 4,
+                  fontFamily: 'monospace',
+                  animation: 'fadeSlideUp 0.3s ease'
+                }}>
+                  ⚠ {errors.fullName}
+                </p>
+              )}
+            </motion.div>
+
+            {/* Email */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
+              <Input
+                label="Email Address"
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={(e) => {
+                  setFormData(p => ({ ...p, email: e.target.value }));
+                  if (errors.email) setErrors(prev => ({...prev, email: ''}));
+                }}
+                error={errors.email}
+                placeholder="your@email.com"
+                icon="mail"
+              />
+              {errors.email && (
+                <p style={{
+                  color: '#cc0000',
+                  fontSize: 12,
+                  marginTop: 4,
+                  fontFamily: 'monospace',
+                  animation: 'fadeSlideUp 0.3s ease'
+                }}>
+                  ⚠ {errors.email}
+                </p>
+              )}
+            </motion.div>
+
+            {/* Password */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}>
+              <Input
+                label="Password"
+                type="password"
+                name="password"
+                value={formData.password}
+                onChange={(e) => {
+                  setFormData(p => ({ ...p, password: e.target.value }));
+                  if (errors.password) setErrors(prev => ({...prev, password: ''}));
+                }}
+                error={errors.password}
+                placeholder="••••••••"
+                icon="lock"
+              />
+              {errors.password && (
+                <p style={{
+                  color: '#cc0000',
+                  fontSize: 12,
+                  marginTop: 4,
+                  fontFamily: 'monospace',
+                  animation: 'fadeSlideUp 0.3s ease'
+                }}>
+                  ⚠ {errors.password}
+                </p>
+              )}
+              {formData.password && (() => {
+                const strength = getPasswordStrength(formData.password);
+                return (
+                  <div style={{ marginTop: 6 }}>
+                    <div style={{
+                      height: 3,
+                      background: '#e0e0dc',
+                      borderRadius: 4,
+                      marginBottom: 4
+                    }}>
+                      <div style={{
+                        height: '100%',
+                        width: strength.width,
+                        background: strength.color,
+                        borderRadius: 4,
+                        transition: 'all 0.3s ease'
+                      }}/>
+                    </div>
+                    <span style={{
+                      fontSize: 11,
+                      color: strength.color,
+                      fontFamily: 'monospace'
+                    }}>
+                      {strength.label}
+                    </span>
+                  </div>
+                );
+              })()}
+            </motion.div>
+
+            {/* Confirm Password */}
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>
+              <Input
+                label="Confirm Password"
+                type="password"
+                name="confirmPassword"
+                value={formData.confirmPassword}
+                onChange={(e) => {
+                  setFormData(p => ({ ...p, confirmPassword: e.target.value }));
+                  if (errors.confirmPassword) setErrors(prev => ({...prev, confirmPassword: ''}));
+                }}
+                onKeyDown={handleKeyDown}
+                error={errors.confirmPassword}
+                placeholder="••••••••"
+                icon="lock_check"
+              />
+              {errors.confirmPassword && (
+                <p style={{
+                  color: '#cc0000',
+                  fontSize: 12,
+                  marginTop: 4,
+                  fontFamily: 'monospace',
+                  animation: 'fadeSlideUp 0.3s ease'
+                }}>
+                  ⚠ {errors.confirmPassword}
+                </p>
+              )}
+            </motion.div>
 
             {/* Terms */}
             <motion.div
@@ -183,7 +330,7 @@ const SignupPage = () => {
                 <div className="w-full border-t border-slate-300 dark:border-slate-700 transition-colors duration-300" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors duration-300">
+                <span className="px-2 bg-white dark:bg-[#0a0a0a] text-slate-600 dark:text-slate-400 transition-colors duration-300">
                   Already have an account?
                 </span>
               </div>

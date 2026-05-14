@@ -12,7 +12,7 @@ const Spinner = ({
   };
   
   const colors = {
-    primary: 'border-primary border-t-transparent',
+    primary: 'border-[#c8d5b9] border-t-[#2d5a27]',
     secondary: 'border-secondary border-t-transparent',
     white: 'border-white border-t-transparent'
   };

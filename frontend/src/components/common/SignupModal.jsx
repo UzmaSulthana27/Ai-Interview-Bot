@@ -124,11 +124,11 @@ const SignupModal = ({ isOpen, onClose, onSwitchToLogin }) => {
             exit={{ opacity: 0, scale: 0.95 }}
             onClick={(e) => e.target === e.currentTarget && handleClose()}
           >
-            <div className="w-full max-w-md bg-white dark:bg-slate-800 rounded-2xl shadow-xl dark:shadow-black/50 transition-colors duration-300 max-h-[90vh] overflow-y-auto">
+            <div className="w-full max-w-md bg-white dark:bg-[#0a0a0a] rounded-2xl shadow-xl dark:shadow-black/50 transition-colors duration-300 max-h-[90vh] overflow-y-auto">
               {/* Header */}
               <div className="flex items-center justify-between p-4 border-b border-slate-300 dark:border-slate-700 transition-colors duration-300">
                 <div>
-                  <h2 className="font-headline text-lg font-bold text-slate-900 dark:text-slate-100 transition-colors duration-300">
+                  <h2 className="font-headline text-lg font-bold text-[#1a3d16] dark:text-[#4ade80] transition-colors duration-300">
                     Create Account
                   </h2>
                   <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 transition-colors duration-300">
@@ -228,7 +228,7 @@ const SignupModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full mt-4 py-2 text-sm !bg-[#1a2e1a] !text-white hover:!bg-black dark:!bg-slate-100 dark:!text-slate-900 dark:hover:!bg-white"
+                  className="w-full mt-4 py-2 text-sm !bg-[#2d5a27] !text-[#f5f5f0] hover:!bg-[#1a3d16] dark:!bg-[#2d5a27] dark:!text-[#f5f5f0] dark:hover:!bg-[#1a3d16]"
                 >
                   {isLoading ? (
                     <span className="flex items-center justify-center gap-2">
@@ -248,7 +248,7 @@ const SignupModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                   <button
                     type="button"
                     onClick={onSwitchToLogin}
-                    className="text-slate-900 dark:text-slate-100 hover:underline font-bold"
+                    className="text-[#1a3d16] dark:text-[#4ade80] hover:underline font-bold"
                   >
                     Sign In
                   </button>

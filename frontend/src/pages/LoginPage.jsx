@@ -31,12 +31,21 @@ const LoginPage = () => {
   const [generalError, setGeneralError] = useState('');
 
   const validateForm = () => {
-    const e = {};
-    if (!formData.email)    e.email    = 'Please enter your email';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
-      e.email = 'Please enter a valid email';
-    if (!formData.password) e.password = 'Please enter your password';
-    return e;
+    const newErrors = {};
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+
+    if (!formData.password.trim()) {
+      newErrors.password = 'Password is required';
+    } else if (formData.password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+    }
+
+    return newErrors;
   };
 
   const handleChange = (ev) => {
@@ -55,6 +64,14 @@ const LoginPage = () => {
     try {
       const response = await apiService.login(formData.email, formData.password);
       const { user, token } = response.data;
+      
+      // Store trial info in localStorage
+      localStorage.setItem('userId', response.data.userId);
+      localStorage.setItem('userName', response.data.name);
+      localStorage.setItem('isPremium', response.data.isPremium);
+      localStorage.setItem('trialUsed', response.data.trialUsed);
+      localStorage.setItem('sessionsUsed', response.data.sessionsUsed);
+      
       login(user, token);
       navigate('/home');
     } catch (error) {
@@ -74,7 +91,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-[#020617] min-h-screen transition-colors duration-300 flex items-center justify-center py-12 px-4">
+    <div className="bg-white dark:bg-[#000000] min-h-screen transition-colors duration-300 flex items-center justify-center py-12 px-4">
       <motion.div
         className="w-full max-w-md"
         initial={{ opacity: 0, y: 20 }}
@@ -91,7 +108,7 @@ const LoginPage = () => {
           <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl mb-4 shadow-lg shadow-indigo-500/20">
             <span className="material-symbols-outlined text-white text-2xl">login</span>
           </div>
-          <h1 className="font-headline text-3xl font-bold text-slate-900 dark:text-slate-100 transition-colors duration-300">
+          <h1 className="font-headline text-3xl font-bold text-[#1a3d16] dark:text-[#00ffa3] transition-colors duration-300">
             Welcome Back
           </h1>
           <p className="text-slate-600 dark:text-slate-400 mt-2 transition-colors duration-300">
@@ -119,11 +136,25 @@ const LoginPage = () => {
                 type="email"
                 name="email"
                 value={formData.email}
-                onChange={handleChange}
+                onChange={(e) => {
+                  setFormData(p => ({ ...p, email: e.target.value }));
+                  if (errors.email) setErrors(prev => ({...prev, email: ''}));
+                }}
                 error={errors.email}
                 placeholder="your@email.com"
                 icon="mail"
               />
+              {errors.email && (
+                <p style={{
+                  color: '#cc0000',
+                  fontSize: 12,
+                  marginTop: 4,
+                  fontFamily: 'monospace',
+                  animation: 'fadeSlideUp 0.3s ease'
+                }}>
+                  ⚠ {errors.email}
+                </p>
+              )}
             </motion.div>
 
             <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>
@@ -132,12 +163,26 @@ const LoginPage = () => {
                 type="password"
                 name="password"
                 value={formData.password}
-                onChange={handleChange}
+                onChange={(e) => {
+                  setFormData(p => ({ ...p, password: e.target.value }));
+                  if (errors.password) setErrors(prev => ({...prev, password: ''}));
+                }}
                 onKeyDown={handleKeyDown}
                 error={errors.password}
                 placeholder="••••••••"
                 icon="lock"
               />
+              {errors.password && (
+                <p style={{
+                  color: '#cc0000',
+                  fontSize: 12,
+                  marginTop: 4,
+                  fontFamily: 'monospace',
+                  animation: 'fadeSlideUp 0.3s ease'
+                }}>
+                  ⚠ {errors.password}
+                </p>
+              )}
             </motion.div>
 
             {/* Remember & Forgot */}
@@ -171,7 +216,7 @@ const LoginPage = () => {
                 <div className="w-full border-t border-slate-300 dark:border-slate-700 transition-colors duration-300" />
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-400 transition-colors duration-300">
+                <span className="px-2 bg-white dark:bg-[#0a0a0a] text-slate-600 dark:text-slate-400 transition-colors duration-300">
                   New to Astra AI?
                 </span>
               </div>

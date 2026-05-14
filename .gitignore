@@ -1,9 +1,11 @@
 
 # Backend secrets
 
-backend/src/main/resources/application.properties
+# backend/src/main/resources/application.properties (Removed from ignore to allow structural updates)
 
 backend/src/main/resources/application-local.properties
+
+backend/src/main/resources/application-prod.properties
 
 backend/src/main/resources/application-dev.properties
 

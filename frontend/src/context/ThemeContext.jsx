@@ -23,11 +23,11 @@ export const ThemeProvider = ({ children }) => {
     // Apply theme to document
     if (isDark) {
       document.documentElement.classList.add('dark');
-      document.documentElement.style.backgroundColor = '#0f172a';
+      document.documentElement.style.backgroundColor = '#000000';
       localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
-      document.documentElement.style.backgroundColor = '#ffffff';
+      document.documentElement.style.backgroundColor = '#f5f5f0';
       localStorage.setItem('theme', 'light');
     }
   }, [isDark]);

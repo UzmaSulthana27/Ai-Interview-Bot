@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTheme } from '../../context/ThemeContext';
 
 const Input = ({ 
   label,
@@ -16,15 +17,22 @@ const Input = ({
   className = ''
 }) => {
   const [showPassword, setShowPassword] = useState(false);
+  const { isDark } = useTheme();
   const isPassword = type === 'password';
   const currentType = isPassword ? (showPassword ? 'text' : 'password') : type;
 
   return (
     <div className={`${fullWidth ? 'w-full' : ''} ${className}`}>
       {label && (
-        <label className="block text-sm font-label font-semibold text-slate-900 dark:text-slate-300 mb-2 transition-colors duration-300">
+        <label 
+          className="block mb-2 transition-colors duration-300"
+          style={isDark 
+            ? { fontFamily: "'Courier New', monospace", color: '#166534', fontSize: '14px', textTransform: 'uppercase' }
+            : { fontFamily: 'var(--font-label)', fontWeight: 600, color: '#1a3d16', fontSize: '14px' }
+          }
+        >
           {label}
-          {required && <span className="text-red-600 dark:text-red-400 ml-1">*</span>}
+          {required && <span className="text-[#cc3300] dark:text-[#cc3300] ml-1">*</span>}
         </label>
       )}
       
@@ -48,19 +56,16 @@ const Input = ({
             w-full
             ${icon ? 'pl-12' : 'pl-4'}
             ${isPassword ? 'pr-12' : 'pr-4'} py-3
-            bg-white dark:bg-slate-700
-            border-2
-            ${error ? 'border-red-500 dark:border-red-500' : 'border-slate-300 dark:border-slate-600'}
-            rounded-xl
-            text-slate-900 dark:text-slate-100
-            placeholder:text-slate-500 dark:placeholder:text-slate-400
             focus:outline-none
-            focus:ring-2
-            ${error ? 'focus:ring-red-500/20 dark:focus:ring-red-500/30' : 'focus:ring-indigo-500/20 dark:focus:ring-emerald-500/30'}
             disabled:opacity-50
             disabled:cursor-not-allowed
             transition-all duration-200
+            ${isDark 
+              ? 'bg-[#0d0d0d] border border-[#14532d] text-[#4ade80] placeholder:text-[#166534] focus:border-[#4ade80] focus:ring-0 focus:shadow-[0_0_0_3px_rgba(74,222,128,0.1),0_0_12px_rgba(74,222,128,0.15)] font-mono tracking-[1px]'
+              : 'bg-white border-[#c8d5b9] border rounded-xl text-[#1a3d16] placeholder:text-[#6b7c63] focus:border-[#2d5a27] focus:ring-2 focus:ring-[#2d5a27]/10'
+            }
           `}
+          style={isDark ? { borderRadius: '3px' } : {}}
         />
         
         {isPassword && (

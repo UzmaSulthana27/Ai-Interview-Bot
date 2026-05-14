@@ -16,9 +16,9 @@ const Select = ({
   return (
     <div className={`${fullWidth ? 'w-full' : ''} ${className}`}>
       {label && (
-        <label className="block text-sm font-label font-semibold text-slate-900 dark:text-slate-300 mb-2 transition-colors duration-300">
+        <label className="block text-sm font-label font-semibold text-[#1a3d16] dark:text-[#166534] mb-2 transition-colors duration-300">
           {label}
-          {required && <span className="text-red-600 dark:text-red-400 ml-1">*</span>}
+          {required && <span className="text-[#cc3300] dark:text-[#cc3300] ml-1">*</span>}
         </label>
       )}
       
@@ -30,14 +30,14 @@ const Select = ({
           className={`
             w-full
             pl-4 pr-10 py-3
-            bg-white dark:bg-slate-700
-            border-2
-            ${error ? 'border-red-500 dark:border-red-500' : 'border-slate-300 dark:border-slate-600'}
+            bg-white dark:bg-[#1a1a1a]
+            border-0.5px
+            ${error ? 'border-[#cc3300] dark:border-[#cc3300]' : 'border-[#c8d5b9] dark:border-[#4a6044]'}
             rounded-xl
-            text-slate-900 dark:text-slate-100
+            text-[#1a3d16] dark:text-[#4ade80]
             focus:outline-none
-            focus:ring-2
-            ${error ? 'focus:ring-red-500/20 dark:focus:ring-red-500/20' : 'focus:ring-indigo-500/20 dark:focus:ring-emerald-500/30'}
+            focus:border-[#2d5a27]
+            ${error ? 'focus:ring-2 focus:ring-[#cc3300]/20 dark:focus:ring-[#cc3300]/30' : 'focus:ring-2 focus:ring-[#2d5a27]/10 dark:focus:ring-[#2d5a27]/30'}
             disabled:opacity-50 disabled:cursor-not-allowed
             transition-all
             appearance-none

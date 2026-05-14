@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTheme } from '../../context/ThemeContext';
 
 /**
  * Interactive Card Component with hover effects
@@ -15,32 +16,26 @@ const InteractiveCard = ({
   onClick,
   containerClassName = ''
 }) => {
-  const colorVariants = {
-    indigo: 'from-indigo-600 to-indigo-700 dark:from-[#0a1128] dark:to-[#1e1b4b]',
-    purple: 'from-purple-600 to-purple-700 dark:from-[#0a1128] dark:to-[#2e1065]',
-    cyan: 'from-cyan-600 to-cyan-700 dark:from-[#0a1128] dark:to-[#083344]',
-    pink: 'from-pink-600 to-pink-700 dark:from-[#0a1128] dark:to-[#500724]',
-    green: 'from-green-600 to-green-700 dark:from-[#0a1128] dark:to-[#064e3b]',
-    blue: 'from-blue-600 to-blue-700 dark:from-[#0a1128] dark:to-[#172554]',
-  };
+  const { isDark } = useTheme();
 
   return (
     <motion.div
       className={`
-        bg-gradient-to-br ${colorVariants[variant]}
         p-6 rounded-2xl w-full
         flex items-center gap-6
-        text-white cursor-pointer
+        cursor-pointer
         transition-all duration-500
-        hover:shadow-2xl hover:shadow-${variant}-500/40 relative overflow-hidden glass-panel
+        hover:shadow-2xl relative overflow-hidden glass-panel
         group hover-lift card-hover
+        ${isDark ? 'bg-[#000000] border border-[#004d38] hover:border-[#00ffa3] text-[#00ffa3]' : 'bg-gradient-to-br from-[#1a3d16] to-[#2d5a27] text-white hover:shadow-green-900/40'}
         ${containerClassName}
       `}
-      whileHover={{ scale: 1.02 }}
+      style={isDark ? { borderRadius: '3px' } : {}}
+      whileHover={isDark ? { scale: 1.02, boxShadow: '0 0 16px rgba(74,222,128,0.2)' } : { scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
     >
-      <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${isDark ? 'bg-[rgba(74,222,128,0.05)]' : 'bg-white/5'}`}></div>
       {/* Icon */}
       {icon && (
         <motion.div
@@ -55,13 +50,13 @@ const InteractiveCard = ({
       )}
 
       {/* Title */}
-      <p className="text-sm font-bold font-headline leading-tight group-hover:scale-105 transition-transform">
-        {title}
+      <p className={`text-sm font-bold font-headline leading-tight group-hover:scale-105 transition-transform ${isDark ? 'font-mono uppercase tracking-widest' : ''}`}>
+        {isDark ? title.toUpperCase() : title}
       </p>
 
       {/* Subtitle */}
       {subtitle && (
-        <p className="text-xs opacity-90 mt-1">
+        <p className={`text-xs opacity-90 mt-1 ${isDark ? 'font-mono text-[#166534]' : ''}`}>
           {subtitle}
         </p>
       )}

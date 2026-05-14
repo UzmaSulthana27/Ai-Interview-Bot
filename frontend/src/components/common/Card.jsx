@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTheme } from '../../context/ThemeContext';
 
 const Card = ({ 
   children, 
@@ -9,14 +10,28 @@ const Card = ({
   border = false,
   className = ''
 }) => {
-  const baseStyles = "bg-surface-container-lowest dark:bg-slate-800 rounded-2xl border border-outline-variant/10 dark:border-slate-700 transition-all duration-300";
+  const { isDark } = useTheme();
+  
+  const baseStyles = isDark
+    ? "bg-[#0d0d0d] border border-[#14532d] transition-all duration-300"
+    : "bg-white rounded-2xl border-0.5px border-[#c8d5b9] transition-all duration-300";
   
   const variants = {
-    default: "hover:shadow-xl dark:shadow-black/20",
-    glass: "glass-panel shadow-xl dark:shadow-2xl dark:shadow-black/40",
-    gradient: "signature-glow text-white dark:shadow-2xl dark:shadow-primary/40",
-    bordered: "border-2 border-outline-variant/30 dark:border-slate-600 hover:border-primary/50",
-    elevated: "shadow-lg hover:shadow-2xl dark:shadow-black/40 transform hover:-translate-y-1"
+    default: isDark
+      ? "hover:bg-[#111111] hover:border-[#4ade80]"
+      : "hover:shadow-xl hover:border-[#2d5a27]",
+    glass: isDark
+      ? "bg-transparent border border-[#14532d]"
+      : "glass-panel shadow-xl",
+    gradient: isDark
+      ? "bg-[#0d0d0d] border border-[#4ade80] shadow-[0_0_16px_rgba(74,222,128,0.08)]"
+      : "bg-gradient-to-r from-[#1a3d16] to-[#2d5a27] text-white",
+    bordered: isDark
+      ? "border-2 border-[#14532d] hover:border-[#4ade80]"
+      : "border-2 border-[#c8d5b9] hover:border-[#2d5a27]",
+    elevated: isDark
+      ? "shadow-[0_0_16px_rgba(74,222,128,0.08)] hover:shadow-[0_0_24px_rgba(74,222,128,0.12)] transform hover:-translate-y-[1px]"
+      : "shadow-lg hover:shadow-2xl transform hover:-translate-y-1"
   };
   
   const paddings = {
@@ -26,7 +41,7 @@ const Card = ({
     large: "p-8"
   };
   
-  const borderAccent = border ? "border-l-4 border-primary" : "";
+  const borderAccent = border ? "border-l-4 border-[#2d5a27]" : "";
   
   return (
     <motion.div 
@@ -37,6 +52,7 @@ const Card = ({
         ${borderAccent}
         ${className}
       `}
+      style={isDark ? { borderRadius: '4px' } : {}}
       whileHover={hover ? { y: -4, transition: { duration: 0.2 } } : {}}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}

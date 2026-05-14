@@ -114,7 +114,7 @@ const ResumePage = () => {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="font-headline text-3xl md:text-4xl font-extrabold mb-4 text-slate-900 dark:text-slate-100">
+            <h1 className="font-headline text-3xl md:text-4xl font-extrabold mb-4 text-[#1a3d16] dark:text-[#00ffa3]">
               Resume Analysis
             </h1>
             <p className="text-slate-600 dark:text-slate-400 text-lg">
@@ -280,11 +280,11 @@ const ResumeAnalysisResults = ({ data }) => {
   const offlineMessage =
     typeof data.message === 'string' && data.message.trim() ? data.message.trim() : '';
 
-  const sectionTitle = 'font-headline text-xl font-bold mb-4 text-slate-900 dark:text-slate-100';
+  const sectionTitle = 'font-headline text-xl font-bold mb-4 text-[#1a3d16] dark:text-[#00ffa3]';
   const insetCard =
-    'rounded-xl p-6 border border-slate-200/80 bg-slate-100 text-slate-800 dark:border-slate-600/50 dark:bg-slate-900/70 dark:text-slate-200';
+    'rounded-xl p-6 border border-slate-200/80 bg-slate-100 text-[#2d5a27] dark:border-slate-600/50 dark:bg-[#000000]/70 dark:text-slate-200';
   const topicRow =
-    'flex items-start gap-3 p-4 rounded-lg border border-slate-200/80 bg-slate-50 dark:border-slate-600/40 dark:bg-slate-900/50';
+    'flex items-start gap-3 p-4 rounded-lg border border-slate-200/80 bg-slate-50 dark:border-slate-600/40 dark:bg-[#000000]/50';
 
   return (
     <div className="space-y-6">
@@ -302,7 +302,7 @@ const ResumeAnalysisResults = ({ data }) => {
             {skills.map((skill, index) => (
               <span
                 key={index}
-                className="rounded-full px-3 py-1 text-sm font-label font-bold bg-primary-fixed text-primary dark:bg-primary/25 dark:text-slate-100"
+                className="rounded-full px-3 py-1 text-sm font-label font-bold bg-primary-fixed text-primary dark:bg-primary/25 dark:text-[#00ffa3]"
               >
                 {skill}
               </span>
@@ -319,7 +319,7 @@ const ResumeAnalysisResults = ({ data }) => {
       <div>
         <h3 className={sectionTitle}>Experience Summary</h3>
         <div className={insetCard}>
-          <p className="leading-relaxed text-slate-700 dark:text-slate-300">
+          <p className="leading-relaxed text-slate-700 dark:text-[#006b4a]">
             {summary || 'No experience summary returned for this file.'}
           </p>
         </div>
@@ -335,7 +335,7 @@ const ResumeAnalysisResults = ({ data }) => {
                 <span className="material-symbols-outlined mt-1 shrink-0 text-primary dark:text-indigo-300">
                   arrow_right
                 </span>
-                <p className="text-slate-800 dark:text-slate-200">{topic}</p>
+                <p className="text-[#2d5a27] dark:text-slate-200">{topic}</p>
               </div>
             ))}
           </div>

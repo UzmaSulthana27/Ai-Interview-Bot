@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { useTheme } from '../../context/ThemeContext';
 
 const Button = ({ 
   children, 
@@ -14,15 +15,30 @@ const Button = ({
   type = 'button',
   as: Component = 'button'
 }) => {
-  const baseStyles = "font-headline font-bold transition-all flex items-center justify-center gap-2 cursor-pointer";
+  const { isDark } = useTheme();
+  const baseStyles = isDark 
+    ? "font-mono uppercase tracking-[2px] transition-all flex items-center justify-center gap-2 cursor-pointer font-bold border-none"
+    : "font-headline font-bold transition-all flex items-center justify-center gap-2 cursor-pointer";
   
   const variants = {
-    primary: "bg-primary dark:bg-[#2d8c4e] text-white dark:text-slate-100 hover:signature-glow dark:hover:bg-emerald-700 shadow-[0px_20px_40px_rgba(57,44,193,0.15)] dark:shadow-lg dark:shadow-primary/30",
-    secondary: "bg-surface-container-highest dark:bg-slate-700 text-slate-900 dark:text-slate-100 hover:bg-surface-variant dark:hover:bg-slate-600",
-    outline: "bg-transparent border-2 border-primary dark:border-emerald-400 text-primary dark:text-[#4ade80] hover:bg-primary dark:hover:bg-[#2d8c4e] hover:text-white dark:hover:text-white",
-    gradient: "signature-glow text-white hover:opacity-90 shadow-lg shadow-primary/20 dark:shadow-lg dark:shadow-primary/40",
-    ghost: "bg-transparent text-primary dark:text-[#4ade80] hover:bg-primary/10 dark:hover:bg-[#2d8c4e]/20",
-    danger: "bg-error dark:bg-red-700 text-white dark:text-slate-100 hover:bg-error/90 dark:hover:bg-red-800"
+    primary: isDark 
+      ? "bg-[#4ade80] text-[#000000] shadow-[0_0_16px_rgba(74,222,128,0.4)] hover:shadow-[0_0_28px_rgba(74,222,128,0.7)] hover:-translate-y-[1px]"
+      : "bg-[#2d5a27] text-[#f5f5f0] hover:bg-[#1a3d16] shadow-[0px_20px_40px_rgba(45,90,39,0.15)]",
+    secondary: isDark
+      ? "bg-[#0d0d0d] text-[#4ade80] border border-[#14532d] hover:bg-[#1a0505] hover:text-[#ff6b6b]"
+      : "bg-[#e8f0e0] text-[#1a3d16] hover:bg-[#d0e8d0]",
+    outline: isDark
+      ? "bg-transparent text-[#4ade80] !border-[1px] !border-solid !border-[#4ade80] hover:bg-[rgba(74,222,128,0.08)] hover:shadow-[0_0_12px_rgba(74,222,128,0.2)]"
+      : "bg-white border-0.5px border-[#2d5a27] text-[#2d5a27] hover:bg-[#f0f5ec]",
+    gradient: isDark
+      ? "bg-[#4ade80] text-[#000000] shadow-[0_0_16px_rgba(74,222,128,0.4)] hover:shadow-[0_0_28px_rgba(74,222,128,0.7)] hover:-translate-y-[1px]"
+      : "bg-gradient-to-r from-[#1a3d16] to-[#2d5a27] text-[#f5f5f0] hover:opacity-90 shadow-lg shadow-[#2d5a27]/20",
+    ghost: isDark
+      ? "bg-transparent text-[#4ade80] hover:bg-[rgba(74,222,128,0.08)]"
+      : "bg-transparent text-[#2d5a27] hover:bg-[#2d5a27]/10",
+    danger: isDark
+      ? "bg-[#1a0505] text-[#ff6b6b] border border-[#7f1d1d] hover:bg-[#3f0f0f]"
+      : "bg-[#cc3300] text-white hover:bg-[#bb2e00]"
   };
   
   const sizes = {
@@ -48,7 +64,8 @@ const Button = ({
         ${fullWidth ? 'w-full' : ''}
         ${className}
       `}
-      whileHover={!disabled ? { scale: 1.02 } : {}}
+      style={isDark ? { borderRadius: '3px', fontFamily: "'Courier New', monospace" } : {}}
+      whileHover={!disabled && !isDark ? { scale: 1.02 } : {}}
       whileTap={!disabled ? { scale: 0.98 } : {}}
       transition={{ type: 'spring', stiffness: 400, damping: 17 }}
     >

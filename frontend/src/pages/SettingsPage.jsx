@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useTheme } from '../context/ThemeContext';
 import TopNavBar from '../components/layout/TopNavBar';
 import Footer from '../components/layout/Footer';
 import Card from '../components/common/Card';
@@ -13,6 +14,7 @@ const BIO_MAX = 2000;
 
 const SettingsPage = () => {
   const navigate = useNavigate();
+  const { isDark } = useTheme();
   const { user, isLoading: authLoading, updateUser } = useAuth();
   const [activeTab, setActiveTab] = useState('profile');
   const [profile, setProfile] = useState({
@@ -137,7 +139,7 @@ const SettingsPage = () => {
 
   return (
     <motion.div 
-      className="bg-white dark:bg-[#020617] min-h-screen transition-colors duration-300"
+      className={`min-h-screen transition-colors duration-300 ${isDark ? 'bg-[#000000]' : 'bg-[#f5f5f0]'}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
@@ -149,24 +151,24 @@ const SettingsPage = () => {
         <div className="max-w-6xl mx-auto">
           {/* Header */}
           <div className="mb-12">
-            <h1 className="font-headline text-4xl font-extrabold mb-2 text-slate-900 dark:text-slate-100 transition-colors duration-300">
-              Astra AI Environment
+            <h1 className={`font-headline text-4xl font-extrabold mb-2 transition-colors duration-300 ${isDark ? 'text-[#00ffa3] font-mono uppercase tracking-widest' : 'text-[#1a3d16]'}`}>
+              {isDark ? '> Astra_Environment' : 'Astra AI Environment'}
             </h1>
-            <p className="text-slate-600 dark:text-slate-400 transition-colors duration-300">
+            <p className={`transition-colors duration-300 ${isDark ? 'text-[#006b4a] font-mono' : 'text-slate-600'}`}>
               Refine your digital presence and AI orchestration parameters.
             </p>
           </div>
 
           {/* Tabs */}
-          <div className="flex gap-8 mb-10 overflow-x-auto pb-4 md:pb-0 border-b border-outline-variant/20">
+          <div className={`flex gap-8 mb-10 overflow-x-auto pb-4 md:pb-0 border-b ${isDark ? 'border-[#004d38]' : 'border-outline-variant/20'}`}>
             {tabs.map(tab => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`pb-4 text-sm font-headline font-medium whitespace-nowrap transition-colors ${
                   activeTab === tab.id
-                    ? 'text-primary dark:text-blue-400 border-b-2 border-primary dark:border-blue-400'
-                    : 'text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-blue-400'
+                    ? (isDark ? 'text-[#00ffa3] border-b-2 border-[#00ffa3] font-mono uppercase' : 'text-primary border-b-2 border-primary')
+                    : (isDark ? 'text-[#006b4a] hover:text-[#00ffa3] font-mono uppercase' : 'text-slate-600 hover:text-primary')
                 }`}
               >
                 {tab.label}
@@ -181,9 +183,9 @@ const SettingsPage = () => {
               {/* Profile Tab */}
               {activeTab === 'profile' && (
                 <>
-                  <Card padding="large">
-                    <h3 className="text-xl font-headline font-bold text-slate-900 dark:text-slate-100 mb-6 transition-colors duration-300">
-                      Identity
+                  <Card padding="large" className={isDark ? 'bg-[#0d0d0d] border-[#004d38]' : 'bg-white border-[#c8d5b9]'}>
+                    <h3 className={`text-xl font-headline font-bold mb-6 transition-colors duration-300 ${isDark ? 'text-[#00ffa3] font-mono uppercase' : 'text-[#1a3d16]'}`}>
+                      {isDark ? '> Identity' : 'Identity'}
                     </h3>
 
                     {/* Profile Picture */}
@@ -194,17 +196,17 @@ const SettingsPage = () => {
                             String(userId || user?.email || 'user')
                           )}`}
                           alt="Profile"
-                          className="w-24 h-24 rounded-full object-cover ring-4 ring-white dark:ring-slate-700 shadow-lg"
+                          className={`w-24 h-24 rounded-full object-cover ring-4 shadow-lg ${isDark ? 'ring-[#004d38]' : 'ring-white'}`}
                         />
-                        <button className="absolute bottom-0 right-0 signature-glow text-white p-2 rounded-full shadow-lg scale-90 group-hover:scale-100 transition-transform">
+                        <button className={`absolute bottom-0 right-0 p-2 rounded-full shadow-lg scale-90 group-hover:scale-100 transition-transform flex items-center justify-center ${isDark ? 'bg-[#000000] text-[#00ffa3] border border-[#00ffa3]' : 'signature-glow text-white'}`}>
                           <span className="material-symbols-outlined text-sm">edit</span>
                         </button>
                       </div>
                       <div>
-                        <p className="text-lg font-bold text-slate-900 dark:text-slate-100 transition-colors duration-300">{profile.fullName}</p>
-                        <p className="text-slate-600 dark:text-slate-400 mb-3 transition-colors duration-300">{profile.role}</p>
-                        <button className="text-xs font-bold text-primary py-1 px-3 bg-primary/10 rounded-full">
-                          Pro Member
+                        <p className={`text-lg font-bold transition-colors duration-300 ${isDark ? 'text-[#00ffa3] font-mono' : 'text-[#1a3d16]'}`}>{profile.fullName}</p>
+                        <p className={`mb-3 transition-colors duration-300 ${isDark ? 'text-[#006b4a] font-mono' : 'text-slate-600'}`}>{profile.role}</p>
+                        <button className={`text-xs font-bold py-1 px-3 rounded-full ${isDark ? 'bg-[#004d38] text-[#00ffa3] font-mono uppercase' : 'text-primary bg-primary/10'}`}>
+                          {isDark ? 'PRO_MEMBER' : 'Pro Member'}
                         </button>
                       </div>
                     </div>
@@ -212,37 +214,39 @@ const SettingsPage = () => {
                     {/* Form Fields */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                       <div>
-                        <label className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider block mb-2 transition-colors duration-300">
+                        <label className={`text-xs font-bold uppercase tracking-wider block mb-2 transition-colors duration-300 ${isDark ? 'text-[#00ffa3] font-mono' : 'text-slate-600'}`}>
                           Full Name
                         </label>
                         <input
                           type="text"
                           value={profile.fullName}
                           onChange={(e) => handleProfileChange('fullName', e.target.value)}
-                          className="w-full bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg px-4 py-3 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500/20 dark:focus:ring-emerald-500/30 focus:border-transparent transition-all"
+                          className={`w-full border rounded-lg px-4 py-3 focus:border-transparent transition-all ${isDark ? 'bg-[#000000] border-[#004d38] text-[#00ffa3] focus:ring-2 focus:ring-[#00ffa3]/50 font-mono' : 'bg-white border-slate-300 text-[#1a3d16] focus:ring-2 focus:ring-[#2d5a27]/20'}`}
+                          style={isDark ? { borderRadius: '3px' } : {}}
                         />
                       </div>
                       <div>
-                        <label className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider block mb-2 transition-colors duration-300">
+                        <label className={`text-xs font-bold uppercase tracking-wider block mb-2 transition-colors duration-300 ${isDark ? 'text-[#00ffa3] font-mono' : 'text-slate-600'}`}>
                           Email Address
                         </label>
                         <input
                           type="email"
                           value={profile.email}
                           onChange={(e) => handleProfileChange('email', e.target.value)}
-                          className="w-full bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg px-4 py-3 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500/20 dark:focus:ring-emerald-500/30 focus:border-transparent transition-all"
+                          className={`w-full border rounded-lg px-4 py-3 focus:border-transparent transition-all ${isDark ? 'bg-[#000000] border-[#004d38] text-[#00ffa3] focus:ring-2 focus:ring-[#00ffa3]/50 font-mono' : 'bg-white border-slate-300 text-[#1a3d16] focus:ring-2 focus:ring-[#2d5a27]/20'}`}
+                          style={isDark ? { borderRadius: '3px' } : {}}
                         />
                       </div>
                       <div className="md:col-span-2">
                         <div className="flex justify-between items-end gap-2 mb-2">
-                          <label className="text-xs font-bold text-slate-600 dark:text-slate-400 uppercase tracking-wider transition-colors duration-300">
+                          <label className={`text-xs font-bold uppercase tracking-wider transition-colors duration-300 ${isDark ? 'text-[#00ffa3] font-mono' : 'text-slate-600'}`}>
                             Your bio
                           </label>
-                          <span className="text-[10px] text-slate-500 dark:text-slate-400">
+                          <span className={`text-[10px] ${isDark ? 'text-[#006b4a] font-mono' : 'text-slate-500'}`}>
                             {(profile.bio || '').length}/{BIO_MAX}
                           </span>
                         </div>
-                        <p className="text-xs text-slate-500 dark:text-slate-400 mb-2">
+                        <p className={`text-xs mb-2 ${isDark ? 'text-[#006b4a] font-mono' : 'text-slate-500'}`}>
                           Shown only on your account. Each user keeps a separate bio.
                         </p>
                         <textarea
@@ -251,7 +255,8 @@ const SettingsPage = () => {
                           rows={5}
                           maxLength={BIO_MAX}
                           placeholder="Write a short bio: your focus areas, years of experience, or what you are preparing for."
-                          className="w-full bg-white dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg px-4 py-3 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-indigo-500/20 dark:focus:ring-emerald-500/30 focus:border-transparent transition-all placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                          className={`w-full border rounded-lg px-4 py-3 focus:border-transparent transition-all ${isDark ? 'bg-[#000000] border-[#004d38] text-[#00ffa3] focus:ring-2 focus:ring-[#00ffa3]/50 font-mono placeholder:text-[#006b4a]' : 'bg-white border-slate-300 text-[#1a3d16] focus:ring-2 focus:ring-[#2d5a27]/20 placeholder:text-slate-400'}`}
+                          style={isDark ? { borderRadius: '3px' } : {}}
                         />
                       </div>
                     </div>
@@ -261,24 +266,24 @@ const SettingsPage = () => {
 
               {/* Resume Tab */}
               {activeTab === 'resume' && (
-                <Card padding="large">
+                <Card padding="large" className={isDark ? 'bg-[#0d0d0d] border-[#004d38]' : 'bg-white border-[#c8d5b9]'}>
                   <div className="flex items-center justify-between mb-8">
-                    <h3 className="text-xl font-headline font-bold text-slate-900 dark:text-slate-100">Resume Vault</h3>
+                    <h3 className={`text-xl font-headline font-bold ${isDark ? 'text-[#00ffa3] font-mono uppercase' : 'text-[#1a3d16]'}`}>{isDark ? '> Resume Vault' : 'Resume Vault'}</h3>
                     <Button variant="primary" size="small" onClick={() => window.location.href = '/resume'}>
-                      Upload New
+                      {isDark ? 'UPLOAD_NEW' : 'Upload New'}
                     </Button>
                   </div>
                   
                   {resumes.length === 0 ? (
                     <div className="text-center py-12">
-                      <span className="material-symbols-outlined text-4xl text-slate-300 dark:text-slate-600 mb-4 block">
+                      <span className={`material-symbols-outlined text-4xl mb-4 block ${isDark ? 'text-[#004d38]' : 'text-slate-300'}`}>
                         description
                       </span>
-                      <p className="text-slate-600 dark:text-slate-400 mb-4">
-                        No resumes uploaded yet
+                      <p className={`mb-4 ${isDark ? 'text-[#006b4a] font-mono' : 'text-slate-600'}`}>
+                        {isDark ? 'NO_RESUMES_FOUND' : 'No resumes uploaded yet'}
                       </p>
                       <Button variant="outline" size="small" onClick={() => window.location.href = '/resume'}>
-                        Upload Your Resume
+                        {isDark ? 'UPLOAD_RESUME()' : 'Upload Your Resume'}
                       </Button>
                     </div>
                   ) : (
@@ -286,20 +291,20 @@ const SettingsPage = () => {
                       {resumes.map((file, i) => (
                         <div key={i} className={`p-4 rounded-xl border flex items-center justify-between transition-all ${
                           file.active 
-                            ? 'bg-blue-500/10 border-blue-500/30' 
-                            : 'bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700'
-                        }`}>
+                            ? (isDark ? 'bg-[#004d38]/20 border-[#00ffa3]' : 'bg-[#002e26] border-[#2d5a27]/30') 
+                            : (isDark ? 'bg-[#000000] border-[#004d38]' : 'bg-white border-slate-200')
+                        }`} style={isDark ? { borderRadius: '3px' } : {}}>
                           <div className="flex items-center gap-4">
-                            <span className="material-symbols-outlined text-blue-500">description</span>
+                            <span className={`material-symbols-outlined ${isDark ? 'text-[#00ffa3]' : 'text-[#2d5a27]'}`}>description</span>
                             <div>
-                              <p className="text-sm font-bold text-slate-900 dark:text-slate-100">{file.fileName || file.name}</p>
-                              <p className="text-[10px] text-slate-500">{file.uploadedAt || file.date} • {file.fileSize || file.size}</p>
+                              <p className={`text-sm font-bold ${isDark ? 'text-[#00ffa3] font-mono' : 'text-[#1a3d16]'}`}>{file.fileName || file.name}</p>
+                              <p className={`text-[10px] ${isDark ? 'text-[#006b4a] font-mono' : 'text-slate-500'}`}>{file.uploadedAt || file.date} • {file.fileSize || file.size}</p>
                             </div>
                           </div>
                           {file.active ? (
-                            <span className="text-[10px] font-bold uppercase text-blue-500 px-2 py-1 bg-blue-500/20 rounded">Active</span>
+                            <span className={`text-[10px] font-bold uppercase px-2 py-1 rounded ${isDark ? 'text-[#000000] bg-[#00ffa3] font-mono' : 'text-[#2d5a27] bg-[#2d5a27]/20'}`}>Active</span>
                           ) : (
-                            <button className="text-[10px] font-bold uppercase text-slate-500 hover:text-blue-500 transition-colors">
+                            <button className={`text-[10px] font-bold uppercase transition-colors ${isDark ? 'text-[#006b4a] hover:text-[#00ffa3] font-mono' : 'text-slate-500 hover:text-[#2d5a27]'}`}>
                               Set Active
                             </button>
                           )}
@@ -312,18 +317,18 @@ const SettingsPage = () => {
 
               {/* Preferences Tab */}
               {activeTab === 'preferences' && (
-                <Card padding="large">
+                <Card padding="large" className={isDark ? 'bg-[#0d0d0d] border-[#004d38]' : 'bg-white border-[#c8d5b9]'}>
                   <div className="flex items-center justify-between mb-8">
-                    <h3 className="text-xl font-headline font-bold text-slate-900 dark:text-slate-100 transition-colors duration-300">AI Behavioral Logic</h3>
-                    <span className="material-symbols-outlined text-secondary">auto_awesome</span>
+                    <h3 className={`text-xl font-headline font-bold transition-colors duration-300 ${isDark ? 'text-[#00ffa3] font-mono uppercase' : 'text-[#1a3d16]'}`}>{isDark ? '> AI Behavioral Logic' : 'AI Behavioral Logic'}</h3>
+                    <span className={`material-symbols-outlined ${isDark ? 'text-[#00ffa3]' : 'text-secondary'}`}>auto_awesome</span>
                   </div>
 
                   <div className="space-y-8">
                     {/* Difficulty Slider */}
                     <div className="space-y-4">
                       <div className="flex justify-between items-center">
-                        <label className="text-sm font-bold text-slate-900 dark:text-slate-100 transition-colors duration-300">Interview Difficulty</label>
-                        <span className="text-xs font-headline font-bold text-primary px-3 py-1 bg-primary-fixed rounded-full">
+                        <label className={`text-sm font-bold transition-colors duration-300 ${isDark ? 'text-[#00ffa3] font-mono uppercase' : 'text-[#1a3d16]'}`}>Interview Difficulty</label>
+                        <span className={`text-xs font-headline font-bold px-3 py-1 rounded-full ${isDark ? 'text-[#000000] bg-[#00ffa3] font-mono uppercase' : 'text-[#2d5a27] bg-[#2d5a27]/10'}`}>
                           Adaptive Expert
                         </span>
                       </div>
@@ -331,9 +336,9 @@ const SettingsPage = () => {
                         type="range"
                         min="0"
                         max="100"
-                        className="w-full h-2 bg-surface-container-highest rounded-full appearance-none cursor-pointer accent-primary"
+                        className={`w-full h-2 rounded-full appearance-none cursor-pointer ${isDark ? 'bg-[#004d38] accent-[#00ffa3]' : 'bg-slate-200 accent-[#2d5a27]'}`}
                       />
-                      <div className="flex justify-between text-[10px] uppercase font-black text-slate-600 dark:text-slate-400 tracking-tighter transition-colors duration-300">
+                      <div className={`flex justify-between text-[10px] uppercase font-black tracking-tighter transition-colors duration-300 ${isDark ? 'text-[#006b4a] font-mono' : 'text-slate-600'}`}>
                         <span>Conversational</span>
                         <span>Rigorous</span>
                         <span>Stress Test</span>
@@ -342,29 +347,31 @@ const SettingsPage = () => {
 
                     {/* Voice Selection */}
                     <div className="space-y-4">
-                      <label className="text-sm font-bold text-slate-900 dark:text-slate-100 transition-colors duration-300">AI Voice Style</label>
+                      <label className={`text-sm font-bold transition-colors duration-300 ${isDark ? 'text-[#00ffa3] font-mono uppercase' : 'text-[#1a3d16]'}`}>AI Voice Style</label>
                       <div className="space-y-3">
                         <div
                           onClick={() => handlePreferenceChange('voiceStyle', 'standard-professional')}
                           className={`p-4 rounded-xl cursor-pointer border-l-4 transition-all ${
                             aiPreferences.voiceStyle === 'standard-professional'
-                              ? 'bg-blue-900 border-blue-400'
-                              : 'bg-slate-700 border-transparent hover:bg-slate-600'
+                              ? (isDark ? 'bg-[#000000] border-[#00ffa3] shadow-[inset_0_0_10px_rgba(74,222,128,0.2)]' : 'bg-[#002e26] border-[#2d5a27]')
+                              : (isDark ? 'bg-[#000000] border-transparent hover:border-[#004d38]' : 'bg-slate-50 border-transparent hover:bg-slate-100')
                           }`}
+                          style={isDark ? { borderRadius: '3px' } : {}}
                         >
-                          <p className="text-xs font-bold text-white transition-colors duration-300">Standard Professional</p>
-                          <p className="text-[10px] text-blue-100 transition-colors duration-300">Neutral, warm, clear.</p>
+                          <p className={`text-xs font-bold transition-colors duration-300 ${isDark ? 'text-[#00ffa3] font-mono uppercase' : 'text-[#1a3d16]'}`}>Standard Professional</p>
+                          <p className={`text-[10px] transition-colors duration-300 ${isDark ? 'text-[#006b4a] font-mono' : 'text-slate-600'}`}>Neutral, warm, clear.</p>
                         </div>
                         <div
                           onClick={() => handlePreferenceChange('voiceStyle', 'visionary')}
                           className={`p-4 rounded-xl cursor-pointer border-l-4 transition-all ${
                             aiPreferences.voiceStyle === 'visionary'
-                              ? 'bg-blue-900 border-blue-400'
-                              : 'bg-slate-700 border-transparent hover:bg-slate-600'
+                              ? (isDark ? 'bg-[#000000] border-[#00ffa3] shadow-[inset_0_0_10px_rgba(74,222,128,0.2)]' : 'bg-[#002e26] border-[#2d5a27]')
+                              : (isDark ? 'bg-[#000000] border-transparent hover:border-[#004d38]' : 'bg-slate-50 border-transparent hover:bg-slate-100')
                           }`}
+                          style={isDark ? { borderRadius: '3px' } : {}}
                         >
-                          <p className="text-xs font-bold text-white transition-colors duration-300">The Visionary</p>
-                          <p className="text-[10px] text-blue-100 transition-colors duration-300">Inspiring, fast-paced.</p>
+                          <p className={`text-xs font-bold transition-colors duration-300 ${isDark ? 'text-[#00ffa3] font-mono uppercase' : 'text-[#1a3d16]'}`}>The Visionary</p>
+                          <p className={`text-[10px] transition-colors duration-300 ${isDark ? 'text-[#006b4a] font-mono' : 'text-slate-600'}`}>Inspiring, fast-paced.</p>
                         </div>
                       </div>
                     </div>
@@ -385,9 +392,10 @@ const SettingsPage = () => {
       <div className="fixed bottom-8 right-8 z-40">
         <button
           onClick={handleSave}
-          className="px-6 py-3 signature-glow text-white font-headline font-bold rounded-xl shadow-lg hover:shadow-primary/20 transition-all active:scale-95 flex items-center justify-center gap-2"
+          className={`px-6 py-3 font-headline font-bold shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2 ${isDark ? 'bg-[#00ffa3] text-[#000000] border-none font-mono uppercase tracking-widest hover:shadow-[0_0_20px_rgba(0,255,163,0.5)]' : 'signature-glow text-white hover:shadow-primary/20 rounded-xl'}`}
+          style={isDark ? { borderRadius: '3px' } : {}}
         >
-          <span>Save Settings</span>
+          <span>{isDark ? 'SAVE_SETTINGS()' : 'Save Settings'}</span>
           <span className="material-symbols-outlined text-sm">save</span>
         </button>
       </div>

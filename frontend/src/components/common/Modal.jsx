@@ -41,7 +41,7 @@ const Modal = ({
       onClick={handleBackdropClick}
     >
       <div className={`
-        bg-surface-container-lowest dark:bg-slate-800
+        bg-surface-container-lowest dark:bg-[#0a0a0a]
         rounded-2xl 
         shadow-2xl dark:shadow-2xl dark:shadow-black/50
         w-full 
@@ -52,7 +52,7 @@ const Modal = ({
       `}>
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-slate-300 dark:border-slate-700 transition-colors duration-300">
-          <h2 className="font-headline text-2xl font-bold text-slate-900 dark:text-slate-100 transition-colors duration-300">
+          <h2 className="font-headline text-2xl font-bold text-[#1a3d16] dark:text-[#4ade80] transition-colors duration-300">
             {title}
           </h2>
           {showCloseButton && (
@@ -60,7 +60,7 @@ const Modal = ({
               onClick={onClose}
               className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
             >
-              <span className="material-symbols-outlined text-slate-900 dark:text-slate-300 transition-colors duration-300">close</span>
+              <span className="material-symbols-outlined text-[#1a3d16] dark:text-[#166534] transition-colors duration-300">close</span>
             </button>
           )}
         </div>
@@ -72,7 +72,7 @@ const Modal = ({
 
         {/* Footer */}
         {footer && (
-          <div className="border-t border-outline-variant/20 p-6 bg-surface-container-low dark:bg-slate-900/80 dark:border-slate-700">
+          <div className="border-t border-outline-variant/20 p-6 bg-surface-container-low dark:bg-[#0d0d0d]/80 dark:border-slate-700">
             {footer}
           </div>
         )}

@@ -17,19 +17,19 @@ const Toast = ({
 
   const types = {
     success: {
-      bg: 'bg-green-500 dark:bg-green-600',
+      bg: 'bg-[#2d5a27] dark:bg-[#2d5a27]',
       icon: 'check_circle'
     },
     error: {
-      bg: 'bg-error dark:bg-red-600',
+      bg: 'bg-[#cc3300] dark:bg-[#cc3300]',
       icon: 'error'
     },
     warning: {
-      bg: 'bg-yellow-500 dark:bg-yellow-600',
+      bg: 'bg-[#e8a020] dark:bg-[#e8a020]',
       icon: 'warning'
     },
     info: {
-      bg: 'bg-primary dark:bg-[#2d8c4e]',
+      bg: 'bg-[#2d5a27] dark:bg-[#2d5a27]',
       icon: 'info'
     }
   };

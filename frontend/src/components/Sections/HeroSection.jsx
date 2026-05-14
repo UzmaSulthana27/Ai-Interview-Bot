@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTheme } from '../../context/ThemeContext';
 
 const StatCounter = ({ end, suffix = '' }) => {
   const [count, setCount] = useState(0);
@@ -25,6 +26,7 @@ const StatCounter = ({ end, suffix = '' }) => {
 };
 
 const HeroSection = ({ onStartTrial }) => {
+  const { isDark } = useTheme();
   const scrollToFeatures = () => {
     const featuresSection = document.getElementById('features');
     if (featuresSection) {
@@ -37,39 +39,47 @@ const HeroSection = ({ onStartTrial }) => {
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
         
         <motion.div 
-          className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary-fixed dark:bg-blue-900/40 text-on-secondary-fixed-variant dark:text-blue-200 text-xs font-bold mb-6 cursor-pointer"
+          className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold mb-6 cursor-pointer ${isDark ? 'bg-[var(--bg-badge)] border border-[#00ffa3] text-[#00ffa3] drop-shadow-[0_0_6px_#00ffa3]' : 'bg-[#e8f0e0] text-[#2d5a27]'}`}
+          style={isDark ? { borderRadius: '2px' } : { borderRadius: '20px' }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          whileHover={{ scale: 1.05, backgroundColor: 'rgba(37, 99, 235, 0.2)' }}
+          whileHover={isDark ? { scale: 1.05, boxShadow: '0 0 12px rgba(74,222,128,0.4)' } : { scale: 1.05, backgroundColor: 'rgba(200, 213, 185, 0.2)' }}
           transition={{ duration: 0.5 }}
         >
-          <span className="material-symbols-outlined text-xs" 
-                style={{fontVariationSettings: "'FILL' 1"}}>
-            auto_awesome
-          </span>
-          POWERED BY ASTRA AI
+          {isDark ? (
+            <span className="font-mono">⚡ AI-POWERED INTERVIEW PRACTICE</span>
+          ) : (
+            <>
+              <span className="material-symbols-outlined text-xs" 
+                    style={{fontVariationSettings: "'FILL' 1"}}>
+                eco
+              </span>
+              🌿 AI-Powered Interview Practice
+            </>
+          )}
         </motion.div>
 
         <motion.h1 
-          className="font-headline text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 mb-6 max-w-4xl transition-colors duration-300"
+          className={`font-headline text-4xl md:text-5xl lg:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl transition-colors duration-300 ${isDark ? 'text-[var(--text-heading)] drop-shadow-[0_0_6px_rgba(74,222,128,0.25)]' : 'text-[#1a3d16]'}`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
         >
           Master Your Next <motion.span 
-            className="text-primary dark:text-blue-400 italic inline-block"
+            className={`italic inline-block ${isDark ? 'text-[var(--text-secondary)] drop-shadow-[0_0_12px_#00ffa3]' : 'text-[#2d5a27]'}`}
             whileHover={{ scale: 1.05, rotate: -1 }}
           >Interview</motion.span> with AI
         </motion.h1>
 
         <motion.p 
-          className="font-body text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mb-10 leading-relaxed transition-colors duration-300"
+          className={`font-body text-base md:text-lg max-w-2xl mb-10 leading-relaxed transition-colors duration-300 ${isDark ? 'font-mono text-[#006b4a]' : 'text-slate-600'}`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
         >
-          Personalized coaching powered by the Astra AI Engine. Refine your narrative, 
-          analyze your resume, and practice with real-time feedback.
+          {isDark 
+            ? "$ practice --unlimited | $ feedback --instant"
+            : "Personalized coaching powered by the Astra AI Engine. Refine your narrative, analyze your resume, and practice with real-time feedback."}
         </motion.p>
 
         <motion.div 
@@ -80,15 +90,16 @@ const HeroSection = ({ onStartTrial }) => {
         >
           <motion.button 
             onClick={onStartTrial}
-            className="w-full sm:w-auto bg-primary text-on-primary px-10 py-5 rounded-2xl font-headline font-extrabold text-xl shadow-xl shadow-indigo-500/20"
-            whileHover={{ 
-              scale: 1.05, 
-              y: -4,
-              boxShadow: "0 25px 30px -5px rgba(37, 99, 235, 0.3)"
-            }}
+            className={isDark 
+              ? "w-full sm:w-auto bg-[#00ffa3] text-[#000000] border-none px-10 py-5 font-mono uppercase tracking-[2px] shadow-[0_0_12px_rgba(74,222,128,0.3)] font-bold"
+              : "w-full sm:w-auto bg-[#2d5a27] text-[#f5f5f0] px-10 py-5 rounded-[8px] font-headline font-extrabold text-xl shadow-xl shadow-green-500/20"}
+            style={isDark ? { borderRadius: '3px' } : {}}
+            whileHover={isDark 
+              ? { scale: 1.05, y: -1, boxShadow: "0 0 28px rgba(74,222,128,0.7)" }
+              : { scale: 1.05, y: -4, boxShadow: "0 25px 30px -5px rgba(45, 90, 39, 0.3)" }}
             whileTap={{ scale: 0.98 }}
           >
-            $ start --interview
+            {isDark ? "$ START --INTERVIEW" : "Start Interview"}
           </motion.button>
         </motion.div>
 
@@ -110,7 +121,7 @@ const HeroSection = ({ onStartTrial }) => {
               className="text-center p-4 rounded-2xl hover:bg-slate-50 dark:hover:bg-slate-900/50 transition-colors duration-300"
               whileHover={{ scale: 1.05 }}
             >
-              <h3 className="text-3xl md:text-4xl font-headline font-bold text-slate-900 dark:text-slate-100 mb-1">
+              <h3 className="text-3xl md:text-4xl font-headline font-bold text-[#1a3d16] dark:text-[#00ffa3] mb-1">
                 <StatCounter end={stat.value} suffix={stat.suffix} />
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-400">{stat.label}</p>
@@ -125,11 +136,11 @@ const HeroSection = ({ onStartTrial }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8 }}
         >
-          <div className="absolute -inset-4 signature-glow opacity-20 blur-3xl rounded-[2rem] group-hover:opacity-40 transition-opacity duration-500"></div>
-          <div className="relative rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(37,99,235,0.15)] border border-white/10 dark:border-white/5 glass-panel backdrop-blur-md">
+          <div className="absolute -inset-4 signature-glow opacity-10 blur-3xl rounded-[2rem] group-hover:opacity-20 transition-opacity duration-500"></div>
+          <div className="relative rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(45,90,39,0.15)] border border-white/10 dark:border-white/5 glass-panel backdrop-blur-md">
             <div className="aspect-video flex items-center justify-center relative overflow-hidden bg-slate-900">
               <img 
-                src="/ai_interview_man_robot.jpg" 
+                src="/dark_backgroun_interviewer.png" 
                 alt="Astra AI Interview" 
                 className="w-full h-full object-cover relative z-10 transition-transform duration-1000 group-hover:scale-105"
                 style={{ 
@@ -144,7 +155,8 @@ const HeroSection = ({ onStartTrial }) => {
             <motion.div 
               className="absolute top-8 right-8 glass-panel p-6 rounded-xl border border-white/20 shadow-xl max-w-xs text-left"
               animate={{ 
-                y: [0, -10, 0],
+                y: [0, -5, 0],
+                rotate: [0, 0.5, 0]
               }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
@@ -156,15 +168,15 @@ const HeroSection = ({ onStartTrial }) => {
                   </span>
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider font-bold text-primary">
+                  <p className="text-[10px] uppercase tracking-wider font-bold text-[#2d5a27]">
                     Live Insight
                   </p>
-                  <p className="font-headline font-bold text-slate-900 dark:text-slate-100 transition-colors duration-300">
+                  <p className="font-headline font-bold text-[#1a3d16] dark:text-[#00ffa3] transition-colors duration-300">
                     Confidence Score
                   </p>
                 </div>
               </div>
-              <div className="h-2 w-full bg-surface-container-high rounded-full overflow-hidden mb-2">
+              <div className="h-2 w-full bg-[#e8f0e0] rounded-full overflow-hidden mb-2">
                 <motion.div 
                   className="h-full signature-glow"
                   initial={{ width: 0 }}

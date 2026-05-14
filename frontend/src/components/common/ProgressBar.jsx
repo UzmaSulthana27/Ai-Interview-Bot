@@ -13,12 +13,12 @@ const ProgressBar = ({
   const percentage = Math.min((value / max) * 100, 100);
   
   const variants = {
-    primary: 'signature-glow dark:bg-emerald-500',
-    secondary: 'bg-secondary dark:bg-slate-500',
-    tertiary: 'bg-tertiary dark:bg-slate-400',
-    success: 'bg-green-500 dark:bg-green-600',
-    warning: 'bg-yellow-500 dark:bg-yellow-600',
-    error: 'bg-error dark:bg-red-600'
+    primary: 'bg-gradient-to-r from-[#1a3d16] to-[#2d5a27] dark:bg-[#4ade80]',
+    secondary: 'bg-[#5a8a52] dark:bg-[#5a8a52]',
+    tertiary: 'bg-[#c8e6c0] dark:bg-[#c8e6c0]',
+    success: 'bg-[#2d5a27] dark:bg-[#4ade80]',
+    warning: 'bg-[#e8a020] dark:bg-[#e8a020]',
+    error: 'bg-[#cc3300] dark:bg-[#cc3300]'
   };
   
   const sizes = {
@@ -31,15 +31,15 @@ const ProgressBar = ({
     <div className={className}>
       {showLabel && (
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-label text-slate-700 dark:text-slate-300">
+          <span className="text-sm font-label text-[#5a8a52] dark:text-[#c8e6c0]">
             {label || 'Progress'}
           </span>
-          <span className="text-sm font-bold text-primary">
+          <span className="text-sm font-bold text-[#2d5a27]">
             {Math.round(percentage)}%
           </span>
         </div>
       )}
-      <div className={`w-full bg-surface-container-high rounded-full overflow-hidden ${sizes[size]}`}>
+      <div className={`w-full bg-[#e8f0e0] rounded-full overflow-hidden ${sizes[size]}`}>
         <div 
           className={`
             ${sizes[size]} 

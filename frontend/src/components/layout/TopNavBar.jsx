@@ -41,23 +41,29 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
 
   const navLinkClasses = (path) => {
     const isActive = location.pathname === path;
-    return `text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-blue-400 transition-all duration-200 font-label text-sm py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-indigo-600 dark:after:bg-blue-400 after:transition-all after:duration-300 hover:after:w-full ${isActive ? 'after:w-full text-indigo-600 dark:text-blue-400 font-bold' : ''}`;
+    if (isDark) {
+      return `transition-all duration-200 py-1 relative font-mono text-sm uppercase text-[#00ffa3] hover:text-[#00ffa3] ${isActive ? 'font-bold' : ''}` + (isActive ? ' drop-shadow-[0_0_6px_#00ffa3]' : '');
+    } else {
+      return `text-[#5a7a52] hover:text-[#2d5a27] transition-all duration-200 font-label text-sm py-1 relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#2d5a27] after:transition-all after:duration-300 hover:after:w-full ${isActive ? 'after:w-full text-[#2d5a27] font-bold' : ''}`;
+    }
   };
 
   return (
-    <nav className={`fixed top-0 right-0 left-0 h-16 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl flex items-center justify-between px-4 md:px-8 border-b border-slate-300 dark:border-slate-700 transition-all duration-300 ${scrolled ? 'shadow-[0_2px_20px_rgba(0,0,0,0.06)] dark:shadow-black/20' : ''}`}>
+    <nav className={`fixed top-0 right-0 left-0 h-16 z-50 flex items-center justify-between px-4 md:px-8 transition-all duration-300 ${!isDark ? 'bg-[rgba(245,245,240,0.85)] backdrop-blur-20 border-b border-[#c8d5b9]' : ''} ${scrolled && !isDark ? 'shadow-[0_2px_20px_rgba(0,0,0,0.06)]' : ''}`}
+         style={isDark ? { background: '#000000', borderBottom: '1px solid #00ffa3', boxShadow: '0 2px 20px rgba(0,255,163,0.1)', borderRadius: '0px' } : { borderRadius: '12px' }}>
       <Link to={isAuthenticated ? "/home" : "/"} className="flex items-center gap-2 group transition-opacity duration-150">
         <motion.div 
-          className="w-8 h-8 signature-glow rounded-lg flex items-center justify-center"
+          className="w-8 h-8 rounded-lg flex items-center justify-center"
+          style={isDark ? { background: 'transparent', boxShadow: '0 0 10px rgba(0,255,163,0.5)' } : { background: 'linear-gradient(135deg, #1a3d16, #2d5a27)', boxShadow: '0 0 30px rgba(45, 90, 39, 0.3)' }}
           whileHover={{ scale: 1.1, rotate: 5 }}
           whileTap={{ scale: 0.95 }}
         >
-          <span className="material-symbols-outlined text-white text-sm" 
-                style={{fontVariationSettings: "'FILL' 1"}}>
+          <span className="material-symbols-outlined text-sm" 
+                style={isDark ? { color: '#00ffa3', fontVariationSettings: "'FILL' 1" } : { color: 'white', fontVariationSettings: "'FILL' 1" }}>
             rocket_launch
           </span>
         </motion.div>
-        <span className="font-headline font-bold text-xl tracking-tight text-indigo-600 dark:text-blue-400 transition-colors duration-300">
+        <span className={`font-headline font-bold text-xl tracking-tight transition-colors duration-300 ${isDark ? 'text-[#00ffa3] drop-shadow-[0_0_10px_#00ffa3]' : 'text-[#2d5a27]'}`}>
           Astra AI
         </span>
       </Link>
@@ -65,29 +71,29 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
       {isAuthenticated && (
         <div className="hidden md:flex items-center gap-8">
           <Link to="/home" className={navLinkClasses('/home')}>
-            Home
+            {isDark ? '~/home' : 'Home'}
           </Link>
           <Link to="/dashboard" className={navLinkClasses('/dashboard')}>
-            Dashboard
+            {isDark ? '~/dashboard' : 'Dashboard'}
           </Link>
           <Link to="/analytics" className={navLinkClasses('/analytics')}>
-            Analytics
+            {isDark ? '~/analytics' : 'Analytics'}
           </Link>
           <Link to="/interview" className={navLinkClasses('/interview')}>
-            Interview
+            {isDark ? '~/interview' : 'Interview'}
           </Link>
           <Link to="/history" className={navLinkClasses('/history')}>
-            History
+            {isDark ? '~/history' : 'History'}
           </Link>
         </div>
       )}
 
       {!isAuthenticated && (
         <div className="hidden md:flex items-center gap-8">
-          <a href="#features" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-blue-400 transition-all duration-200 font-label text-sm py-1">
+          <a href="#features" className="text-[#5a7a52] dark:text-[#006b4a] hover:text-[#2d5a27] dark:hover:text-[#00ffa3] transition-all duration-200 font-label text-sm py-1">
             Features
           </a>
-          <a href="#how-it-works" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-blue-400 transition-all duration-200 font-label text-sm py-1">
+          <a href="#how-it-works" className="text-[#5a7a52] dark:text-[#006b4a] hover:text-[#2d5a27] dark:hover:text-[#00ffa3] transition-all duration-200 font-label text-sm py-1">
             How It Works
           </a>
         </div>
@@ -97,7 +103,7 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
         className="md:hidden"
         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
       >
-        <span className="material-symbols-outlined text-slate-700 dark:text-slate-300 transition-colors duration-200">
+        <span className="material-symbols-outlined text-[#5a7a52] dark:text-[#c8e6c0] transition-colors duration-200">
           {mobileMenuOpen ? 'close' : 'menu'}
         </span>
       </button>
@@ -106,14 +112,26 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
         {/* Theme Toggle */}
         <motion.button 
           onClick={toggleTheme}
-          className="p-2 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-lg transition-all duration-300 text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-blue-400"
+          style={isDark ? {
+            background: 'transparent',
+            border: '1px solid #00ffa3',
+            color: '#00ffa3',
+            boxShadow: '0 0 8px rgba(0,255,163,0.3)',
+            borderRadius: '3px'
+          } : {
+            background: 'transparent',
+            border: '0.5px solid #c8d5b9',
+            color: '#2d5a27',
+            borderRadius: '8px'
+          }}
+          className="p-2 flex items-center justify-center transition-all duration-300"
           title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
         >
           <AnimatePresence mode="wait" initial={false}>
             <motion.span 
-              className="material-symbols-outlined inline-block"
+              className="inline-block"
               key={isDark ? 'light' : 'dark'}
               variants={themeToggleVariants}
               initial="initial"
@@ -121,7 +139,7 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
               exit="exit"
               transition={{ duration: 0.3 }}
             >
-              {isDark ? 'light_mode' : 'dark_mode'}
+              {isDark ? '☀️' : '🌙'}
             </motion.span>
           </AnimatePresence>
         </motion.button>
@@ -135,10 +153,10 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <div className="w-8 h-8 rounded-full bg-indigo-600 dark:bg-blue-600 flex items-center justify-center text-white text-sm font-bold shadow-md shadow-indigo-200 dark:shadow-blue-900/40">
+              <div className="w-8 h-8 rounded-full bg-[#2d5a27] dark:bg-[#1a3d16] flex items-center justify-center text-white text-sm font-bold shadow-md shadow-green-200 dark:shadow-green-900/40">
                 {initial}
               </div>
-              <span className="hidden md:inline text-sm font-medium text-slate-900 dark:text-slate-100 transition-colors duration-300">
+              <span className="hidden md:inline text-sm font-medium text-[#1a3d16] dark:text-[#00ffa3] transition-colors duration-300">
                 {userName.split(' ')[0]}
               </span>
               <motion.span 
@@ -153,7 +171,7 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
             <AnimatePresence>
               {userMenuOpen && (
                 <motion.div 
-                  className="absolute right-0 mt-2 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl dark:shadow-black/40 border border-slate-300 dark:border-slate-700 transition-colors duration-300 z-50 overflow-hidden"
+                  className="absolute right-0 mt-2 w-48 bg-white dark:bg-[#0a0a0a] rounded-xl shadow-xl dark:shadow-black/40 border border-[#c8d5b9] dark:border-[#4a6044] transition-colors duration-300 z-50 overflow-hidden"
                   initial={{ opacity: 0, y: -10, scale: 0.95 }}
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
@@ -161,7 +179,7 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
                   <Link
                     to="/settings"
                     onClick={() => setUserMenuOpen(false)}
-                    className="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-150 flex items-center gap-2 border-b border-slate-100 dark:border-slate-700"
+                    className="w-full text-left px-4 py-3 text-sm text-slate-700 dark:text-[#006b4a] hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-150 flex items-center gap-2 border-b border-slate-100 dark:border-slate-700"
                   >
                     <span className="material-symbols-outlined text-sm">settings</span>
                     Settings
@@ -182,13 +200,13 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
             {onLoginClick ? (
               <motion.button 
                 onClick={onLoginClick} 
-                className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-blue-400 transition-colors duration-200 font-label text-sm font-bold"
+                className="text-[#5a7a52] dark:text-[#00ffa3] hover:text-[#2d5a27] dark:hover:text-[#00ffa3] transition-colors duration-200 font-label text-sm font-bold"
                 whileHover={{ y: -1 }}
               >
                 Login
               </motion.button>
             ) : (
-              <Link to="/login" className="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-blue-400 transition-colors duration-200 font-label text-sm font-bold">
+              <Link to="/login" className="text-[#5a7a52] dark:text-[#c8e6c0] hover:text-[#2d5a27] dark:hover:text-[#4ade80] transition-colors duration-200 font-label text-sm font-bold">
                 Login
               </Link>
             )}
@@ -196,7 +214,7 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
             {onSignupClick ? (
               <motion.button 
                 onClick={onSignupClick}
-                className="bg-indigo-600 dark:bg-blue-600 text-white px-5 py-2 rounded-xl font-label text-sm font-semibold shadow-md shadow-indigo-200 dark:shadow-blue-900/20"
+                className="bg-[#2d5a27] dark:bg-[#1a3d16] text-[#f5f5f0] px-5 py-2 rounded-xl font-label text-sm font-semibold shadow-md shadow-green-200 dark:shadow-green-900/20"
                 whileHover={{ y: -2, scale: 1.02, boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)" }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -205,7 +223,7 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
             ) : (
               <motion.button 
                 onClick={() => navigate('/signup')}
-                className="bg-indigo-600 dark:bg-blue-600 text-white px-5 py-2 rounded-xl font-label text-sm font-semibold shadow-md shadow-indigo-200 dark:shadow-blue-900/20"
+                className="bg-[#2d5a27] dark:bg-[#1a3d16] text-[#f5f5f0] px-5 py-2 rounded-xl font-label text-sm font-semibold shadow-md shadow-green-200 dark:shadow-green-900/20"
                 whileHover={{ y: -2, scale: 1.02, boxShadow: "0 10px 15px -3px rgb(0 0 0 / 0.1)" }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -223,29 +241,29 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
-            className="absolute top-16 left-0 right-0 bg-white dark:bg-slate-900 shadow-lg border-b border-slate-200 dark:border-slate-800 p-4 flex flex-col gap-4 md:hidden z-40 overflow-hidden"
+            className="absolute top-16 left-0 right-0 bg-white dark:bg-[#0d0d0d] shadow-lg border-b border-[#c8d5b9] dark:border-[#4a6044] p-4 flex flex-col gap-4 md:hidden z-40 overflow-hidden"
           >
             {isAuthenticated ? (
               <>
-                <Link to="/home" onClick={() => setMobileMenuOpen(false)} className="py-2 font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800">Home</Link>
-                <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)} className="py-2 font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800">Dashboard</Link>
-                <Link to="/analytics" onClick={() => setMobileMenuOpen(false)} className="py-2 font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800">Analytics</Link>
-                <Link to="/interview" onClick={() => setMobileMenuOpen(false)} className="py-2 font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800">Interview</Link>
-                <Link to="/history" onClick={() => setMobileMenuOpen(false)} className="py-2 font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800">History</Link>
-                <Link to="/settings" onClick={() => setMobileMenuOpen(false)} className="py-2 font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800">Settings</Link>
+                <Link to="/home" onClick={() => setMobileMenuOpen(false)} className="py-2 font-bold text-[#2d5a27] dark:text-slate-200 border-b border-slate-100 dark:border-slate-800">Home</Link>
+                <Link to="/dashboard" onClick={() => setMobileMenuOpen(false)} className="py-2 font-bold text-[#2d5a27] dark:text-slate-200 border-b border-slate-100 dark:border-slate-800">Dashboard</Link>
+                <Link to="/analytics" onClick={() => setMobileMenuOpen(false)} className="py-2 font-bold text-[#2d5a27] dark:text-slate-200 border-b border-slate-100 dark:border-slate-800">Analytics</Link>
+                <Link to="/interview" onClick={() => setMobileMenuOpen(false)} className="py-2 font-bold text-[#2d5a27] dark:text-slate-200 border-b border-slate-100 dark:border-slate-800">Interview</Link>
+                <Link to="/history" onClick={() => setMobileMenuOpen(false)} className="py-2 font-bold text-[#2d5a27] dark:text-slate-200 border-b border-slate-100 dark:border-slate-800">History</Link>
+                <Link to="/settings" onClick={() => setMobileMenuOpen(false)} className="py-2 font-bold text-[#2d5a27] dark:text-slate-200 border-b border-slate-100 dark:border-slate-800">Settings</Link>
                 <button onClick={() => { handleLogout(); setMobileMenuOpen(false); }} className="py-2 text-left font-bold text-red-600">Logout</button>
               </>
             ) : (
               <>
                 {onLoginClick ? (
-                  <button onClick={() => { onLoginClick(); setMobileMenuOpen(false); }} className="py-2 font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 text-left">Login</button>
+                  <button onClick={() => { onLoginClick(); setMobileMenuOpen(false); }} className="py-2 font-bold text-[#2d5a27] dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 text-left">Login</button>
                 ) : (
-                  <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="py-2 font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800">Login</Link>
+                  <Link to="/login" onClick={() => setMobileMenuOpen(false)} className="py-2 font-bold text-[#2d5a27] dark:text-slate-200 border-b border-slate-100 dark:border-slate-800">Login</Link>
                 )}
                 {onSignupClick ? (
-                  <button onClick={() => { onSignupClick(); setMobileMenuOpen(false); }} className="py-2 font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 text-left">Get Started</button>
+                  <button onClick={() => { onSignupClick(); setMobileMenuOpen(false); }} className="py-2 font-bold text-[#2d5a27] dark:text-slate-200 border-b border-slate-100 dark:border-slate-800 text-left">Get Started</button>
                 ) : (
-                  <Link to="/signup" onClick={() => setMobileMenuOpen(false)} className="py-2 font-bold text-slate-800 dark:text-slate-200 border-b border-slate-100 dark:border-slate-800">Get Started</Link>
+                  <Link to="/signup" onClick={() => setMobileMenuOpen(false)} className="py-2 font-bold text-[#2d5a27] dark:text-slate-200 border-b border-slate-100 dark:border-slate-800">Get Started</Link>
                 )}
               </>
             )}
