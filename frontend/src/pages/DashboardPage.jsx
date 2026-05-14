@@ -330,15 +330,15 @@ const DashboardPage = () => {
                   {/* Full-bleed blurred background image with hover reveal */}
                   <div className="absolute inset-0 z-0">
                     <img 
-                      src="/dashboard_activity.jpg" 
+                      src="/dashboard_activity.png" 
                       alt="Background" 
                       className="w-full h-full object-cover opacity-40 transition-all duration-700 group-hover:opacity-80 group-hover:blur-none"
                       style={isDark ? { 
                         filter: 'blur(8px) saturate(0.5) hue-rotate(120deg) contrast(1.5)',
-                        objectPosition: 'center 25%'
+                        objectPosition: 'center 60%'
                       } : { 
                         filter: 'blur(8px) saturate(1.2) hue-rotate(50deg)',
-                        objectPosition: 'center 25%'
+                        objectPosition: 'center 60%'
                       }}
                     />
                     <div className={`absolute inset-0 bg-gradient-to-t transition-opacity duration-700 group-hover:opacity-40 ${isDark ? 'from-[#0d0d0d] via-[#0d0d0d]/70 to-transparent' : 'from-[#1a3d16] via-[#1a3d16]/70 to-transparent'}`}></div>
