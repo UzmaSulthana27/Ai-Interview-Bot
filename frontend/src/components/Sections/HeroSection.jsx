@@ -25,6 +25,23 @@ const StatCounter = ({ end, suffix = '' }) => {
   return <span>{count}{suffix}</span>;
 };
 
+const TypingText = ({ text, className = "", delay = 0 }) => {
+  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (index < text.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedText((prev) => prev + text[index]);
+        setIndex((prev) => prev + 1);
+      }, 50 + Math.random() * 50); // Natural typing speed
+      return () => clearTimeout(timeout);
+    }
+  }, [index, text]);
+
+  return <span className={className}>{displayedText}</span>;
+};
+
 const HeroSection = ({ onStartTrial }) => {
   const { isDark } = useTheme();
   const scrollToFeatures = () => {
@@ -65,10 +82,25 @@ const HeroSection = ({ onStartTrial }) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1, duration: 0.6 }}
         >
-          Master Your Next <motion.span 
-            className={`italic inline-block ${isDark ? 'text-[var(--text-secondary)] drop-shadow-[0_0_12px_#00ffa3]' : 'text-[#2d5a27]'}`}
-            whileHover={{ scale: 1.05, rotate: -1 }}
-          >Interview</motion.span> with AI
+          {isDark ? (
+            <>
+              <TypingText text="Master Your Next " />
+              <motion.span 
+                className="italic inline-block text-[var(--text-secondary)] drop-shadow-[0_0_12px_#00ffa3]"
+                whileHover={{ scale: 1.05, rotate: -1 }}
+              >
+                <TypingText text="Interview" delay={1} />
+              </motion.span>
+              <TypingText text=" with AI" delay={2} />
+            </>
+          ) : (
+            <>
+              Master Your Next <motion.span 
+                className="italic inline-block text-[#2d5a27]"
+                whileHover={{ scale: 1.05, rotate: -1 }}
+              >Interview</motion.span> with AI
+            </>
+          )}
         </motion.h1>
 
         <motion.p 

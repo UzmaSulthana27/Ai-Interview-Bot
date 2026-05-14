@@ -105,8 +105,8 @@ const LoginPage = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl mb-4 shadow-lg shadow-indigo-500/20">
-            <span className="material-symbols-outlined text-white text-2xl">login</span>
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#00ffa3]/10 border border-[#00ffa3]/20 rounded-2xl mb-4 shadow-lg shadow-[#00ffa3]/5">
+            <span className="material-symbols-outlined text-[#00ffa3] text-2xl">login</span>
           </div>
           <h1 className="font-headline text-3xl font-bold text-[#1a3d16] dark:text-[#00ffa3] transition-colors duration-300">
             Welcome Back
@@ -191,7 +191,7 @@ const LoginPage = () => {
                 <input type="checkbox" className="w-4 h-4 rounded border border-slate-300 dark:border-slate-600 cursor-pointer" />
                 <span className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">Remember me</span>
               </label>
-              <Link to="/forgot-password" className="text-sm text-[#2563eb] dark:text-[#60a5fa] hover:underline transition-colors duration-300">
+              <Link to="/forgot-password" disabled className="text-sm text-[#2d5a27] dark:text-[#00ffa3] hover:underline transition-colors duration-300">
                 Forgot password?
               </Link>
             </div>
@@ -237,9 +237,9 @@ const LoginPage = () => {
           transition={{ delay: 0.4 }}
         >
           By signing in, you agree to our{' '}
-          <Link to="/terms" className="text-[#2563eb] dark:text-[#60a5fa] hover:underline">Terms of Service</Link>
+          <Link to="/terms" className="text-[#2d5a27] dark:text-[#00ffa3] hover:underline">Terms of Service</Link>
           {' '}and{' '}
-          <Link to="/privacy" className="text-[#2563eb] dark:text-[#60a5fa] hover:underline">Privacy Policy</Link>
+          <Link to="/privacy" className="text-[#2d5a27] dark:text-[#00ffa3] hover:underline">Privacy Policy</Link>
         </motion.p>
       </motion.div>
     </div>

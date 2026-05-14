@@ -128,8 +128,9 @@
   }
   
   .signature-glow {
-    background: linear-gradient(135deg, #1a3d16, #2d5a27);
-    box-shadow: 0 0 30px rgba(45, 90, 39, 0.3);
+    background: #000000;
+    border: 1px solid #00ffa3;
+    box-shadow: 0 0 30px rgba(0, 255, 163, 0.1);
   }
   
   .glass-panel {
@@ -153,7 +154,7 @@
   }
 
   .dark .hover-lift:hover {
-    box-shadow: 0 20px 50px rgba(45, 90, 39, 0.4);
+    box-shadow: 0 20px 50px rgba(0, 255, 163, 0.2);
   }
   
   /* Smooth animations */

@@ -13,24 +13,24 @@ const Card = ({
   const { isDark } = useTheme();
   
   const baseStyles = isDark
-    ? "bg-[#0d0d0d] border border-[#14532d] transition-all duration-300"
+    ? "bg-[#000000] border border-[#004d38] transition-all duration-300"
     : "bg-white rounded-2xl border-0.5px border-[#c8d5b9] transition-all duration-300";
   
   const variants = {
     default: isDark
-      ? "hover:bg-[#111111] hover:border-[#4ade80]"
+      ? "hover:bg-[#000000] hover:border-[#00ffa3]"
       : "hover:shadow-xl hover:border-[#2d5a27]",
     glass: isDark
-      ? "bg-transparent border border-[#14532d]"
+      ? "bg-transparent border border-[#004d38]"
       : "glass-panel shadow-xl",
     gradient: isDark
-      ? "bg-[#0d0d0d] border border-[#4ade80] shadow-[0_0_16px_rgba(74,222,128,0.08)]"
+      ? "bg-[#000000] border border-[#00ffa3] shadow-[0_0_16px_rgba(0, 255, 163, 0.08)]"
       : "bg-gradient-to-r from-[#1a3d16] to-[#2d5a27] text-white",
     bordered: isDark
-      ? "border-2 border-[#14532d] hover:border-[#4ade80]"
+      ? "border-2 border-[#004d38] hover:border-[#00ffa3]"
       : "border-2 border-[#c8d5b9] hover:border-[#2d5a27]",
     elevated: isDark
-      ? "shadow-[0_0_16px_rgba(74,222,128,0.08)] hover:shadow-[0_0_24px_rgba(74,222,128,0.12)] transform hover:-translate-y-[1px]"
+      ? "shadow-[0_0_16px_rgba(0, 255, 163, 0.08)] hover:shadow-[0_0_24px_rgba(0, 255, 163, 0.12)] transform hover:-translate-y-[1px]"
       : "shadow-lg hover:shadow-2xl transform hover:-translate-y-1"
   };
   

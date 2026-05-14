@@ -102,7 +102,7 @@ const ResumePage = () => {
 
   return (
     <motion.div 
-      className="bg-white dark:bg-[#0a1128] min-h-screen transition-colors duration-300"
+      className="bg-[#f5f5f0] dark:bg-[#000000] min-h-screen transition-colors duration-300"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
@@ -137,9 +137,9 @@ const ResumePage = () => {
                 </div>
                 
                 {file ? (
-                  <div className="flex items-center gap-3 bg-primary-fixed px-6 py-3 rounded-xl">
-                    <span className="material-symbols-outlined text-primary">description</span>
-                    <span className="font-label font-bold text-primary">{file.name}</span>
+                  <div className="flex items-center gap-3 bg-[#e8f0e0] dark:bg-[#00ffa3]/10 px-6 py-3 rounded-xl">
+                    <span className="material-symbols-outlined text-[#2d5a27] dark:text-[#00ffa3]">description</span>
+                    <span className="font-label font-bold text-[#2d5a27] dark:text-[#00ffa3]">{file.name}</span>
                     <button 
                       onClick={() => setFile(null)}
                       className="ml-2 hover:bg-primary/10 rounded-full p-1"
@@ -302,7 +302,7 @@ const ResumeAnalysisResults = ({ data }) => {
             {skills.map((skill, index) => (
               <span
                 key={index}
-                className="rounded-full px-3 py-1 text-sm font-label font-bold bg-primary-fixed text-primary dark:bg-primary/25 dark:text-[#00ffa3]"
+                className="rounded-full px-3 py-1 text-sm font-label font-bold bg-[#e8f0e0] text-[#2d5a27] dark:bg-[#00ffa3]/10 dark:text-[#00ffa3] border border-[#c8d5b9] dark:border-[#00ffa3]/30"
               >
                 {skill}
               </span>
@@ -332,7 +332,7 @@ const ResumeAnalysisResults = ({ data }) => {
           <div className="space-y-3">
             {topics.map((topic, index) => (
               <div key={index} className={topicRow}>
-                <span className="material-symbols-outlined mt-1 shrink-0 text-primary dark:text-indigo-300">
+                <span className="material-symbols-outlined mt-1 shrink-0 text-[#2d5a27] dark:text-[#00ffa3]">
                   arrow_right
                 </span>
                 <p className="text-[#2d5a27] dark:text-slate-200">{topic}</p>
