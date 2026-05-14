@@ -1,343 +1,103 @@
-# 🤖 AI Interview Bot
+# 🟢 Astra AI: The Terminal Interviewer
 
-A full-stack AI interview practice platform where users can simulate technical interviews, get AI-generated follow-up questions, receive instant feedback, track performance, and analyze resumes.
-
-![Status](https://img.shields.io/badge/Status-Active-brightgreen)
-![Java](https://img.shields.io/badge/Java-17-orange)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.1-green)
-![React](https://img.shields.io/badge/React-19-blue)
-![Vite](https://img.shields.io/badge/Vite-8-purple)
-![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
-![Groq](https://img.shields.io/badge/AI-Groq%20LLaMA%203.3-purple)
+> **Status:** ACTIVE_NODE  
+> **Uptime:** 99.9%  
+> **Current Version:** 2.1.0-STABLE  
+> **Primary Objective:** Master technical interviews through high-fidelity AI simulations.
 
 ---
 
-## 🌐 Live Demo
+## ⚡ System Overview
 
-| Service | URL |
-|--------|-----|
-| 🎨 Frontend | [astra-ai00.vercel.app](https://astra-ai00.vercel.app/) |
-| ⚙️ Backend API | [ai-interview-bot-wmkk.onrender.com](https://ai-interview-bot-wmkk.onrender.com) |
+**Astra AI** is a state-of-the-art technical interview simulation platform. Built with a **Hacker/Terminal aesthetic**, it leverages advanced LLMs to provide realistic, role-specific interview experiences. From resume analysis to performance tracking, Astra AI is your ultimate command center for career growth.
 
----
-
-## ✨ Latest Features
-
-- 🔐 **Authentication flow** (Signup/Login) with BCrypt password hashing
-- 🧭 **Protected routes** for dashboard, interviews, history, analytics, resume, and settings
-- 🎯 **Role-based interview practice** (Q/A + MCQ formats)
-- 🧠 **AI-generated questions and feedback** powered by Groq
-- 📄 **Resume upload + AI analysis** (skills, experience summary, suggested topics)
-- 📊 **Analytics page** with performance metrics and role breakdown
-- 🧾 **Interview history management** (view and delete by user)
-- 👤 **User profile API + per-user bio** (saved and loaded from backend)
-- 🌙 **Modern responsive UI** with dark theme support (Tailwind + Framer Motion)
+![Astra AI Banner](https://img.shields.io/badge/AESTHETIC-HACKER--TERMINAL-00ffa3?style=for-the-badge&logo=probot&logoColor=000000)
+![Groq](https://img.shields.io/badge/AI--ENGINE-GROQ--LLAMA3.3-00ffa3?style=for-the-badge)
+![Tech](https://img.shields.io/badge/STACK-SPRING--BOOT--%26--REACT-00ffa3?style=for-the-badge)
 
 ---
 
-## 🛠️ Tech Stack
+## 🛰️ Core Modules
 
-### Frontend
+### 1. 🧠 AI_AGENT_CORE (Mock Interviews)
+*   **Role-Specific Simulations**: 16+ professional paths including Java, MERN, and System Design.
+*   **Adaptive Questioning**: AI adjusts follow-up questions based on your previous responses.
+*   **Dual Formats**: Choose between standard **Q/A Text** or rapid-fire **Multiple Choice (MCQ)**.
+*   **Terminal Interface**: Real-time typing animations and an immersive console UI.
 
-- React 19
-- Vite
-- React Router DOM 7
-- Axios
-- Tailwind CSS
-- Framer Motion
+### 2. 📄 SEMANTIC_PARSER (Resume Analysis)
+*   **Skill Extraction**: Automatically identifies technical skills from PDF/Word resumes.
+*   **Experience Mapping**: Generates a summary of your professional trajectory.
+*   **Topic Suggestion**: Tailors the interview pool to your specific experience.
 
-### Backend
+### 3. 📊 DATA_ANALYTICS (Performance Hub)
+*   **Score Tracking**: Visualize your progress over time.
+*   **Skill Breakdown**: Identify strengths and weak points across different roles.
+*   **History Vault**: Review past sessions and feedback to iterate on your answers.
 
-- Java 17
-- Spring Boot 3.4.1
-- Spring Web
-- Spring Data JPA
-- Spring Security (currently permissive config)
-- MySQL Connector/J
-- Lombok
-- Apache PDFBox
-- Groq API (LLaMA 3.3 model via OpenAI-compatible endpoint)
-
-### Infra / Deployment
-
-- MySQL (Aiven or local)
-- Render (backend)
-- Vercel (frontend)
+### 4. 💎 ACCESS_MODES (Subscription System)
+*   **FREE_TRIAL**: 3 full interview sessions for every new user.
+*   **PREMIUM_LINK**: Unlimited sessions, advanced role selection, and deeper analytics.
 
 ---
 
-## 📁 Project Structure (Updated)
+## 🛠️ Technology Stack
 
-```text
-Ai-Interview-Bot/
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   │   ├── api/
-│   │   │   ├── apiService.js
-│   │   │   └── axios.js
-│   │   ├── components/
-│   │   │   ├── common/
-│   │   │   ├── interview/
-│   │   │   ├── layout/
-│   │   │   └── Sections/
-│   │   ├── context/
-│   │   │   ├── AuthContext.jsx
-│   │   │   └── ThemeContext.jsx
-│   │   ├── data/
-│   │   ├── pages/
-│   │   │   ├── LandingPage.jsx
-│   │   │   ├── LoginPage.jsx
-│   │   │   ├── SignupPage.jsx
-│   │   │   ├── HomePage.jsx
-│   │   │   ├── DashboardPage.jsx
-│   │   │   ├── InterviewPage.jsx
-│   │   │   ├── ResumePage.jsx
-│   │   │   ├── AnalyticsPage.jsx
-│   │   │   ├── HistoryPage.jsx
-│   │   │   └── SettingsPage.jsx
-│   │   ├── App.jsx
-│   │   └── index.css
-│   ├── tailwind.config.js
-│   └── package.json
-│
-└── backend/
-    ├── src/main/java/com/interviewbot/backend/
-    │   ├── config/
-    │   │   ├── SecurityConfig.java
-    │   │   └── WebConfig.java
-    │   ├── controller/
-    │   │   ├── AuthController.java
-    │   │   ├── InterviewController.java
-    │   │   ├── ResumeController.java
-    │   │   ├── AnalyticsController.java
-    │   │   ├── UserController.java
-    │   │   └── HealthController.java
-    │   ├── model/
-    │   │   ├── User.java
-    │   │   ├── InterviewSession.java
-    │   │   ├── QuestionAnswer.java
-    │   │   └── ResumeAnalysis.java
-    │   ├── repository/
-    │   │   └── ResumeAnalysisRepository.java
-    │   ├── respository/   (legacy package name in codebase)
-    │   │   ├── UserRepository.java
-    │   │   ├── SessionRepository.java
-    │   │   └── QARepository.java
-    │   └── service/
-    │       ├── AuthService.java
-    │       ├── GroqService.java
-    │       └── InterviewService.java
-    ├── run-local.ps1
-    └── pom.xml
-```
+| Layer | Technologies |
+|-------|--------------|
+| **Frontend** | React 19, Vite, Tailwind CSS, Framer Motion (Animations) |
+| **Backend** | Java 17, Spring Boot 3.4.1, Spring Data JPA, Hibernate |
+| **Intelligence** | Groq LLaMA 3.3 (70B Model), Apache PDFBox |
+| **Database** | MySQL 8.0+ |
+| **Security** | BCrypt Hashing, Permissive CORS/Web Security |
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Deployment Instructions
 
-### 1) Clone Repo
-
+### 1) Initialize Repository
 ```bash
 git clone https://github.com/UzmaSulthana27/Ai-Interview-Bot.git
 cd Ai-Interview-Bot
 ```
 
-### 2) Backend Setup
-
-#### Prerequisites
-
-- Java 17
-- Maven (or use `mvnw`)
-- MySQL
-
-#### Environment
-
-Create `backend/src/main/resources/application-local.properties` (recommended for local):
-
+### 2) Backend Setup (Java 17 Required)
+Create `backend/src/main/resources/application-local.properties`:
 ```properties
 spring.datasource.url=jdbc:mysql://localhost:3306/interview_bot
 spring.datasource.username=root
-spring.datasource.password=your_mysql_password
-spring.jpa.hibernate.ddl-auto=update
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
-groq.api.key=your_groq_api_key
+spring.datasource.password=your_password
+groq.api.key=your_groq_key
 server.port=8080
 ```
+Run with: `./mvnw spring-boot:run`
 
-Or use env vars with `application.properties`:
-
-- `DB_URL`
-- `DB_USERNAME`
-- `DB_PASSWORD`
-- `GROQ_API_KEY`
-- `SPRING_PROFILES_ACTIVE=local` (if using local profile)
-
-#### Run Backend
-
-```bash
-cd backend
-./mvnw spring-boot:run
-```
-
-Windows PowerShell helper:
-
-```powershell
-cd backend
-./run-local.ps1
-```
-
-### 3) Frontend Setup
-
+### 3) Frontend Setup (Node.js Required)
 ```bash
 cd frontend
 npm install
-```
-
-Create `frontend/.env`:
-
-```env
-VITE_API_URL=http://localhost:8080/api
-```
-
-Run frontend:
-
-```bash
 npm run dev
 ```
 
-Open: `http://localhost:5173`
+---
+
+## 👩‍💻 Supported Job Roles
+
+`[JAVA_DEV]` `[REACT_DEV]` `[PYTHON_DEV]` `[FULLSTACK_DEV]` `[MERN_DEV]` `[FRONTEND_DEV]` `[BACKEND_DEV]` `[DEVOPS_ENG]` `[MOBILE_DEV]` `[UIUX_DESIGN]` `[QA_ENG]` `[DATA_SCIENTIST]` `[CLOUD_ARCH]` `[SYSTEM_DESIGN]` `[SECURITY_ENG]` `[ML_ENG]`
 
 ---
 
-## 📡 API Endpoints (Current)
-
-### Auth (`/api/auth`)
-
-- `POST /signup` — signup with `{ fullName, email, password }`
-- `POST /register` — legacy register with `{ name, email, password }`
-- `POST /login` — login with `{ email, password }`
-
-### Interview (`/api/interview`)
-
-- `POST /start` — params: `jobRole`, `userId`, `difficulty`, `format`, `useResume`
-- `POST /answer` — body: `{ sessionId, question, answer, format, jobRole, difficulty, ... }`
-- `GET /history/{userId}` — interview history
-- `DELETE /history/{sessionId}?userId=...` — delete session
-- `GET /stats/{userId}` — total sessions, avg score, roles practiced
-
-### Resume (`/api/resume`)
-
-- `POST /upload` — multipart: `file`, `userId`
-- `GET /latest/{userId}` — latest saved resume analysis JSON
-
-### Analytics (`/api/analytics`)
-
-- `GET /performance/{userId}` — aggregated metrics for analytics page
-
-### User Profile (`/api/user`)
-
-- `GET /{userId}/profile` — get profile (fullName, email, bio)
-- `PUT /{userId}/profile` — update profile (currently bio-focused)
-
-### Utility (`/api`)
-
-- `GET /health` — health check
-- `GET /dashboard/stats` — dashboard summary
-- `GET /admin/clear-db` — admin utility endpoint (use carefully)
-
----
-
-## 🧠 Interview Flow
-
-```text
-User logs in
-   ↓
-Select role + difficulty + format (Q/A or MCQ)
-   ↓
-Backend creates session
-   ↓
-Groq generates question
-   ↓
-User submits answer
-   ↓
-Groq evaluates answer + backend stores Q&A
-   ↓
-Next question generated based on previous context
-   ↓
-History + stats + analytics updated
-```
-
----
-
-## 👩‍💻 Supported Roles (UI)
-
-- Java Developer
-- React Developer
-- Python Developer
-- Full Stack Developer
-- Frontend Developer
-- Backend Developer
-- Data Analyst
-- DevOps Engineer
-- Mobile Developer
-- UI/UX Designer
-- QA Engineer
-- Data Scientist
-- Cloud Architect
-- Security Engineer
-- Product Manager
-- ML Engineer
-
----
-
-## 🔐 Environment Variables
-
-### Backend
-
-- `DB_URL`
-- `DB_USERNAME`
-- `DB_PASSWORD`
-- `GROQ_API_KEY`
-- `SPRING_PROFILES_ACTIVE` (`local` / `prod`)
-
-### Frontend
-
-- `VITE_API_URL` (example: `http://localhost:8080/api`)
-
----
-
-## 📝 Notes
-
-- Resume extraction is strongest for **PDF** files (PDFBox).
-- `.doc/.docx` are accepted by UI, but text extraction quality may vary.
-- Current auth uses app-managed session state with stored token; **JWT can be added as a future upgrade**.
-
----
-
-## 🔮 Roadmap Ideas
-
-- [ ] JWT + refresh tokens
-- [ ] Stronger role/difficulty adaptive question engine
-- [ ] Better `.docx` parsing support (Apache POI)
-- [ ] More detailed scoring rubric and charts
-- [ ] Company-specific interview modes
-- [ ] Voice-based interview input
+## 📝 Configuration Notes
+*   **Port Mapping**: Frontend defaults to `5173`, Backend to `8080`.
+*   **Env Variables**: Ensure `GROQ_API_KEY` is exported for the AI Agent to function.
+*   **Browsers**: Optimized for Chromium-based browsers for best animation performance.
 
 ---
 
 ## 👩‍💻 Author
-
 **Uzma Sulthana**  
 GitHub: [@UzmaSulthana27](https://github.com/UzmaSulthana27)
 
 ---
 
-## 📄 License
-
-MIT License (add a `LICENSE` file if not already present).
-
----
-
-⭐ If this project helped you, consider starring the repo.
+⭐ **Star this repo if you survived the interview.**
