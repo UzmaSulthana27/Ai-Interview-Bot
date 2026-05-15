@@ -9,7 +9,7 @@ import { useToast } from '../components/common/Toast';
 
 const Spinner = () => (
   <motion.div 
-    className="w-6 h-6 border-2 border-[#c8d5b9] border-t-[#2d5a27] rounded-full inline-block"
+    className="w-6 h-6 border-2 border-slate-800 border-t-[#2d5a27] rounded-full inline-block"
     animate={{ rotate: 360 }}
     transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
   />
@@ -53,7 +53,10 @@ const HistoryPage = () => {
     if (role === 'All') {
       setFiltered(sessions);
     } else {
-      setFiltered(sessions.filter(s => s.jobRole && s.jobRole.includes(role)));
+      const searchRole = role.toLowerCase();
+      setFiltered(sessions.filter(s => 
+        s.jobRole && s.jobRole.toLowerCase().includes(searchRole)
+      ));
     }
   };
 
@@ -88,7 +91,7 @@ const HistoryPage = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h1 className="font-headline text-3xl md:text-4xl font-extrabold mb-2 text-[#1a3d16] dark:text-[#00ffa3]">
+          <h1 className="font-headline text-3xl md:text-4xl font-extrabold mb-2 text-white">
             Interview History
           </h1>
           <p className="text-slate-600 dark:text-slate-400">
@@ -110,8 +113,8 @@ const HistoryPage = () => {
                 onClick={() => handleFilter(role)}
                 className={`px-4 py-2 text-sm font-semibold transition-all duration-300 ${
                   activeFilter === role 
-                    ? (isDark ? 'bg-[var(--bg-pill-selected)] text-[var(--text-pill-selected)] shadow-[0_0_8px_rgba(74,222,128,0.3)] border-none' : 'bg-[#2d5a27] text-white shadow-lg shadow-green-500/20')
-                    : (isDark ? 'bg-[var(--bg-pill-default)] text-[var(--text-pill-default)] border border-[var(--border-default)] hover:border-[var(--border-active)]' : 'bg-white text-slate-600 border border-[#c8d5b9] hover:border-[#2d5a27]')
+                    ? (isDark ? 'bg-[var(--bg-pill-selected)] text-[var(--text-pill-selected)] shadow-[0_0_8px_rgba(0,255,163,0.3)] border-none' : 'bg-primary text-white shadow-lg shadow-primary/20')
+                    : (isDark ? 'bg-[var(--bg-pill-default)] text-[var(--text-pill-default)] border border-[var(--border-default)] hover:border-[var(--border-active)]' : 'bg-white text-slate-600 border border-slate-800 hover:border-[#2d5a27]')
                 }`}
                 style={isDark ? { borderRadius: '2px', fontFamily: "'Courier New', monospace", textTransform: 'uppercase' } : { borderRadius: '9999px' }}
                 whileHover={{ y: -1 }}
@@ -145,7 +148,7 @@ const HistoryPage = () => {
                 <p className="text-slate-500 font-mono text-sm mb-6">$ no sessions found in this category</p>
                 <motion.button 
                   onClick={() => navigate('/home')}
-                  className="bg-[#2d5a27] text-white px-6 py-2 rounded-xl font-bold shadow-lg"
+                  className="bg-primary text-black px-6 py-2 rounded-xl font-bold shadow-lg"
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -156,17 +159,17 @@ const HistoryPage = () => {
               filtered.map((session, idx) => (
                 <motion.div 
                   key={session.id}
-                  className="bg-white dark:bg-[#000000] border border-[#c8d5b9] dark:border-[#4a6044] rounded-xl p-5 md:p-6 flex items-center justify-between cursor-pointer"
+                  className="bg-white dark:bg-[#000000] border border-slate-800 rounded-xl p-5 md:p-6 flex items-center justify-between cursor-pointer"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ delay: idx * 0.05 }}
-                  whileHover={{ y: -3, shadow: "0 10px 25px -5px rgba(0, 0, 0, 0.05)", borderColor: 'rgba(45, 90, 39, 0.3)' }}
+                  whileHover={{ x: 5, shadow: "0 0 15px rgba(0, 255, 163, 0.4)", borderColor: isDark ? 'rgba(0, 255, 163, 0.4)' : 'rgba(45, 90, 39, 0.3)' }}
                   onClick={() => {/* Expand details logic */}}
                 >
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-1">
-                      <h3 className="font-headline font-bold text-lg md:text-xl text-[#1a3d16] dark:text-[#00ffa3]">
+                      <h3 className="font-headline font-bold text-lg md:text-xl text-white">
                         {session.jobRole || 'General Interview'}
                       </h3>
                       <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${
@@ -203,7 +206,7 @@ const HistoryPage = () => {
       {/* Mobile Bottom Nav */}
       <div className="md:hidden h-20"></div>
       <div 
-        className={`md:hidden fixed bottom-0 left-0 right-0 h-16 backdrop-blur-md border-t flex justify-around items-center z-50 px-2 ${isDark ? 'bg-[rgba(0,0,0,0.8)] border-[#004d38]' : 'bg-white/90 border-[#d4e6d4]'}`}
+        className={`md:hidden fixed bottom-0 left-0 right-0 h-16 backdrop-blur-md border-t flex justify-around items-center z-50 px-2 ${isDark ? 'bg-[rgba(0,0,0,0.8)] border-slate-800' : 'bg-[#0f172a]/90 border-slate-700'}`}
         style={isDark ? { backdropFilter: 'blur(10px)' } : {}}
       >
         {[
@@ -217,7 +220,7 @@ const HistoryPage = () => {
             <motion.div 
               key={item.path}
               onClick={() => navigate(item.path)}
-              className={`flex flex-col items-center justify-center w-full h-full cursor-pointer transition-colors ${isActive ? (isDark ? 'text-[#00ffa3]' : 'text-[#2d5a2d]') : (isDark ? 'text-[#006b4a] hover:text-[#00ffa3]' : 'text-slate-400 hover:text-slate-600')}`}
+              className={`flex flex-col items-center justify-center w-full h-full cursor-pointer transition-colors ${isActive ? (isDark ? 'text-white' : 'text-[#2d5a2d]') : (isDark ? 'text-slate-500 hover:text-primary' : 'text-slate-400 hover:text-slate-600')}`}
               whileTap={{ scale: 0.9 }}
             >
               <span className="material-symbols-outlined text-2xl" style={{fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0"}}>{item.icon}</span>

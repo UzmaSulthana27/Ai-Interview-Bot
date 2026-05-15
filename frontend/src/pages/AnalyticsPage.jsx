@@ -36,10 +36,10 @@ const AnalyticsPage = () => {
 
   if (loading) {
     return (
-      <div className={`min-h-screen flex items-center justify-center ${isDark ? 'bg-[#000000]' : 'bg-[#f5f5f0]'}`}>
+      <div className={`min-h-screen flex items-center justify-center ${isDark ? 'bg-[#080808]' : 'bg-[#0f172a]'}`}>
         <div className="text-center">
-          <div className={`w-16 h-16 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4 ${isDark ? 'border-[#00ffa3]' : 'border-[#2d5a27]'}`}></div>
-          <p className={`transition-colors duration-300 ${isDark ? 'text-[#00ffa3] font-mono' : 'text-[#1a3d16]'}`}>{isDark ? 'LOADING_ANALYTICS...' : 'Loading analytics...'}</p>
+          <div className={`w-16 h-16 border-4 border-t-transparent rounded-full animate-spin mx-auto mb-4 ${isDark ? 'border-primary' : 'border-[#00ffa3]'}`}></div>
+          <p className={`transition-colors duration-300 ${isDark ? 'text-slate-400' : 'text-white'}`}>{isDark ? 'LOADING_ANALYTICS...' : 'Loading analytics...'}</p>
         </div>
       </div>
     );
@@ -47,7 +47,7 @@ const AnalyticsPage = () => {
 
   return (
     <motion.div 
-      className={`min-h-screen transition-colors duration-300 ${isDark ? 'bg-[#000000]' : 'bg-[#f5f5f0]'}`}
+      className={`min-h-screen transition-colors duration-300 ${isDark ? 'bg-black' : 'bg-[#0f172a]'}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
@@ -59,24 +59,24 @@ const AnalyticsPage = () => {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="mb-12">
-            <h1 className={`font-headline text-3xl md:text-4xl font-extrabold mb-2 transition-colors duration-300 ${isDark ? 'text-[#00ffa3] font-mono uppercase tracking-widest' : 'text-[#1a3d16]'}`}>
-              {isDark ? '> Performance Analytics' : 'Performance Analytics'}
+            <h1 className={`font-headline text-3xl md:text-4xl font-extrabold mb-2 transition-colors duration-300 ${isDark ? 'text-white' : 'text-white'}`}>
+              Performance Analytics
             </h1>
-            <p className={`transition-colors duration-300 ${isDark ? 'text-[#006b4a] font-mono' : 'text-[#2d5a27]'}`}>
+            <p className={`transition-colors duration-300 ${isDark ? 'text-slate-400' : 'text-slate-300'}`}>
               Track your interview preparation progress and identify areas for improvement
             </p>
           </div>
 
           {/* Overall Score */}
-          <Card padding="large" className={`mb-8 ${isDark ? 'bg-[#000000] border-[#00ffa3] shadow-[0_0_20px_rgba(0,255,163,0.15)]' : 'bg-gradient-to-br from-[#1a3d16] to-[#2d5a27]'}`}>
-            <div className={`text-center ${isDark ? 'text-[#00ffa3]' : 'text-white'}`}>
-              <p className={`text-sm uppercase tracking-wider mb-2 ${isDark ? 'font-mono' : 'opacity-80'}`}>
+          <Card padding="large" className={`mb-8 ${isDark ? 'bg-[#050505] border-slate-800 shadow-xl' : 'bg-slate-800 text-white'}`}>
+            <div className="text-center text-white">
+              <p className={`text-sm uppercase tracking-wider mb-2 ${isDark ? 'text-slate-400' : 'text-slate-300'}`}>
                 Overall Performance Score
               </p>
-              <p className={`font-headline text-6xl font-extrabold mb-4 ${isDark ? 'font-mono text-shadow-[0_0_10px_rgba(0,255,163,0.5)]' : ''}`}>
+              <p className="font-headline text-6xl font-extrabold mb-4">
                 {metrics?.overallScore || 0}%
               </p>
-              <p className={isDark ? 'font-mono text-[#006b4a]' : 'opacity-90'}>
+              <p className={isDark ? 'text-slate-500' : 'text-slate-400'}>
                 Based on {metrics?.totalInterviews || 0} completed interviews
               </p>
             </div>
@@ -84,15 +84,15 @@ const AnalyticsPage = () => {
 
           {/* Skill Breakdown */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <Card padding="large" className={isDark ? 'bg-[#0d0d0d] border-[#004d38]' : 'bg-white border-[#c8d5b9]'}>
-              <h3 className={`font-headline text-xl font-bold mb-6 ${isDark ? 'text-[#00ffa3] font-mono uppercase' : 'text-[#1a3d16]'}`}>
-                {isDark ? '> Skills Breakdown' : 'Skills Breakdown'}
+            <Card padding="large" className={isDark ? 'bg-[#050505] border-slate-800' : 'bg-slate-800 border-slate-700'}>
+              <h3 className={`font-headline text-xl font-bold mb-6 ${isDark ? 'text-white' : 'text-white'}`}>
+                Skills Breakdown
               </h3>
               <div className="space-y-4">
                 {metrics?.skillScores?.map((skill, index) => (
                   <ProgressBar
                     key={index}
-                    label={isDark ? skill.name.toUpperCase() : skill.name}
+                    label={skill.name.toUpperCase()}
                     value={skill.score}
                     variant="primary"
                     showLabel
@@ -101,27 +101,27 @@ const AnalyticsPage = () => {
               </div>
             </Card>
 
-            <Card padding="large" className={isDark ? 'bg-[#0d0d0d] border-[#004d38]' : 'bg-white border-[#c8d5b9]'}>
-              <h3 className={`font-headline text-xl font-bold mb-6 ${isDark ? 'text-[#00ffa3] font-mono uppercase' : 'text-[#1a3d16]'}`}>
-                {isDark ? '> Interview Types' : 'Interview Types'}
+            <Card padding="large" className={isDark ? 'bg-[#0a0a0a] border-[#1e293b]' : 'bg-slate-800 border-slate-700'}>
+              <h3 className={`font-headline text-xl font-bold mb-6 ${isDark ? 'text-white' : 'text-white'}`}>
+                Interview Types
               </h3>
               <div className="space-y-4">
                 {metrics?.interviewTypes?.map((type, index) => (
-                  <div key={index} className={`flex items-center justify-between p-4 rounded-xl border transition-all ${isDark ? 'bg-[#000000] border-[#004d38] hover:border-[#00ffa3]' : 'bg-slate-50 border-slate-200 hover:border-[#00ffa3]'}`} style={isDark ? { borderRadius: '3px' } : {}}>
+                  <div key={index} className={`flex items-center justify-between p-4 rounded-xl border transition-all ${isDark ? 'bg-[#000000] border-slate-800 hover:border-primary hover:bg-primary/5' : 'bg-slate-700/50 border-slate-600 hover:border-[#00ffa3] hover:shadow-[0_0_10px_rgba(0,255,163,0.2)]'}`}>
                     <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 flex items-center justify-center shadow-lg ${isDark ? 'bg-[#002e26] border border-[#004d38] shadow-[#00ffa3]/10' : 'bg-[#1a3d16] rounded-full shadow-[#2d5a27]/20'}`} style={isDark ? { borderRadius: '2px' } : {}}>
-                        <span className={`material-symbols-outlined text-sm ${isDark ? 'text-[#00ffa3]' : 'text-white'}`}>
+                      <div className={`w-10 h-10 flex items-center justify-center shadow-lg ${isDark ? 'bg-primary/10 border border-primary/20' : 'bg-slate-600 rounded-full'}`}>
+                        <span className={`material-symbols-outlined text-sm text-white`}>
                           {type.icon}
                         </span>
                       </div>
                       <div>
-                        <p className={`font-label font-bold ${isDark ? 'text-[#00ffa3] font-mono uppercase tracking-wider' : 'text-[#1a3d16]'}`}>{type.name}</p>
-                        <p className={`text-sm transition-colors duration-300 ${isDark ? 'text-[#006b4a] font-mono' : 'text-slate-600'}`}>
+                        <p className={`font-label font-bold text-white uppercase tracking-wider`}>{type.name}</p>
+                        <p className={`text-sm text-slate-400 font-mono`}>
                           {type.count} sessions
                         </p>
                       </div>
                     </div>
-                    <span className={`text-2xl font-headline font-bold ${isDark ? 'text-[#00ffa3] font-mono' : 'text-[#2d5a27]'}`}>
+                    <span className={`text-2xl font-headline font-bold text-white font-mono`}>
                       {type.avgScore}%
                     </span>
                   </div>
@@ -131,9 +131,9 @@ const AnalyticsPage = () => {
           </div>
 
           {/* Recent Sessions */}
-          <Card padding="large" className={isDark ? 'bg-[#0d0d0d] border-[#004d38]' : 'bg-white border-[#c8d5b9]'}>
-            <h3 className={`font-headline text-xl font-bold mb-6 ${isDark ? 'text-[#00ffa3] font-mono uppercase' : 'text-[#1a3d16]'}`}>
-              {isDark ? '> Recent Sessions' : 'Recent Sessions'}
+          <Card padding="large" className={isDark ? 'bg-[#0a0a0a] border-[#1e293b]' : 'bg-slate-800 border-slate-700'}>
+            <h3 className={`font-headline text-xl font-bold mb-6 ${isDark ? 'text-white' : 'text-white'}`}>
+              Recent Sessions
             </h3>
             <div className="space-y-3">
               {metrics?.recentSessions?.map((session, index) => (
@@ -151,17 +151,17 @@ const AnalyticsPage = () => {
 
 const SessionCard = ({ session, isDark }) => {
   return (
-    <div className={`flex items-center justify-between p-4 rounded-xl border transition-all ${isDark ? 'bg-[#000000] border-[#004d38] hover:border-[#00ffa3]' : 'bg-slate-50 border-slate-200 hover:border-[#2d5a27]'}`} style={isDark ? { borderRadius: '3px' } : {}}>
+    <div className={`flex items-center justify-between p-4 rounded-xl border transition-all ${isDark ? 'bg-[#000000] border-slate-800 hover:border-primary hover:bg-primary/5' : 'bg-slate-700/50 border-slate-600 hover:border-[#00ffa3] hover:shadow-[0_0_10px_rgba(0,255,163,0.2)]'}`}>
       <div className="flex items-center gap-4">
         <div className={`w-12 h-12 flex items-center justify-center ${
-          session.score >= 80 ? (isDark ? 'bg-[#004d38]' : 'bg-[#002e26]') :
-          session.score >= 60 ? (isDark ? 'bg-[#3d3d00]' : 'bg-[#fffbeb]') :
-          (isDark ? 'bg-[#3d0000]' : 'bg-red-50')
-        }`} style={isDark ? { borderRadius: '2px' } : { borderRadius: '0.75rem' }}>
+          session.score >= 80 ? 'bg-emerald-900/30' :
+          session.score >= 60 ? 'bg-amber-900/30' :
+          'bg-red-900/30'
+        }`} style={{ borderRadius: '0.75rem' }}>
           <span className={`material-symbols-outlined ${
-            session.score >= 80 ? (isDark ? 'text-[#00ffa3]' : 'text-[#2d5a27]') :
-            session.score >= 60 ? (isDark ? 'text-[#ffbd2e]' : 'text-[#b45309]') :
-            (isDark ? 'text-[#ff6b6b]' : 'text-[#b91c1c]')
+            session.score >= 80 ? 'text-[#00ffa3]' :
+            session.score >= 60 ? 'text-amber-400' :
+            'text-red-400'
           }`} style={{fontVariationSettings: "'FILL' 1"}}>
             {session.score >= 80 ? 'emoji_events' :
              session.score >= 60 ? 'trending_up' :
@@ -169,15 +169,15 @@ const SessionCard = ({ session, isDark }) => {
           </span>
         </div>
         <div>
-          <p className={`font-headline font-bold ${isDark ? 'text-[#00ffa3] font-mono' : 'text-[#1a3d16]'}`}>{session.title}</p>
-          <p className={`text-sm transition-colors duration-300 ${isDark ? 'text-[#006b4a] font-mono' : 'text-slate-600'}`}>{session.date}</p>
+          <p className={`font-headline font-bold ${isDark ? 'text-white' : 'text-white'}`}>{session.title}</p>
+          <p className={`text-sm transition-colors duration-300 ${isDark ? 'text-slate-500 font-mono' : 'text-slate-600'}`}>{session.date}</p>
         </div>
       </div>
       <div className="text-right">
-        <p className={`font-headline text-2xl font-bold ${isDark ? 'text-[#00ffa3] font-mono' : 'text-[#2d5a27]'}`}>
+        <p className={`font-headline text-2xl font-bold ${isDark ? 'text-white' : 'text-primary'}`}>
           {session.score}%
         </p>
-        <p className={`text-xs transition-colors duration-300 ${isDark ? 'text-[#006b4a] font-mono' : 'text-slate-600'}`}>{session.duration}</p>
+        <p className={`text-xs transition-colors duration-300 ${isDark ? 'text-slate-500 font-mono' : 'text-slate-600'}`}>{session.duration}</p>
       </div>
     </div>
   );

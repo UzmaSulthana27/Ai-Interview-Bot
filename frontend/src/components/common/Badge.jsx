@@ -11,13 +11,13 @@ const Badge = ({
   const baseStyles = "inline-flex items-center gap-1 font-label font-bold";
   
   const variants = {
-    primary: "bg-[#e8f0e0] text-[#2d5a27] border-0.5px border-[#c8d5b9]",
-    secondary: "bg-[#e8f0e0] text-[#5a8a52] border-0.5px border-[#c8d5b9]",
-    tertiary: "bg-[#f0f5ec] text-[#2d5a27]",
-    success: "bg-[#f0f5ec] text-[#2d5a27] border-0.5px border-[#c8d5b9]",
+    primary: "bg-[#e8f0e0] text-primary border-0.5px border-slate-800",
+    secondary: "bg-[#e8f0e0] text-[#5a8a52] border-0.5px border-slate-800",
+    tertiary: "bg-[#f0f5ec] text-primary",
+    success: "bg-[#f0f5ec] text-primary border-0.5px border-slate-800",
     warning: "bg-[#fff8e8] text-[#7a5c00] border-0.5px border-[#e8c84a]",
     error: "bg-[#fff5f0] text-[#cc3300] border-0.5px border-[#ffccbb]",
-    neutral: "bg-white dark:bg-[#1a1a1a] text-[#1a3d16] dark:text-[#4ade80] border-0.5px border-[#c8d5b9]",
+    neutral: "bg-white dark:bg-[#1a1a1a] text-white dark:text-[#4ade80] border-0.5px border-slate-800",
     gradient: "bg-gradient-to-r from-[#1a3d16] to-[#2d5a27] text-[#f5f5f0]"
   };
   

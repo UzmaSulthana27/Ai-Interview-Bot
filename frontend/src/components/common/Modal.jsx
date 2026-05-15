@@ -52,7 +52,7 @@ const Modal = ({
       `}>
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-slate-300 dark:border-slate-700 transition-colors duration-300">
-          <h2 className="font-headline text-2xl font-bold text-[#1a3d16] dark:text-[#4ade80] transition-colors duration-300">
+          <h2 className="font-headline text-2xl font-bold text-white dark:text-[#4ade80] transition-colors duration-300">
             {title}
           </h2>
           {showCloseButton && (
@@ -60,7 +60,7 @@ const Modal = ({
               onClick={onClose}
               className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
             >
-              <span className="material-symbols-outlined text-[#1a3d16] dark:text-[#166534] transition-colors duration-300">close</span>
+              <span className="material-symbols-outlined text-white dark:text-[#166534] transition-colors duration-300">close</span>
             </button>
           )}
         </div>

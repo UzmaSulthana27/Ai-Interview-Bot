@@ -122,11 +122,11 @@ const SignupPage = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#00ffa3]/10 border border-[#00ffa3]/20 rounded-2xl mb-4 shadow-lg shadow-[#00ffa3]/5">
-            <span className="material-symbols-outlined text-[#00ffa3] text-2xl">person_add</span>
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-white/5 border border-slate-800 rounded-2xl mb-4 shadow-lg shadow-black/20 hover:border-primary transition-all group">
+            <span className="material-symbols-outlined text-white group-hover:text-primary text-2xl transition-colors">person_add</span>
           </div>
-          <h1 className="font-headline text-3xl font-bold text-[#1a3d16] dark:text-[#00ffa3] transition-colors duration-300">
-            Create Account
+          <h1 className="font-headline text-3xl font-bold text-white transition-colors duration-300">
+            Join Astra AI
           </h1>
           <p className="text-slate-600 dark:text-slate-400 mt-2 transition-colors duration-300">
             Start your interview preparation journey
@@ -310,9 +310,9 @@ const SignupPage = () => {
               />
               <label htmlFor="terms" className="text-sm text-slate-600 dark:text-slate-400 cursor-pointer transition-colors duration-300">
                 I agree to the{' '}
-                <Link to="/terms" className="text-[#2d5a27] dark:text-[#00ffa3] hover:underline font-medium">Terms of Service</Link>
+                <Link to="/terms" className="text-primary hover:underline font-medium">Terms of Service</Link>
                 {' '}and{' '}
-                <Link to="/privacy" className="text-[#2d5a27] dark:text-[#00ffa3] hover:underline font-medium">Privacy Policy</Link>
+                <Link to="/privacy" className="text-primary hover:underline font-medium">Privacy Policy</Link>
               </label>
             </motion.div>
             {errors.terms && <p className="text-red-600 dark:text-red-400 text-sm -mt-2">{errors.terms}</p>}

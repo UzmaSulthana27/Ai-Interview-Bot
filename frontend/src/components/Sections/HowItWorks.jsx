@@ -32,7 +32,7 @@ const HowItWorks = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="font-headline text-3xl md:text-4xl font-extrabold mb-6 tracking-tight text-[#1a3d16] dark:text-[#00ffa3] transition-colors duration-300">
+            <h2 className="font-headline text-3xl md:text-4xl font-extrabold mb-6 tracking-tight text-white transition-colors duration-300">
               The Astra AI Architecture
             </h2>
             <p className="text-[#6b7c63] dark:text-slate-400 mb-8 transition-colors duration-300 leading-relaxed">
@@ -40,7 +40,7 @@ const HowItWorks = () => {
               of AI into a focused journey.
             </p>
             <motion.button 
-              className="flex items-center gap-2 text-[#2d5a27] dark:text-[#00ffa3] font-bold group cursor-pointer w-full md:w-auto"
+              className="flex items-center gap-2 text-primary dark:text-slate-400 hover:text-primary font-bold group cursor-pointer w-full md:w-auto"
               whileHover={{ x: 5 }}
             >
               Explore the Platform
@@ -55,7 +55,7 @@ const HowItWorks = () => {
             {/* Connecting line */}
             <div className="hidden md:block absolute left-[23px] top-10 bottom-10 w-0.5 bg-[#e8f0e0] dark:bg-[#0a0a0a] z-0 overflow-hidden">
                <motion.div 
-                className="w-full h-full bg-[#2d5a27] origin-top"
+                className="w-full h-full bg-primary origin-top"
                 initial={{ scaleY: 0 }}
                 whileInView={{ scaleY: 1 }}
                 viewport={{ once: true }}
@@ -74,13 +74,13 @@ const HowItWorks = () => {
                 whileHover={{ y: -5, boxShadow: "0 20px 25px -5px rgba(45, 90, 39, 0.1)" }}
               >
                 <motion.div 
-                  className="flex-none w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-[#2d5a27] dark:border-[#00ffa3] text-[#2d5a27] dark:text-[#00ffa3] font-headline font-extrabold flex items-center justify-center text-lg md:text-xl transition-all shadow-lg bg-white dark:bg-[#000000]"
-                  whileHover={{ scale: 1.1, backgroundColor: 'rgba(45, 90, 39, 0.1)' }}
+                  className="flex-none w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-[#2d5a27] dark:border-slate-800 text-primary dark:text-slate-200 font-headline font-extrabold flex items-center justify-center text-lg md:text-xl transition-all shadow-lg bg-white dark:bg-[#050505] group-hover:border-primary group-hover:text-primary"
+                  whileHover={{ scale: 1.1 }}
                 >
                   {step.number}
                 </motion.div>
                 <div className="pt-1 md:pt-2 flex-1">
-                  <h4 className="font-headline text-xl md:text-2xl font-bold mb-2 md:mb-3 text-[#1a3d16] dark:text-[#00ffa3]">
+                  <h4 className="font-headline text-xl md:text-2xl font-bold mb-2 md:mb-3 text-white group-hover:text-primary transition-colors">
                     {step.title}
                   </h4>
                   <p className="text-sm md:text-base text-[#6b7c63] dark:text-slate-400 leading-relaxed transition-colors duration-300">

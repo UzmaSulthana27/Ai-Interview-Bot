@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.interviewbot.backend.respository.SessionRepository;
-import com.interviewbot.backend.respository.UserRepository;
+import com.interviewbot.backend.repository.SessionRepository;
+import com.interviewbot.backend.repository.UserRepository;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -48,7 +48,7 @@ public class HealthController {
     }
 
     @Autowired
-    private com.interviewbot.backend.respository.QARepository qaRepository;
+    private com.interviewbot.backend.repository.QARepository qaRepository;
 
     @GetMapping("/admin/clear-db")
     public ResponseEntity<?> clearDb() {

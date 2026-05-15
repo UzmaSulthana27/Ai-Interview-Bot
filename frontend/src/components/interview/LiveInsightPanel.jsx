@@ -12,7 +12,7 @@ const LiveInsightPanel = ({ metrics }) => {
             </span>
           </div>
           <div>
-            <p className="text-[10px] uppercase tracking-wider font-bold text-[#2d5a27]">
+            <p className="text-[10px] uppercase tracking-wider font-bold text-primary">
               Live Insight
             </p>
             <p className="font-headline font-bold text-on-surface">
@@ -27,7 +27,7 @@ const LiveInsightPanel = ({ metrics }) => {
             <span className="text-sm font-label text-on-surface">
               Confidence Score
             </span>
-            <span className="text-sm font-bold text-[#2d5a27]">
+            <span className="text-sm font-bold text-primary">
               {metrics.confidenceScore}%
             </span>
           </div>

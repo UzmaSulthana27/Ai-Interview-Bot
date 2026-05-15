@@ -61,8 +61,8 @@ const Input = ({
             disabled:cursor-not-allowed
             transition-all duration-200
             ${isDark 
-              ? 'bg-[#0d0d0d] border border-[#14532d] text-[#4ade80] placeholder:text-[#166534] focus:border-[#4ade80] focus:ring-0 focus:shadow-[0_0_0_3px_rgba(74,222,128,0.1),0_0_12px_rgba(74,222,128,0.15)] font-mono tracking-[1px]'
-              : 'bg-white border-[#c8d5b9] border rounded-xl text-[#1a3d16] placeholder:text-[#6b7c63] focus:border-[#2d5a27] focus:ring-2 focus:ring-[#2d5a27]/10'
+              ? 'bg-[#0d0d0d] border border-[#14532d] text-[#00ffa3] placeholder:text-[#166534] focus:border-[#00ffa3] focus:ring-0 focus:shadow-[0_0_0_3px_rgba(0,255,163,0.1),0_0_12px_rgba(0,255,163,0.15)] font-mono tracking-[1px]'
+              : 'bg-white border-slate-800 border rounded-xl text-white placeholder:text-[#6b7c63] focus:border-[#2d5a27] focus:ring-2 focus:ring-[#2d5a27]/10'
             }
           `}
           style={isDark ? { borderRadius: '3px' } : {}}

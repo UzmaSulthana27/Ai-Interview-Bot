@@ -26,7 +26,7 @@ const InterviewFeedback = ({ feedback }) => {
 
   return (
     <div className="space-y-6">
-      <Card padding="large" className="text-[#1a3d16] dark:text-[#4ade80] relative">
+      <Card padding="large" className="text-white dark:text-[#4ade80] relative">
         {scoreNum !== null && (
           <div className="absolute top-6 right-6">
             <span className={`px-3 py-1 rounded-full text-sm font-bold ${badgeColorClass}`}>
@@ -36,7 +36,7 @@ const InterviewFeedback = ({ feedback }) => {
         )}
         
         <div className="flex items-center gap-3 mb-4">
-          <span className="material-symbols-outlined text-[#2d5a27]" 
+          <span className="material-symbols-outlined text-primary" 
                 style={{fontVariationSettings: "'FILL' 1"}}>
             auto_awesome
           </span>

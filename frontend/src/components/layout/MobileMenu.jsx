@@ -17,42 +17,42 @@ const MobileMenu = ({ isOpen, onClose }) => {
         <nav className="px-6 py-4 space-y-2">
           <Link 
             to="/dashboard"
-            className="block px-4 py-3 rounded-lg text-[#2d5a27] dark:text-[#c8e6c0] font-bold bg-[#e8f0e0] dark:bg-[#0d3d1a]"
+            className="block px-4 py-3 rounded-lg text-primary dark:text-[#c8e6c0] font-bold bg-[#e8f0e0] dark:bg-[#0d3d1a]"
             onClick={onClose}
           >
             Dashboard
           </Link>
           <Link 
             to="/interviews"
-            className="block px-4 py-3 rounded-lg text-[#1a3d16] dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+            className="block px-4 py-3 rounded-lg text-white dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
             onClick={onClose}
           >
             Interviews
           </Link>
           <Link 
             to="/resume"
-            className="block px-4 py-3 rounded-lg text-[#1a3d16] dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+            className="block px-4 py-3 rounded-lg text-white dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
             onClick={onClose}
           >
             Resume
           </Link>
           <Link 
             to="/analytics"
-            className="block px-4 py-3 rounded-lg text-[#1a3d16] dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+            className="block px-4 py-3 rounded-lg text-white dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
             onClick={onClose}
           >
             Analytics
           </Link>
           <Link 
             to="/settings"
-            className="block px-4 py-3 rounded-lg text-[#1a3d16] dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
+            className="block px-4 py-3 rounded-lg text-white dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors"
             onClick={onClose}
           >
             Settings
           </Link>
           
           <div className="pt-4 border-t border-outline-variant/20">
-            <button className="w-full bg-[#2d5a27] text-white px-5 py-3 rounded-xl font-label text-sm font-semibold hover:bg-[#1a3d16] transition-colors">
+            <button className="w-full bg-primary text-white px-5 py-3 rounded-xl font-label text-sm font-semibold hover:bg-primary/20 transition-colors">
               Start Free Trial
             </button>
           </div>

@@ -16,7 +16,7 @@ const Select = ({
   return (
     <div className={`${fullWidth ? 'w-full' : ''} ${className}`}>
       {label && (
-        <label className="block text-sm font-label font-semibold text-[#1a3d16] dark:text-[#166534] mb-2 transition-colors duration-300">
+        <label className="block text-sm font-label font-semibold text-white dark:text-[#166534] mb-2 transition-colors duration-300">
           {label}
           {required && <span className="text-[#cc3300] dark:text-[#cc3300] ml-1">*</span>}
         </label>
@@ -32,9 +32,9 @@ const Select = ({
             pl-4 pr-10 py-3
             bg-white dark:bg-[#1a1a1a]
             border-0.5px
-            ${error ? 'border-[#cc3300] dark:border-[#cc3300]' : 'border-[#c8d5b9] dark:border-[#4a6044]'}
+            ${error ? 'border-[#cc3300] dark:border-[#cc3300]' : 'border-slate-800 dark:border-[#4a6044]'}
             rounded-xl
-            text-[#1a3d16] dark:text-[#4ade80]
+            text-white dark:text-[#4ade80]
             focus:outline-none
             focus:border-[#2d5a27]
             ${error ? 'focus:ring-2 focus:ring-[#cc3300]/20 dark:focus:ring-[#cc3300]/30' : 'focus:ring-2 focus:ring-[#2d5a27]/10 dark:focus:ring-[#2d5a27]/30'}

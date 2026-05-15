@@ -27,7 +27,7 @@ const ScanlineOverlay = () => {
       position: 'fixed',
       top: 0, left: 0,
       right: 0, bottom: 0,
-      background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(74,222,128,0.015) 2px, rgba(74,222,128,0.015) 4px)',
+      background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,163,0.015) 2px, rgba(0,255,163,0.015) 4px)',
       pointerEvents: 'none',
       zIndex: 9999,
     }} />

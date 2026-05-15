@@ -62,7 +62,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="bg-[#f5f5f0] dark:bg-[#000000] text-[#1a3d16] dark:text-[#00ffa3] font-body transition-colors duration-300">
+    <div className="bg-[#f5f5f0] dark:bg-[#000000] text-white dark:text-[#00ffa3] font-body transition-colors duration-300">
       <TopNavBar 
         onLoginClick={openLoginModal} 
         onSignupClick={openSignupModal} 

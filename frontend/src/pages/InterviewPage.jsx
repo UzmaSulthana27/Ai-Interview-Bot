@@ -300,7 +300,7 @@ const InterviewPage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
               >
-                <h1 className="font-headline text-3xl font-extrabold mb-8 text-[#1a3d16] dark:text-[#00ffa3] text-center">
+                <h1 className="font-headline text-3xl font-extrabold mb-8 text-white text-center">
                   Select Your Role
                 </h1>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
@@ -308,12 +308,12 @@ const InterviewPage = () => {
                     <motion.div
                       key={role.id}
                       onClick={() => { setSelectedRole(role); setConfigStep(2); }}
-                      className="border border-[#c8d5b9] dark:border-[#4a6044] bg-white dark:bg-[#000000] rounded-2xl p-6 cursor-pointer flex flex-col items-center text-center transition-all hover:border-primary dark:hover:border-[#00ffa3] hover:shadow-lg"
+                      className="border border-slate-800 bg-white dark:bg-[#000000] rounded-2xl p-6 cursor-pointer flex flex-col items-center text-center transition-all hover:border-[#2d5a27] dark:hover:border-primary hover:shadow-lg"
                       whileHover={{ y: -5 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <span className="text-3xl block mb-2">{role.icon}</span>
-                      <span className="font-headline font-bold text-[#1a3d16] dark:text-[#00ffa3] text-sm" style={isDark ? { fontFamily: "'Courier New', monospace" } : {}}>
+                      <span className="font-headline font-bold text-white text-sm" style={isDark ? { fontFamily: "'Courier New', monospace" } : {}}>
                         {isDark ? role.name.toUpperCase().replace(/\s+/g, '_') : role.name}
                       </span>
                     </motion.div>
@@ -334,12 +334,17 @@ const InterviewPage = () => {
                   <button onClick={() => setConfigStep(1)} className="p-2 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-colors">
                     <span className="material-symbols-outlined text-slate-600 dark:text-slate-400">arrow_back</span>
                   </button>
-                  <h1 className="font-headline text-3xl font-extrabold text-[#1a3d16] dark:text-[#00ffa3]">Configure Interview</h1>
+                  <div className="flex items-center gap-3">
+                    <span className="font-headline font-bold text-white dark:text-slate-400 text-sm">
+                      {configStep === 1 ? 'STEP_01' : configStep === 2 ? 'STEP_02' : 'STEP_03'}
+                    </span>
+                  </div>
+                  <h1 className="font-headline text-3xl font-extrabold text-white">Configure Interview</h1>
                 </div>
 
-                <div className="bg-white dark:bg-[#000000] border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-xl space-y-8">
+                <div className="bg-white dark:bg-[#050505] border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-xl space-y-8">
                   <div>
-                    <h3 className="font-headline font-bold text-[#1a3d16] dark:text-[#00ffa3] mb-4">Difficulty Level</h3>
+                    <h3 className="font-headline font-bold text-white mb-4">Difficulty Level</h3>
                     <div className="flex gap-3">
                       {['Easy', 'Medium', 'Hard'].map(level => (
                         <button
@@ -347,8 +352,8 @@ const InterviewPage = () => {
                           onClick={() => setDifficulty(level)}
                           className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all ${
                             difficulty === level
-                              ? 'bg-primary dark:bg-[#00ffa3] dark:text-[#000000] text-white shadow-lg'
-                              : 'bg-slate-100 dark:bg-[#0a0a0a] text-slate-700 dark:text-[#006b4a] hover:bg-slate-200 dark:hover:bg-slate-700'
+                              ? 'bg-[#00ffa3] text-black shadow-lg'
+                              : 'bg-slate-100 dark:bg-[#0a0a0a] text-slate-700 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-primary'
                           }`}
                         >
                           {level}
@@ -358,19 +363,19 @@ const InterviewPage = () => {
                   </div>
 
                   <div>
-                    <h3 className="font-headline font-bold text-[#1a3d16] dark:text-[#00ffa3] mb-4">Interview Format</h3>
+                    <h3 className="font-headline font-bold text-white mb-4">Interview Format</h3>
                     <div className="flex gap-3">
                       {[
                         { id: 'QA', name: 'Q&A Text', icon: 'chat' },
-                        { id: 'MCQ', name: 'Multiple Choice', icon: 'list_alt' }
+                        { id: 'MCQ', name: 'Multiple Choice', icon: 'quiz' }
                       ].map(f => (
                         <button
                           key={f.id}
                           onClick={() => setFormat(f.id)}
                           className={`flex-1 py-4 px-6 rounded-xl font-bold text-sm transition-all flex flex-col items-center gap-2 ${
                             format === f.id
-                              ? 'bg-primary dark:bg-[#00ffa3] dark:text-[#000000] text-white shadow-lg border-2 border-primary'
-                              : 'bg-slate-100 dark:bg-[#0a0a0a] text-slate-700 dark:text-[#006b4a] border-2 border-transparent'
+                              ? 'bg-primary text-black shadow-lg border-2 border-primary'
+                              : 'bg-slate-100 dark:bg-[#0a0a0a] text-slate-400 border-2 border-transparent hover:text-primary'
                           }`}
                         >
                           <span className="material-symbols-outlined">{f.icon}</span>
@@ -380,36 +385,34 @@ const InterviewPage = () => {
                     </div>
                   </div>
 
-                  {/* Resume Toggle - Moved above button for better visibility */}
                   <div className="pt-6 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-[#002e26] dark:bg-[#002e26] flex items-center justify-center text-[#2d5a27] dark:text-[#00ffa3]">
+                      <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-[#0f172a] flex items-center justify-center text-primary dark:text-slate-400">
                         <span className="material-symbols-outlined">psychology</span>
                       </div>
                       <div>
-                        <p className="font-bold text-[#1a3d16] dark:text-[#00ffa3] text-sm">Resume Personalization</p>
+                        <p className="font-bold text-white text-sm">Resume Personalization</p>
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-bold">Tailor questions to your experience</p>
                       </div>
                     </div>
                     <button 
                       onClick={() => setUseResume(!useResume)}
-                      className={`relative w-12 h-6 rounded-full transition-colors flex items-center ${useResume ? 'bg-[#2d5a27]' : 'bg-slate-300 dark:bg-[#1a1a1a]'}`}
+                      className={`w-12 h-6 rounded-full transition-all relative ${useResume ? 'bg-primary' : 'bg-slate-300 dark:bg-slate-700'}`}
                     >
                       <motion.div 
-                        className="absolute left-1 w-4 h-4 bg-white rounded-full shadow-sm"
+                        className="absolute top-1 left-1 w-4 h-4 rounded-full bg-white shadow-sm"
                         animate={{ x: useResume ? 24 : 0 }}
-                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
                       />
                     </button>
                   </div>
 
                   <motion.button
                     onClick={() => setConfigStep(3)}
-                    className="w-full bg-slate-900 dark:bg-[#00ffa3] dark:text-[#000000] text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all"
+                    className="w-full bg-[#000000] border border-slate-800 hover:border-primary text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:text-primary"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    Continue to Start Card →
+                    Generate First Question
                   </motion.button>
                 </div>
               </motion.div>
@@ -418,34 +421,34 @@ const InterviewPage = () => {
             {configStep === 3 && (
               <motion.div 
                 key="step3"
-                className="bg-white dark:bg-[#000000] border border-slate-200 dark:border-slate-800 rounded-3xl p-8 max-w-[560px] w-full mx-auto shadow-xl text-center"
+                className="bg-white dark:bg-[#050505] border border-slate-200 dark:border-slate-800 rounded-3xl p-8 max-w-[560px] w-full mx-auto shadow-xl text-center"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
               >
                 <div className="text-5xl mb-4">{selectedRole?.icon}</div>
-                <h1 className="text-3xl font-headline font-bold text-[#1a3d16] dark:text-[#00ffa3] mb-6">
+                <h1 className="text-3xl font-headline font-bold text-white mb-6">
                   {selectedRole?.name}
                 </h1>
                 
                 <div className="flex flex-wrap justify-center gap-2 mb-8">
-                  <span className="px-4 py-1.5 rounded-full bg-[#002e26] dark:bg-[#002e26]/30 text-[#2d5a27] dark:text-[#00ffa3] text-sm font-bold border border-[#c8d5b9] dark:border-[#4a6044]/50">
+                  <span className="px-4 py-1.5 rounded-full bg-slate-100 dark:bg-[#0a0a0a] text-white text-sm font-bold border border-slate-200 dark:border-slate-800">
                     Role: {selectedRole?.name}
                   </span>
-                  <span className="px-4 py-1.5 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 text-sm font-bold border border-orange-200 dark:border-orange-800/50">
+                  <span className="px-4 py-1.5 rounded-full bg-orange-100 dark:bg-[#0a0a0a] text-orange-700 dark:text-white text-sm font-bold border border-orange-200 dark:border-slate-800">
                     {difficulty}
                   </span>
-                  <span className="px-4 py-1.5 rounded-full bg-[#e8f0e0] dark:bg-blue-900/30 text-[#2d5a27] dark:text-blue-300 text-sm font-bold border border-[#c8d5b9] dark:border-[#004d38]/50">
+                  <span className="px-4 py-1.5 rounded-full bg-slate-100 dark:bg-[#0a0a0a] text-slate-700 dark:text-white text-sm font-bold border border-slate-200 dark:border-slate-800">
                     {format === 'MCQ' ? 'Multiple Choice' : 'Q&A Text'}
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-[#2d5a27] dark:text-slate-200 mb-6">
+                <h3 className="text-xl font-bold text-white mb-6">
                   Ready to begin your interview?
                 </h3>
 
                 <div className="bg-slate-50 dark:bg-[#0a0a0a]/50 rounded-xl p-6 text-left mb-8 border border-slate-100 dark:border-slate-700/50">
-                  <ul className="font-mono text-sm text-slate-700 dark:text-[#006b4a] space-y-2">
+                  <ul className="font-mono text-sm text-slate-700 dark:text-slate-400 space-y-2">
                     <li>✓ Read each question carefully</li>
                     <li>✓ Take your time to answer</li>
                     <li>✓ Questions: 10</li>
@@ -456,13 +459,13 @@ const InterviewPage = () => {
                   <motion.button
                     onClick={handleBeginInterview}
                     disabled={loading}
-                    className="w-full bg-[#2d5a27] dark:bg-[#1a3d16] text-white font-bold text-lg py-4 rounded-xl shadow-lg flex justify-center items-center gap-2"
-                    whileHover={{ y: -2 }}
+                    className="w-full bg-[#000000] border border-slate-800 hover:border-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg flex justify-center items-center gap-2 transition-all hover:text-primary"
+                    whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     {loading ? <Spinner /> : 'Begin Interview Session'}
                   </motion.button>
-                  <button onClick={() => setConfigStep(2)} className="text-slate-500 hover:text-[#2d5a27] text-sm font-bold">
+                  <button onClick={() => setConfigStep(2)} className="text-slate-500 hover:text-primary text-sm font-bold">
                     ← Back to Settings
                   </button>
                 </div>
@@ -486,14 +489,14 @@ const InterviewPage = () => {
           Session Complete!
         </motion.h2>
         <motion.div 
-          className="bg-slate-50 dark:bg-[#000000] border border-slate-200 dark:border-slate-800 p-8 rounded-2xl mb-8 text-center min-w-[300px]"
+          className="bg-slate-50 dark:bg-[#050505] border border-slate-200 dark:border-slate-800 p-8 rounded-2xl mb-8 text-center min-w-[300px]"
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
           <p className="text-slate-600 dark:text-slate-400 mb-2">Total Questions: {Math.min(qCount, 10)}</p>
           {format === 'MCQ' && (
-            <p className="text-2xl font-bold text-[#1a3d16] dark:text-white mt-4">
+            <p className="text-2xl font-bold text-white mt-4">
               Score: {correctCount}/{Math.min(qCount, 10)}
             </p>
           )}
@@ -502,7 +505,7 @@ const InterviewPage = () => {
         <div className="flex gap-4">
           <motion.button 
             onClick={() => navigate('/home')}
-            className="bg-slate-200 dark:bg-[#0a0a0a] text-[#2d5a27] dark:text-slate-200 px-6 py-3 rounded-xl font-bold"
+            className="bg-slate-200 dark:bg-[#0a0a0a] text-slate-700 dark:text-slate-200 px-6 py-3 rounded-xl font-bold"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -510,7 +513,7 @@ const InterviewPage = () => {
           </motion.button>
           <motion.button 
             onClick={() => navigate('/analytics')}
-            className="bg-[#2d5a27] text-white px-8 py-3 rounded-xl font-bold shadow-lg shadow-green-200 dark:shadow-green-900/40"
+            className="bg-primary text-white px-8 py-3 rounded-xl font-bold shadow-lg"
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -533,16 +536,16 @@ const InterviewPage = () => {
           >
             <div className="flex items-center gap-3 mb-2">
               <span className="text-2xl">{getRoleIcon(selectedRole?.name)}</span>
-              <h1 className="font-headline text-2xl md:text-3xl font-extrabold text-[#1a3d16] dark:text-[#00ffa3]">
+              <h1 className="font-headline text-2xl md:text-3xl font-extrabold text-white">
                 {selectedRole?.name ?? 'Interview'}
               </h1>
             </div>
             
             <div className="flex gap-2 mt-2 mb-3">
-              <span className="px-3 py-1 bg-slate-100 dark:bg-[#0a0a0a] text-slate-700 dark:text-[#006b4a] text-xs font-bold rounded-full border border-slate-200 dark:border-slate-700">
+              <span className="px-3 py-1 bg-slate-100 dark:bg-[#0f172a] text-slate-700 dark:text-slate-400 text-xs font-bold rounded-full border border-slate-200 dark:border-slate-700">
                 {difficulty}
               </span>
-              <span className="px-3 py-1 bg-[#002e26] dark:bg-[#002e26]/30 text-[#2d5a27] dark:text-[#00ffa3] text-xs font-bold rounded-full border border-[#c8d5b9] dark:border-[#4a6044]/50">
+              <span className="px-3 py-1 bg-slate-100 dark:bg-[#0f172a] text-slate-700 dark:text-slate-400 text-xs font-bold rounded-full border border-slate-200 dark:border-slate-700">
                 {format}
               </span>
             </div>
@@ -603,11 +606,11 @@ const InterviewPage = () => {
           ) : typedQuestion ? (
             <motion.div 
               key="question"
-              className="bg-slate-100 dark:bg-[#000000] text-[#1a3d16] dark:text-[#00ffa3] p-6 font-mono text-sm md:text-lg mb-6 shadow-2xl relative overflow-hidden"
+              className="bg-slate-100 dark:bg-[#030712] text-white dark:text-slate-100 p-6 font-mono text-sm md:text-lg mb-6 shadow-2xl relative overflow-hidden"
               style={isDark ? {
                 borderRadius: '4px',
                 border: '1px solid #00ffa3',
-                boxShadow: '0 0 24px rgba(74,222,128,0.1), inset 0 0 20px rgba(0,0,0,0.5)',
+                boxShadow: '0 0 24px rgba(0,255,163,0.1), inset 0 0 20px rgba(0,0,0,0.5)',
                 textShadow: '0 0 2px rgba(0,255,163,0.3)',
                 letterSpacing: '0.25px'
               } : {
@@ -617,13 +620,13 @@ const InterviewPage = () => {
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
             >
-              <div className="absolute top-0 left-0 w-1 h-full bg-[#2d5a27] dark:bg-[#00ffa3]" />
-              <div className="flex justify-between items-center mb-4 border-b border-slate-200 dark:border-[#004d38] pb-2">
+              <div className="absolute top-0 left-0 w-1 h-full bg-primary dark:bg-[#00ffa3]" />
+              <div className="flex justify-between items-center mb-4 border-b border-slate-200 dark:border-slate-800 pb-2">
                 <span className="text-[#5a8a52] dark:text-[#006b4a] font-bold">
                   {isDark ? '// AI_AGENT' : '$ AI_AGENT'}
                 </span>
                 {useResume && (
-                  <span className="flex items-center gap-1.5 px-2 py-0.5 bg-[#002e26] dark:bg-[#002e26]/40 text-[#2d5a27] dark:text-[#00ffa3] text-[10px] font-bold rounded-md border border-[#c8d5b9] dark:border-[#4a6044]">
+                  <span className="flex items-center gap-1.5 px-2 py-0.5 bg-primary/10 text-primary text-[10px] font-bold rounded-md border border-primary/20">
                     <span className="material-symbols-outlined text-[12px]">psychology</span>
                     PERSONALIZED
                   </span>
@@ -650,7 +653,7 @@ const InterviewPage = () => {
           >
             <div className="relative group">
               <textarea
-                className="w-full h-40 md:h-48 p-4 bg-white dark:bg-[#000000] border border-[#c8d5b9] dark:border-[#4a6044] rounded-xl focus:border-[#2d5a27] focus:ring-4 focus:ring-[#2d5a27]/10 transition-all duration-300 outline-none resize-none font-body text-sm md:text-base text-[#1a3d16] dark:text-[#00ffa3]"
+                className="w-full h-40 md:h-48 p-4 bg-white dark:bg-[#050505] border border-slate-800 dark:border-[#1e293b] rounded-xl focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 outline-none resize-none font-body text-sm md:text-base text-white"
                 placeholder="Type your response here..."
                 value={answer}
                 onChange={e => setAnswer(e.target.value)}
@@ -666,7 +669,7 @@ const InterviewPage = () => {
             <motion.button
               onClick={handleSubmitQA}
               disabled={submitting || !answer.trim() || answer.trim().split(/\s+/).filter(Boolean).length < 3}
-              className="w-full bg-[#2d5a27] text-white py-4 rounded-xl font-headline font-bold text-lg shadow-lg shadow-green-200 dark:shadow-green-900/20 disabled:opacity-50 flex items-center justify-center gap-3"
+              className="w-full bg-primary text-white py-4 rounded-xl font-headline font-bold text-lg shadow-lg shadow-primary/20 disabled:opacity-50 flex items-center justify-center gap-3"
               whileHover={{ scale: 1.01, y: -2 }}
               whileTap={{ scale: 0.99 }}
             >
@@ -704,7 +707,7 @@ const InterviewPage = () => {
             {mcqData.options.map((opt) => {
               let btnClass = isDark 
                 ? "w-full text-left p-[14px] px-4 font-mono mb-2 transition-all duration-150 " 
-                : "w-full text-left bg-white border-[0.5px] border-[#bfdbfe] p-[14px] px-4 rounded-lg cursor-pointer font-mono mb-2 transition-all duration-150 text-[#2d5a27] ";
+                : "w-full text-left bg-white border-[0.5px] border-[#bfdbfe] p-[14px] px-4 rounded-lg cursor-pointer font-mono mb-2 transition-all duration-150 text-primary ";
               
               let btnStyle = isDark ? { borderRadius: '3px' } : {};
 
@@ -729,9 +732,9 @@ const InterviewPage = () => {
                 if (selectedOption === opt.key) {
                   if (isDark) {
                     btnClass += " bg-[var(--bg-mcq-selected)] border-[var(--border-mcq-selected)] text-[var(--text-mcq-selected)] font-bold ";
-                    btnStyle.boxShadow = '0 0 8px rgba(74,222,128,0.15)';
+                    btnStyle.boxShadow = '0 0 8px rgba(0,255,163,0.15)';
                   } else {
-                    btnClass = "w-full text-left p-[14px] px-4 rounded-lg font-mono mb-2 border-2 border-[#1a2e1a] bg-[#f7faf7] text-[#1a3d16] font-bold ";
+                    btnClass = "w-full text-left p-[14px] px-4 rounded-lg font-mono mb-2 border-2 border-[#1a2e1a] bg-[#f7faf7] text-white font-bold ";
                   }
                 } else {
                   if (isDark) {
@@ -759,7 +762,7 @@ const InterviewPage = () => {
               <motion.button
                 onClick={handleSubmitMCQ}
                 disabled={submitting}
-                className="w-full mt-4 bg-[#2d5a27] text-white py-4 rounded-xl font-headline font-bold text-lg shadow-lg shadow-green-200 dark:shadow-green-900/20 disabled:opacity-50 flex items-center justify-center gap-3"
+                className="w-full mt-4 bg-primary text-white py-4 rounded-xl font-headline font-bold text-lg shadow-lg shadow-primary/20 disabled:opacity-50 flex items-center justify-center gap-3"
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 whileHover={{ scale: 1.01, y: -2 }}
@@ -794,8 +797,8 @@ const InterviewPage = () => {
                 )}
                 
                 <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800">
-                  <h4 className="font-bold text-[#2d5a27] dark:text-slate-200 mb-2 font-mono flex items-center gap-2">
-                    <span className="material-symbols-outlined text-[#2d5a27]">lightbulb</span> 
+                  <h4 className="font-bold text-primary dark:text-slate-200 mb-2 font-mono flex items-center gap-2">
+                    <span className="material-symbols-outlined text-primary">lightbulb</span> 
                     AI Explanation
                   </h4>
                   <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed whitespace-pre-wrap">

@@ -17,15 +17,15 @@ const Checkbox = ({
         className="
           w-5 h-5
           rounded
-          border-2 border-[#c8d5b9] dark:border-[#4a6044]
-          text-[#2d5a27] dark:text-[#4ade80]
+          border-2 border-slate-800 dark:border-[#4a6044]
+          text-primary dark:text-[#4ade80]
           focus:ring-2 focus:ring-[#2d5a27]/20 dark:focus:ring-[#2d5a27]/30
           disabled:cursor-not-allowed
           transition-all
           dark:bg-[#1a1a1a]
         "
       />
-      <span className="text-sm font-label text-[#1a3d16] dark:text-[#4ade80] select-none transition-colors duration-300">
+      <span className="text-sm font-label text-white dark:text-[#4ade80] select-none transition-colors duration-300">
         {label}
       </span>
     </label>

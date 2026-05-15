@@ -18,7 +18,7 @@ const Textarea = ({
   return (
     <div className={`${fullWidth ? 'w-full' : ''} ${className}`}>
       {label && (
-        <label className="block text-sm font-label font-semibold text-[#1a3d16] dark:text-[#166534] mb-2 transition-colors duration-300">
+        <label className="block text-sm font-label font-semibold text-white dark:text-[#166534] mb-2 transition-colors duration-300">
           {label}
           {required && <span className="text-red-600 dark:text-red-400 ml-1">*</span>}
         </label>

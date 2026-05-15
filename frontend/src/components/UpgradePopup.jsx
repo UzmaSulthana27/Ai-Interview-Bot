@@ -236,7 +236,7 @@ const UpgradePopup = ({ isOpen, onClose, onUpgrade }) => {
                       transition: 'all 0.3s ease',
                     }}
                     onMouseEnter={(e) => {
-                      e.target.style.background = isDark ? 'rgba(74,222,128,0.05)' : '#f9fafb';
+                      e.target.style.background = isDark ? 'rgba(0,255,163,0.05)' : '#f9fafb';
                     }}
                     onMouseLeave={(e) => {
                       e.target.style.background = 'transparent';

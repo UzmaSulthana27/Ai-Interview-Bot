@@ -66,11 +66,11 @@ const LoginPage = () => {
       const { user, token } = response.data;
       
       // Store trial info in localStorage
-      localStorage.setItem('userId', response.data.userId);
-      localStorage.setItem('userName', response.data.name);
-      localStorage.setItem('isPremium', response.data.isPremium);
-      localStorage.setItem('trialUsed', response.data.trialUsed);
-      localStorage.setItem('sessionsUsed', response.data.sessionsUsed);
+      localStorage.setItem('userId', user.id);
+      localStorage.setItem('userName', user.fullName);
+      localStorage.setItem('isPremium', user.isPremium);
+      localStorage.setItem('trialUsed', user.trialUsed);
+      localStorage.setItem('sessionsUsed', user.sessionsUsed);
       
       login(user, token);
       navigate('/home');
@@ -105,10 +105,10 @@ const LoginPage = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-[#00ffa3]/10 border border-[#00ffa3]/20 rounded-2xl mb-4 shadow-lg shadow-[#00ffa3]/5">
-            <span className="material-symbols-outlined text-[#00ffa3] text-2xl">login</span>
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-white/5 border border-slate-800 rounded-2xl mb-4 shadow-lg shadow-black/20 hover:border-primary transition-all group">
+            <span className="material-symbols-outlined text-white group-hover:text-primary text-2xl transition-colors">login</span>
           </div>
-          <h1 className="font-headline text-3xl font-bold text-[#1a3d16] dark:text-[#00ffa3] transition-colors duration-300">
+          <h1 className="font-headline text-3xl font-bold text-white transition-colors duration-300">
             Welcome Back
           </h1>
           <p className="text-slate-600 dark:text-slate-400 mt-2 transition-colors duration-300">
@@ -191,7 +191,7 @@ const LoginPage = () => {
                 <input type="checkbox" className="w-4 h-4 rounded border border-slate-300 dark:border-slate-600 cursor-pointer" />
                 <span className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">Remember me</span>
               </label>
-              <Link to="/forgot-password" disabled className="text-sm text-[#2d5a27] dark:text-[#00ffa3] hover:underline transition-colors duration-300">
+              <Link to="/forgot-password" disabled className="text-sm text-primary dark:text-slate-400 hover:text-primary transition-colors duration-300">
                 Forgot password?
               </Link>
             </div>
@@ -237,9 +237,9 @@ const LoginPage = () => {
           transition={{ delay: 0.4 }}
         >
           By signing in, you agree to our{' '}
-          <Link to="/terms" className="text-[#2d5a27] dark:text-[#00ffa3] hover:underline">Terms of Service</Link>
+          <Link to="/terms" className="text-primary hover:underline font-medium">Terms of Service</Link>
           {' '}and{' '}
-          <Link to="/privacy" className="text-[#2d5a27] dark:text-[#00ffa3] hover:underline">Privacy Policy</Link>
+          <Link to="/privacy" className="text-primary hover:underline font-medium">Privacy Policy</Link>
         </motion.p>
       </motion.div>
     </div>

@@ -7,7 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.interviewbot.backend.model.User;
-import com.interviewbot.backend.respository.UserRepository;
+import com.interviewbot.backend.repository.UserRepository;
 
 @Service
 public class AuthService {
@@ -50,6 +50,12 @@ public class AuthService {
 
 	        if (!matches) {
 	            throw new RuntimeException("Incorrect password!");
+	        }
+
+	        // Auto-generate a unique bio if one doesn't exist
+	        if (user.getBio() == null || user.getBio().trim().isEmpty()) {
+	            user.setBio("Passionate professional " + user.getName() + " ready to ace the next big interview! UniqueID: " + java.util.UUID.randomUUID().toString().substring(0,8));
+	            userRepository.save(user);
 	        }
 
 	        return user;

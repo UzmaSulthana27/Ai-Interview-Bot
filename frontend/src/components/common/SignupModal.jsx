@@ -128,7 +128,7 @@ const SignupModal = ({ isOpen, onClose, onSwitchToLogin }) => {
               {/* Header */}
               <div className="flex items-center justify-between p-4 border-b border-slate-300 dark:border-slate-700 transition-colors duration-300">
                 <div>
-                  <h2 className="font-headline text-lg font-bold text-[#1a3d16] dark:text-[#4ade80] transition-colors duration-300">
+                  <h2 className="font-headline text-lg font-bold text-white dark:text-[#4ade80] transition-colors duration-300">
                     Create Account
                   </h2>
                   <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5 transition-colors duration-300">
@@ -228,7 +228,7 @@ const SignupModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full mt-4 py-2 text-sm !bg-[#2d5a27] !text-[#f5f5f0] hover:!bg-[#1a3d16] dark:!bg-[#2d5a27] dark:!text-[#f5f5f0] dark:hover:!bg-[#1a3d16]"
+                  className="w-full mt-4 py-2 text-sm !bg-primary !text-[#f5f5f0] hover:!bg-primary/20 dark:!bg-primary dark:!text-[#f5f5f0] dark:hover:!bg-primary/20"
                 >
                   {isLoading ? (
                     <span className="flex items-center justify-center gap-2">
@@ -248,7 +248,7 @@ const SignupModal = ({ isOpen, onClose, onSwitchToLogin }) => {
                   <button
                     type="button"
                     onClick={onSwitchToLogin}
-                    className="text-[#1a3d16] dark:text-[#4ade80] hover:underline font-bold"
+                    className="text-white dark:text-[#4ade80] hover:underline font-bold"
                   >
                     Sign In
                   </button>

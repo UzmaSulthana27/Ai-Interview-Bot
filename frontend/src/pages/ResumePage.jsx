@@ -114,7 +114,7 @@ const ResumePage = () => {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="font-headline text-3xl md:text-4xl font-extrabold mb-4 text-[#1a3d16] dark:text-[#00ffa3]">
+            <h1 className="font-headline text-3xl md:text-4xl font-extrabold mb-4 text-white dark:text-[#00ffa3]">
               Resume Analysis
             </h1>
             <p className="text-slate-600 dark:text-slate-400 text-lg">
@@ -138,8 +138,8 @@ const ResumePage = () => {
                 
                 {file ? (
                   <div className="flex items-center gap-3 bg-[#e8f0e0] dark:bg-[#00ffa3]/10 px-6 py-3 rounded-xl">
-                    <span className="material-symbols-outlined text-[#2d5a27] dark:text-[#00ffa3]">description</span>
-                    <span className="font-label font-bold text-[#2d5a27] dark:text-[#00ffa3]">{file.name}</span>
+                    <span className="material-symbols-outlined text-primary dark:text-[#00ffa3]">description</span>
+                    <span className="font-label font-bold text-primary dark:text-[#00ffa3]">{file.name}</span>
                     <button 
                       onClick={() => setFile(null)}
                       className="ml-2 hover:bg-primary/10 rounded-full p-1"
@@ -280,9 +280,9 @@ const ResumeAnalysisResults = ({ data }) => {
   const offlineMessage =
     typeof data.message === 'string' && data.message.trim() ? data.message.trim() : '';
 
-  const sectionTitle = 'font-headline text-xl font-bold mb-4 text-[#1a3d16] dark:text-[#00ffa3]';
+  const sectionTitle = 'font-headline text-xl font-bold mb-4 text-white dark:text-[#00ffa3]';
   const insetCard =
-    'rounded-xl p-6 border border-slate-200/80 bg-slate-100 text-[#2d5a27] dark:border-slate-600/50 dark:bg-[#000000]/70 dark:text-slate-200';
+    'rounded-xl p-6 border border-slate-200/80 bg-slate-100 text-primary dark:border-slate-600/50 dark:bg-[#000000]/70 dark:text-slate-200';
   const topicRow =
     'flex items-start gap-3 p-4 rounded-lg border border-slate-200/80 bg-slate-50 dark:border-slate-600/40 dark:bg-[#000000]/50';
 
@@ -302,7 +302,7 @@ const ResumeAnalysisResults = ({ data }) => {
             {skills.map((skill, index) => (
               <span
                 key={index}
-                className="rounded-full px-3 py-1 text-sm font-label font-bold bg-[#e8f0e0] text-[#2d5a27] dark:bg-[#00ffa3]/10 dark:text-[#00ffa3] border border-[#c8d5b9] dark:border-[#00ffa3]/30"
+                className="rounded-full px-3 py-1 text-sm font-label font-bold bg-[#e8f0e0] text-primary dark:bg-[#00ffa3]/10 dark:text-[#00ffa3] border border-slate-800 dark:border-[#00ffa3]/30"
               >
                 {skill}
               </span>
@@ -332,10 +332,10 @@ const ResumeAnalysisResults = ({ data }) => {
           <div className="space-y-3">
             {topics.map((topic, index) => (
               <div key={index} className={topicRow}>
-                <span className="material-symbols-outlined mt-1 shrink-0 text-[#2d5a27] dark:text-[#00ffa3]">
+                <span className="material-symbols-outlined mt-1 shrink-0 text-primary dark:text-[#00ffa3]">
                   arrow_right
                 </span>
-                <p className="text-[#2d5a27] dark:text-slate-200">{topic}</p>
+                <p className="text-primary dark:text-slate-200">{topic}</p>
               </div>
             ))}
           </div>

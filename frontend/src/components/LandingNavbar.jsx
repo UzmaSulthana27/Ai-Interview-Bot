@@ -25,7 +25,7 @@ const HowItWorks = () => {
         <div className="flex flex-col md:flex-row gap-8 md:gap-16 items-start">
           {/* Sticky Title */}
           <div className="md:w-1/3 md:sticky md:top-32 w-full">
-            <h2 className="font-headline text-3xl md:text-4xl font-extrabold mb-6 tracking-tight text-[#1a3d16] dark:text-[#4ade80] transition-colors duration-300">
+            <h2 className="font-headline text-3xl md:text-4xl font-extrabold mb-6 tracking-tight text-white dark:text-[#4ade80] transition-colors duration-300">
               The Astra AI Architecture
             </h2>
             <p className="text-slate-600 dark:text-slate-400 mb-8 transition-colors duration-300">
@@ -57,7 +57,7 @@ const HowItWorks = () => {
                   {step.number}
                 </div>
                 <div className="pt-1 md:pt-2 flex-1">
-                  <h4 className="font-headline text-xl md:text-2xl font-bold mb-2 md:mb-3 text-[#1a3d16] dark:text-[#4ade80]">
+                  <h4 className="font-headline text-xl md:text-2xl font-bold mb-2 md:mb-3 text-white dark:text-[#4ade80]">
                     {step.title}
                   </h4>
                   <p className="text-sm md:text-base text-slate-600 dark:text-slate-400 leading-relaxed transition-colors duration-300">

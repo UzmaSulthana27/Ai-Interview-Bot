@@ -6,7 +6,7 @@ const FinalCTA = ({ onStartTrial }) => {
   return (
     <section className="px-4 md:px-8 py-24 relative z-10">
       <motion.div 
-        className={`max-w-7xl mx-auto rounded-[3rem] p-10 md:p-16 lg:p-20 text-left overflow-hidden relative shadow-2xl transition-colors duration-500 ${isDark ? 'bg-[#000000] border border-[#00ffa3]/20 text-[#00ffa3] shadow-[#00ffa3]/10' : 'bg-[#166534] border border-[#5a8a52]/20 text-white shadow-green-950/50'}`}
+        className={`max-w-7xl mx-auto rounded-[3rem] p-10 md:p-16 lg:p-20 text-left overflow-hidden relative shadow-2xl transition-colors duration-500 ${isDark ? 'bg-[#000000] border border-[#1e293b] text-slate-100 shadow-black/50' : 'bg-[#166534] border border-[#5a8a52]/20 text-white shadow-primary/20'}`}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -23,8 +23,8 @@ const FinalCTA = ({ onStartTrial }) => {
               whileInView={{ x: 0, opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              <h2 className={`font-headline text-4xl md:text-6xl font-extrabold mb-6 leading-tight ${isDark ? 'text-[#00ffa3]' : 'text-white'}`}>
-                Ready to secure your <span className={isDark ? 'text-[#00ffa3] drop-shadow-[0_0_8px_rgba(0,255,163,0.5)]' : 'text-[#c8e6c0]'}>dream role?</span>
+              <h2 className={`font-headline text-4xl md:text-6xl font-extrabold mb-6 leading-tight ${isDark ? 'text-white' : 'text-white'}`}>
+                Ready to secure your <span className="text-white underline decoration-primary decoration-4 underline-offset-8">dream role?</span>
               </h2>
               <p className="font-body text-lg md:text-xl opacity-80 mb-10 max-w-xl">
                 Join 10,000+ professionals using Astra AI to land offers 
@@ -40,7 +40,7 @@ const FinalCTA = ({ onStartTrial }) => {
             >
               <motion.button 
                 onClick={onStartTrial}
-                className={`px-10 py-5 rounded-2xl font-headline font-bold text-lg shadow-xl flex items-center justify-center gap-2 transition-all ${isDark ? 'bg-[#00ffa3] text-[#000000] hover:shadow-[#00ffa3]/40' : 'bg-white text-[#166534] shadow-black/10'}`}
+                className={`px-10 py-5 rounded-2xl font-headline font-bold text-lg shadow-xl flex items-center justify-center gap-2 transition-all ${isDark ? 'bg-[#00ffa3] text-[#000000] hover:bg-[#00e691]' : 'bg-white text-[#166534] shadow-black/10'}`}
                 whileHover={{ scale: 1.05, y: -4 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -48,7 +48,7 @@ const FinalCTA = ({ onStartTrial }) => {
                 <span className="material-symbols-outlined text-sm">arrow_forward</span>
               </motion.button>
               <motion.button 
-                className={`backdrop-blur-md border px-10 py-5 rounded-2xl font-headline font-bold text-lg transition-all ${isDark ? 'bg-[#00ffa3]/10 border-[#00ffa3]/30 text-[#00ffa3]' : 'bg-[#166534]/20 border-white/20 text-white'}`}
+                className={`backdrop-blur-md border px-10 py-5 rounded-2xl font-headline font-bold text-lg transition-all ${isDark ? 'bg-transparent border-[#1e293b] text-slate-400 hover:border-[#00ffa3] hover:text-[#00ffa3]' : 'bg-[#166534]/20 border-white/20 text-white'}`}
                 whileHover={{ backgroundColor: isDark ? 'rgba(0, 255, 163, 0.2)' : 'rgba(255, 255, 255, 0.1)', scale: 1.05, y: -4 }}
                 whileTap={{ scale: 0.98 }}
               >

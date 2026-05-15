@@ -51,7 +51,7 @@ const QuickActionsSection = () => {
     >
       {/* Section Header */}
       <motion.h2
-        className="text-2xl font-bold font-headline text-[#1a3d16] dark:text-[#4ade80] mb-6 transition-colors duration-300"
+        className="text-2xl font-bold font-headline text-white dark:text-[#4ade80] mb-6 transition-colors duration-300"
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4, delay: 0.3 }}

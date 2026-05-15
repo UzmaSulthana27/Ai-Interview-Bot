@@ -25,17 +25,21 @@
 *   **Dual Formats**: Choose between standard **Q/A Text** or rapid-fire **Multiple Choice (MCQ)**.
 *   **Terminal Interface**: Real-time typing animations and an immersive console UI.
 
+### 2. 🗃️ USER_PROFILE & VAULT (Management)
+*   **Auto-Bios**: Unique AI-generated bios automatically assigned upon login.
+*   **Resume Vault**: Upload, manage, and instantly delete your resumes from a centralized dashboard.
+
 ### 2. 📄 SEMANTIC_PARSER (Resume Analysis)
 *   **Skill Extraction**: Automatically identifies technical skills from PDF/Word resumes.
 *   **Experience Mapping**: Generates a summary of your professional trajectory.
 *   **Topic Suggestion**: Tailors the interview pool to your specific experience.
 
-### 3. 📊 DATA_ANALYTICS (Performance Hub)
-*   **Score Tracking**: Visualize your progress over time.
+### 4. 📊 DATA_ANALYTICS (Performance Hub)
+*   **Score Tracking**: Visualize your progress over time with highly accurate, data-driven back-end metrics.
 *   **Skill Breakdown**: Identify strengths and weak points across different roles.
 *   **History Vault**: Review past sessions and feedback to iterate on your answers.
 
-### 4. 💎 ACCESS_MODES (Subscription System)
+### 5. 💎 ACCESS_MODES (Subscription System)
 *   **FREE_TRIAL**: 3 full interview sessions for every new user.
 *   **PREMIUM_LINK**: Unlimited sessions, advanced role selection, and deeper analytics.
 

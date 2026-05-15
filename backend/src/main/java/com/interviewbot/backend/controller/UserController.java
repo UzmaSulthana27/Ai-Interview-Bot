@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.interviewbot.backend.model.User;
-import com.interviewbot.backend.respository.UserRepository;
+import com.interviewbot.backend.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 

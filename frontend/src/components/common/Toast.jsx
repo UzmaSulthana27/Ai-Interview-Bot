@@ -17,7 +17,7 @@ const Toast = ({
 
   const types = {
     success: {
-      bg: 'bg-[#2d5a27] dark:bg-[#2d5a27]',
+      bg: 'bg-primary dark:bg-primary',
       icon: 'check_circle'
     },
     error: {
@@ -29,7 +29,7 @@ const Toast = ({
       icon: 'warning'
     },
     info: {
-      bg: 'bg-[#2d5a27] dark:bg-[#2d5a27]',
+      bg: 'bg-primary dark:bg-primary',
       icon: 'info'
     }
   };

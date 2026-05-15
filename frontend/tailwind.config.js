@@ -33,7 +33,7 @@ module.exports = {
       colors: {
         "on-secondary-fixed-variant": "#5a8a52",
         "on-secondary-container": "#ffffff",
-        "primary": "#2d5a27",
+        "primary": "#00ffa3",
         "surface-container-high": "#e8f0e0",
         "inverse-surface": "#1a1a1a",
         "on-primary-fixed": "#001a00",

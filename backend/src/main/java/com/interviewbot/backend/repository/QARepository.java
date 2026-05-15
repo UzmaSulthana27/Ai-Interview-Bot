@@ -1,4 +1,4 @@
-package com.interviewbot.backend.respository;
+package com.interviewbot.backend.repository;
 
 import java.util.List;
 

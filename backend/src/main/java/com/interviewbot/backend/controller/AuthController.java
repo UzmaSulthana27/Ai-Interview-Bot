@@ -32,6 +32,7 @@ public class AuthController {
                 "message", "Signed up successfully!",
                 "user", Map.of(
                     "id", user.getId(),
+                    "userId", user.getId(),
                     "fullName", user.getName(),
                     "email", user.getEmail(),
                     "bio", user.getBio() != null ? user.getBio() : ""
@@ -55,6 +56,7 @@ public class AuthController {
             );
             return ResponseEntity.ok(Map.of(
                 "message", "Registered successfully!",
+                "id",      user.getId(),
                 "userId",  user.getId(),
                 "name",    user.getName()
             ));
@@ -76,6 +78,7 @@ public class AuthController {
                 "message", "Login successful!",
                 "user", Map.of(
                     "id", user.getId(),
+                    "userId", user.getId(),
                     "fullName", user.getName(),
                     "email", user.getEmail(),
                     "bio", user.getBio() != null ? user.getBio() : ""

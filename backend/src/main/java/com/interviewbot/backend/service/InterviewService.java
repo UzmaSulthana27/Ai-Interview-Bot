@@ -3,8 +3,8 @@ package com.interviewbot.backend.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.interviewbot.backend.respository.QARepository;
-import com.interviewbot.backend.respository.SessionRepository;
+import com.interviewbot.backend.repository.QARepository;
+import com.interviewbot.backend.repository.SessionRepository;
 
 import jakarta.transaction.Transactional;
 

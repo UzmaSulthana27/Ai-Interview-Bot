@@ -182,7 +182,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="bg-[#f5f5f0] dark:bg-[#000000] text-[#1a3d16] dark:text-[#00ffa3] font-body transition-colors duration-300">
+    <div className="bg-[#f5f5f0] dark:bg-black text-white dark:text-slate-300 font-body transition-colors duration-300">
       <TopNavBar />
       
       <main className="pt-16">

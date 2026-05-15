@@ -27,15 +27,15 @@ const InteractiveCard = ({
         transition-all duration-500
         hover:shadow-2xl relative overflow-hidden glass-panel
         group hover-lift card-hover
-        ${isDark ? 'bg-[#000000] border border-[#004d38] hover:border-[#00ffa3] text-[#00ffa3]' : 'bg-gradient-to-br from-[#1a3d16] to-[#2d5a27] text-white hover:shadow-green-900/40'}
+        ${isDark ? 'bg-[#000000] border border-slate-800 hover:border-primary text-white' : 'bg-gradient-to-br from-[#1a3d16] to-[#2d5a27] text-white hover:shadow-primary/20'}
         ${containerClassName}
       `}
       style={isDark ? { borderRadius: '3px' } : {}}
-      whileHover={isDark ? { scale: 1.02, boxShadow: '0 0 16px rgba(74,222,128,0.2)' } : { scale: 1.02 }}
+      whileHover={isDark ? { scale: 1.02, boxShadow: '0 0 16px rgba(0,255,163,0.2)' } : { scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
     >
-      <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${isDark ? 'bg-[rgba(74,222,128,0.05)]' : 'bg-white/5'}`}></div>
+      <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 ${isDark ? 'bg-[rgba(0,255,163,0.05)]' : 'bg-white/5'}`}></div>
       {/* Icon */}
       {icon && (
         <motion.div
@@ -56,7 +56,7 @@ const InteractiveCard = ({
 
       {/* Subtitle */}
       {subtitle && (
-        <p className={`text-xs opacity-90 mt-1 ${isDark ? 'font-mono text-[#166534]' : ''}`}>
+        <p className={`text-xs opacity-70 mt-1 ${isDark ? 'text-slate-400' : ''}`}>
           {subtitle}
         </p>
       )}
