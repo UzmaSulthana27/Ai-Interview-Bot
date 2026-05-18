@@ -107,21 +107,21 @@ const AnalyticsPage = () => {
               </h3>
               <div className="space-y-4">
                 {metrics?.interviewTypes?.map((type, index) => (
-                  <div key={index} className={`flex items-center justify-between p-4 rounded-xl border transition-all ${isDark ? 'bg-[#000000] border-slate-800 hover:border-primary hover:bg-primary/5' : 'bg-[#f0f7ec] border-[#c8d5b9] hover:border-[#2d5a27] hover:shadow-sm'}`}>
-                    <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 flex items-center justify-center shadow-lg ${isDark ? 'bg-primary/10 border border-primary/20' : 'bg-[#e8f0e0] rounded-full border border-[#c8d5b9]'}`}>
+                  <div key={index} className={`flex items-center justify-between p-2.5 sm:p-4 rounded-xl border transition-all ${isDark ? 'bg-[#000000] border-slate-800 hover:border-primary hover:bg-primary/5' : 'bg-[#f0f7ec] border-[#c8d5b9] hover:border-[#2d5a27] hover:shadow-sm'}`}>
+                    <div className="flex items-center gap-1.5 sm:gap-3">
+                      <div className={`w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center shadow-lg ${isDark ? 'bg-primary/10 border border-primary/20' : 'bg-[#e8f0e0] rounded-full border border-[#c8d5b9]'}`}>
                         <span className={`material-symbols-outlined text-sm ${isDark ? 'text-white' : 'text-[#2d5a27]'}`}>
                           {type.icon}
                         </span>
                       </div>
                       <div>
-                        <p className={`font-label font-bold uppercase tracking-wider ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>{type.name}</p>
-                        <p className={`text-sm font-mono ${isDark ? 'text-slate-400' : 'text-[#4a6741]'}`}>
+                        <p className={`text-xs sm:text-sm font-label font-bold uppercase tracking-wider ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>{type.name}</p>
+                        <p className={`text-[10px] sm:text-sm font-mono ${isDark ? 'text-slate-400' : 'text-[#4a6741]'}`}>
                           {type.count} sessions
                         </p>
                       </div>
                     </div>
-                    <span className={`text-2xl font-headline font-bold font-mono ${isDark ? 'text-white' : 'text-[#2d5a27]'}`}>
+                    <span className={`text-base sm:text-2xl font-headline font-bold font-mono ${isDark ? 'text-white' : 'text-[#2d5a27]'}`}>
                       {type.avgScore}%
                     </span>
                   </div>
@@ -151,14 +151,14 @@ const AnalyticsPage = () => {
 
 const SessionCard = ({ session, isDark }) => {
   return (
-    <div className={`flex items-center justify-between p-4 rounded-xl border transition-all ${isDark ? 'bg-[#000000] border-slate-800 hover:border-primary hover:bg-primary/5' : 'bg-[#f0f7ec] border-[#c8d5b9] hover:border-[#2d5a27] hover:shadow-sm'}`}>
-      <div className="flex items-center gap-4">
-        <div className={`w-12 h-12 flex items-center justify-center ${
+    <div className={`flex items-center justify-between p-2.5 sm:p-4 rounded-xl border transition-all ${isDark ? 'bg-[#000000] border-slate-800 hover:border-primary hover:bg-primary/5' : 'bg-[#f0f7ec] border-[#c8d5b9] hover:border-[#2d5a27] hover:shadow-sm'}`}>
+      <div className="flex items-center gap-2 sm:gap-4">
+        <div className={`w-9 h-9 sm:w-12 sm:h-12 flex items-center justify-center ${
           session.score >= 80 ? (isDark ? 'bg-emerald-900/30' : 'bg-emerald-50') :
           session.score >= 60 ? (isDark ? 'bg-amber-900/30' : 'bg-amber-50') :
           (isDark ? 'bg-red-900/30' : 'bg-red-50')
         }`} style={{ borderRadius: '0.75rem' }}>
-          <span className={`material-symbols-outlined ${
+          <span className={`material-symbols-outlined text-base sm:text-xl ${
             session.score >= 80 ? (isDark ? 'text-[#00ffa3]' : 'text-[#2d5a27]') :
             session.score >= 60 ? 'text-amber-400' :
             'text-red-400'
@@ -169,15 +169,15 @@ const SessionCard = ({ session, isDark }) => {
           </span>
         </div>
         <div>
-          <p className={`font-headline font-bold ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>{session.title}</p>
-          <p className={`text-sm transition-colors duration-300 ${isDark ? 'text-slate-500 font-mono' : 'text-[#4a6741]'}`}>{session.date}</p>
+          <p className={`text-xs sm:text-base font-headline font-bold ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>{session.title}</p>
+          <p className={`text-[10px] sm:text-sm transition-colors duration-300 ${isDark ? 'text-slate-500 font-mono' : 'text-[#4a6741]'}`}>{session.date}</p>
         </div>
       </div>
       <div className="text-right">
-        <p className={`font-headline text-2xl font-bold ${isDark ? 'text-white' : 'text-[#2d5a27]'}`}>
+        <p className={`font-headline text-base sm:text-2xl font-bold ${isDark ? 'text-white' : 'text-[#2d5a27]'}`}>
           {session.score}%
         </p>
-        <p className={`text-xs transition-colors duration-300 ${isDark ? 'text-slate-500 font-mono' : 'text-[#4a6741]'}`}>{session.duration}</p>
+        <p className={`text-[10px] sm:text-xs transition-colors duration-300 ${isDark ? 'text-slate-500 font-mono' : 'text-[#4a6741]'}`}>{session.duration}</p>
       </div>
     </div>
   );

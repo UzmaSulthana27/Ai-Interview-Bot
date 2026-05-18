@@ -203,41 +203,7 @@ const HistoryPage = () => {
         </div>
       </main>
 
-      {/* Mobile Bottom Nav */}
-      <div className="md:hidden h-20"></div>
-      <div 
-        className={`md:hidden fixed bottom-0 left-0 right-0 h-16 backdrop-blur-md border-t flex justify-around items-center z-50 px-2 ${isDark ? 'bg-[rgba(0,0,0,0.8)] border-slate-800' : 'bg-[#0f172a]/90 border-slate-700'}`}
-        style={isDark ? { backdropFilter: 'blur(10px)' } : {}}
-      >
-        {[
-          { icon: 'home', label: 'Home', path: '/home' },
-          { icon: 'mic', label: 'Interview', path: '/interview' },
-          { icon: 'history', label: 'History', path: '/history' },
-          { icon: 'person', label: 'Profile', path: '/settings' }
-        ].map(item => {
-          const isActive = location.pathname === item.path;
-          return (
-            <motion.div 
-              key={item.path}
-              onClick={() => navigate(item.path)}
-              className={`flex flex-col items-center justify-center w-full h-full cursor-pointer transition-colors ${isActive ? (isDark ? 'text-white' : 'text-[#2d5a2d]') : (isDark ? 'text-slate-500 hover:text-primary' : 'text-slate-400 hover:text-slate-600')}`}
-              whileTap={{ scale: 0.9 }}
-            >
-              <span className="material-symbols-outlined text-2xl" style={{fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0"}}>{item.icon}</span>
-              <span className="text-[10px] font-bold mt-0.5" style={isDark ? { fontFamily: "'Courier New', monospace", textTransform: 'uppercase' } : {}}>{item.label}</span>
-              {isActive && (
-                <motion.div 
-                  className={`w-1 h-1 rounded-full mt-0.5 ${isDark ? 'bg-[#00ffa3]' : 'bg-[#1a2e1a]'}`} 
-                  style={isDark ? { boxShadow: '0 0 8px #00ffa3' } : {}}
-                  layoutId="mobileNavDot"
-                />
-              )}
-            </motion.div>
-          );
-        })}
-      </div>
-
-      <div className="hidden md:block"><Footer /></div>
+      <Footer />
     </div>
   );
 };

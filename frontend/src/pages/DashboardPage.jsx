@@ -258,7 +258,7 @@ const DashboardPage = () => {
 
           {/* Recent Activity */}
           <motion.div 
-            className={`bg-white rounded-2xl p-8 transition-all duration-300 border shadow-sm ${isDark ? 'dark:bg-[#050505] dark:border-slate-800' : 'border-[#c8d5b9]'}`}
+            className={`bg-white rounded-2xl p-4 sm:p-8 transition-all duration-300 border shadow-sm ${isDark ? 'dark:bg-[#050505] dark:border-slate-800' : 'border-[#c8d5b9]'}`}
             style={isDark ? { borderRadius: '4px' } : {}}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -321,7 +321,7 @@ const DashboardPage = () => {
               ) : (
                 <>
                   <motion.div
-                  className={`relative overflow-hidden border flex items-center justify-center p-8 md:p-12 group ${isDark ? 'bg-[#0a0a0a] border-[#1e293b]' : 'bg-white border-[#c8d5b9]'}`}
+                  className={`relative overflow-hidden border flex items-center justify-center p-3 py-8 sm:p-8 md:p-12 group ${isDark ? 'bg-[#0a0a0a] border-[#1e293b]' : 'bg-white border-[#c8d5b9]'}`}
                   style={isDark ? { borderRadius: '6px' } : { borderRadius: '2.5rem' }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -338,17 +338,17 @@ const DashboardPage = () => {
                     <div className={`absolute inset-0 bg-gradient-to-t transition-opacity duration-700 group-hover:opacity-10 ${isDark ? 'from-[#0d0d0d] via-[#0d0d0d]/70 to-transparent' : 'from-white via-white/70 to-transparent'}`}></div>
                   </div>
 
-                  <div className="relative z-10 text-center max-w-lg">
-                    <h3 className={`font-headline text-3xl md:text-4xl font-extrabold mb-4 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
+                  <div className="relative z-10 text-center max-w-lg w-full">
+                    <h3 className={`font-headline text-xl sm:text-3xl md:text-4xl font-extrabold mb-4 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
                       {isDark ? 'Ready to ace interviews?' : 'Ready to ace your interviews?'}
                     </h3>
-                    <p className={`font-body mb-8 text-lg max-w-md mx-auto ${isDark ? 'text-slate-400' : 'text-[#4a6741]'}`}>
+                    <p className={`font-body mb-6 text-xs sm:text-base md:text-lg max-w-md mx-auto ${isDark ? 'text-slate-400' : 'text-[#4a6741]'}`}>
                       Start your first AI-powered mock interview and get personalized feedback to improve your interview skills.
                     </p>
 
                     <motion.button
                       onClick={() => navigate('/interviews')}
-                      className={`px-10 py-4 font-headline font-bold text-lg shadow-xl flex items-center gap-2 mx-auto ${isDark ? 'bg-[#00ffa3] text-[#000000] border-none font-mono uppercase tracking-[2px]' : 'bg-[#2d5a27] border border-[#1a3d16] text-white hover:bg-[#1a3d16] transition-all rounded-xl'}`}
+                      className={`px-4 py-2.5 sm:px-10 sm:py-4 font-headline font-bold text-xs sm:text-lg shadow-xl flex items-center gap-2 mx-auto ${isDark ? 'bg-[#00ffa3] text-[#000000] border-none font-mono uppercase tracking-[1px] sm:tracking-[2px]' : 'bg-[#2d5a27] border border-[#1a3d16] text-white hover:bg-[#1a3d16] transition-all rounded-xl'}`}
                       style={isDark ? { borderRadius: '3px' } : {}}
                       whileHover={isDark ? { scale: 1.05, y: -2, boxShadow: '0 0 28px rgba(0,255,163,0.7)' } : { scale: 1.05, y: -2 }}
                       whileTap={{ scale: 0.98 }}
@@ -361,7 +361,7 @@ const DashboardPage = () => {
 
                   {/* Animated stats cards */}
                   <motion.div 
-                    className="grid grid-cols-3 gap-4 mt-12 max-w-md mx-auto"
+                    className="grid grid-cols-3 gap-1.5 sm:gap-4 mt-8 md:mt-12 max-w-md mx-auto"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.4, delay: 0.5, staggerChildren: 0.1 }}
@@ -373,7 +373,7 @@ const DashboardPage = () => {
                     ].map((stat, idx) => (
                       <motion.div 
                         key={idx}
-                        className={`p-3 transition-colors duration-300 ${isDark ? 'bg-[#000000] border border-slate-800 hover:bg-primary/10 hover:border-primary' : 'bg-white border border-[#c8d5b9] rounded-lg hover:border-[#2d5a27]'}`}
+                        className={`p-1.5 py-2.5 sm:p-3 transition-colors duration-300 ${isDark ? 'bg-[#000000] border border-slate-800 hover:bg-primary/10 hover:border-primary' : 'bg-white border border-[#c8d5b9] rounded-lg hover:border-[#2d5a27]'}`}
                         style={isDark ? { borderRadius: '3px' } : {}}
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: 1, scale: 1 }}
@@ -381,13 +381,13 @@ const DashboardPage = () => {
                         whileHover={{ scale: 1.05, y: -4 }}
                       >
                         <motion.p 
-                          className={`text-sm font-bold ${isDark ? 'text-white' : 'text-[#2d5a27]'}`}
+                          className={`text-xs sm:text-sm font-bold ${isDark ? 'text-white' : 'text-[#2d5a27]'}`}
                           animate={{ scale: [1, 1.1, 1] }}
                           transition={{ duration: 2, repeat: Infinity, delay: idx * 0.2 }}
                         >
                           {stat.value}
                         </motion.p>
-                        <p className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-600'}`}>{isDark ? stat.label.toUpperCase() : stat.label}</p>
+                        <p className={`text-[9px] sm:text-xs ${isDark ? 'text-slate-500' : 'text-slate-600'}`}>{isDark ? stat.label.toUpperCase() : stat.label}</p>
                       </motion.div>
                     ))}
                   </motion.div>

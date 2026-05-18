@@ -36,6 +36,7 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
 
   const userName = user?.fullName || user?.name || localStorage.getItem('userName') || 'User';
   const initial = userName.charAt(0).toUpperCase();
+  const isHomepage = location.pathname === '/' || location.pathname === '/home';
 
   const navLinkClasses = (path) => {
     const isActive = location.pathname === path;
@@ -47,8 +48,9 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
   };
 
   return (
-    <nav className={`fixed top-0 right-0 left-0 h-16 z-50 flex items-center justify-between px-4 md:px-8 transition-all duration-300 ${!isDark ? 'bg-[rgba(245,245,240,0.92)] backdrop-blur-xl border-b border-[#c8d5b9]' : ''} ${scrolled && !isDark ? 'shadow-[0_2px_20px_rgba(45,90,39,0.08)]' : ''}`}
-         style={isDark ? { background: '#000000', borderBottom: '1px solid #1e293b', boxShadow: '0 2px 20px rgba(0,0,0,0.4)', borderRadius: '0px' } : { borderRadius: '0px' }}>
+    <>
+      <nav className={`fixed top-0 right-0 left-0 h-16 z-50 flex items-center justify-between px-4 md:px-8 transition-all duration-300 ${!isDark ? 'bg-[rgba(245,245,240,0.92)] backdrop-blur-xl border-b border-[#c8d5b9]' : ''} ${scrolled && !isDark ? 'shadow-[0_2px_20px_rgba(45,90,39,0.08)]' : ''}`}
+           style={isDark ? { background: '#000000', borderBottom: '1px solid #1e293b', boxShadow: '0 2px 20px rgba(0,0,0,0.4)', borderRadius: '0px' } : { borderRadius: '0px' }}>
 
       {/* Logo */}
       <Link to={isAuthenticated ? "/home" : "/"} className="flex items-center gap-2 group transition-opacity duration-150">
@@ -89,11 +91,13 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
       )}
 
       {/* Mobile hamburger */}
-      <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-        <span className={`material-symbols-outlined transition-colors duration-200 ${isDark ? 'text-[#00ffa3]' : 'text-[#2d5a27]'}`}>
-          {mobileMenuOpen ? 'close' : 'menu'}
-        </span>
-      </button>
+      {isHomepage && (
+        <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+          <span className={`material-symbols-outlined transition-colors duration-200 ${isDark ? 'text-[#00ffa3]' : 'text-[#2d5a27]'}`}>
+            {mobileMenuOpen ? 'close' : 'menu'}
+          </span>
+        </button>
+      )}
 
       <div className="hidden md:flex items-center gap-4">
 
@@ -257,7 +261,50 @@ const TopNavBar = ({ onLoginClick, onSignupClick }) => {
           </motion.div>
         )}
       </AnimatePresence>
-    </nav>
+      </nav>
+
+      {/* Mobile Bottom Nav */}
+      {!isHomepage && (
+        <div 
+          className={`md:hidden fixed bottom-0 left-0 right-0 h-16 backdrop-blur-md border-t flex justify-around items-center z-50 px-2 ${
+            isDark ? 'bg-[rgba(10,10,10,0.92)] border-slate-800' : 'bg-[rgba(245,245,240,0.92)] border-[#c8d5b9]'
+          }`}
+          style={{ backdropFilter: 'blur(10px)' }}
+        >
+          {[
+            { icon: 'home', label: 'Home', path: '/home' },
+            { icon: 'mic', label: 'Interview', path: '/interview' },
+            { icon: 'trending_up', label: 'Analytics', path: '/analytics' },
+            { icon: 'history', label: 'History', path: '/history' },
+            { icon: 'person', label: 'Profile', path: '/settings' }
+          ].map(item => {
+            const isActive = location.pathname === item.path;
+            return (
+              <motion.div 
+                key={item.path}
+                onClick={() => navigate(item.path)}
+                className={`flex flex-col items-center justify-center w-full h-full cursor-pointer transition-colors ${
+                  isActive 
+                    ? (isDark ? 'text-[#00ffa3]' : 'text-[#2d5a27]') 
+                    : (isDark ? 'text-slate-500 hover:text-[#00ffa3]' : 'text-slate-400 hover:text-[#2d5a27]')
+                }`}
+                whileTap={{ scale: 0.9 }}
+              >
+                <span className="material-symbols-outlined text-2xl" style={{fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0"}}>{item.icon}</span>
+                <span className="text-[10px] font-bold mt-0.5" style={isDark ? { fontFamily: "'Courier New', monospace", textTransform: 'uppercase' } : {}}>{item.label}</span>
+                {isActive && (
+                  <motion.div 
+                    className={`w-1 h-1 rounded-full mt-0.5 ${isDark ? 'bg-[#00ffa3]' : 'bg-[#2d5a27]'}`} 
+                    style={isDark ? { boxShadow: '0 0 8px #00ffa3' } : {}}
+                    layoutId="mobileNavDot"
+                  />
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+      )}
+    </>
   );
 };
 

@@ -36,9 +36,9 @@ const Card = ({
   
   const paddings = {
     none: "",
-    small: "p-4",
-    medium: "p-6",
-    large: "p-8"
+    small: "p-3 sm:p-4",
+    medium: "p-4 sm:p-6",
+    large: "p-4 sm:p-8"
   };
   
   const borderAccent = border ? "border-l-4 border-[#2d5a27]" : "";
