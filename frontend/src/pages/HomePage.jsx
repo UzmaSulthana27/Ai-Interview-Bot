@@ -50,8 +50,8 @@ const HomePage = () => {
             textShadow: '0 0 6px rgba(0, 255, 163, 0.5)',
             boxShadow: '0 0 16px rgba(0, 255, 163, 0.1)'
           } : {
-            background: '#002e26',
-            border: '2px solid #2d5a27',
+            background: '#f0f7ec',
+            border: 'none',
             borderRadius: '12px',
             padding: '16px',
             marginTop: '24px',
@@ -88,8 +88,8 @@ const HomePage = () => {
             fontWeight: '600',
             boxShadow: '0 0 16px rgba(0, 255, 163, 0.1)'
           } : {
-            background: '#002e26',
-            border: '2px solid #2d5a27',
+            background: '#f0f7ec',
+            border: 'none',
             borderRadius: '12px',
             padding: '16px',
             marginTop: '24px',
@@ -182,7 +182,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="bg-[#f5f5f0] dark:bg-black text-white dark:text-slate-300 font-body transition-colors duration-300">
+    <div className={`font-body transition-colors duration-300 ${isDark ? 'bg-black text-slate-300' : 'bg-[#f5f5f0] text-[#1a3d16]'}`}>
       <TopNavBar />
       
       <main className="pt-16">

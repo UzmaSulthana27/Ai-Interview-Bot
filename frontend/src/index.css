@@ -300,10 +300,24 @@
     @apply bg-[#f5f5f0] dark:bg-[#000000] text-[#2d5a27] dark:text-slate-100;
   }
 
-  /* Force text-white to be visible in light mode, except for buttons which usually have dark backgrounds */
-  html:not(.dark) .text-white:not(button):not(.bg-primary):not(.bg-\\[\\#000000\\]) {
+  /* Force text-white on light mode only for elements NOT on intentionally dark/colored backgrounds */
+  html:not(.dark) .text-white:not(button):not(a):not(
+    .bg-primary, .bg-\[\#2d5a27\], .bg-\[\#1a3d16\],
+    [class*='bg-\[#00ffa3\]'], [class*='bg-\[#000000\]'],
+    [class*='bg-\[#002e26\]'], [class*='bg-\[#166534\]'],
+    [class*='bg-\[#0d3d1a\]']
+  ) {
     color: #2d5a27 !important;
   }
+
+  /* Light mode - ensure section headings are always legible (unless explicitly white bg'd) */
+  html:not(.dark) h1.text-white { color: #1a3d16 !important; }
+  html:not(.dark) h2.text-white { color: #1a3d16 !important; }
+  html:not(.dark) h3.text-white { color: #1a3d16 !important; }
+  html:not(.dark) h4.text-white { color: #1a3d16 !important; }
+
+  /* Catch any remaining text-slate-100 / text-gray-100 in light mode */
+  html:not(.dark) .text-slate-100 { color: #4a6741 !important; }
 
   /* Improved animations */
   @keyframes shimmer {
@@ -447,6 +461,14 @@
   /* Mobile bottom-nav spacing helper */
   @media (max-width: 768px) {
     .mobile-pb { padding-bottom: 72px; }
+  }
+  .activity-card-blur {
+    filter: blur(15px);
+    transition: filter 0.7s ease, opacity 0.7s ease;
+  }
+  
+  .group:hover .activity-card-blur {
+    filter: blur(0px) !important;
   }
 }
 

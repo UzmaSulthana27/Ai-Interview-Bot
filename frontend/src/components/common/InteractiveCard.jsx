@@ -27,7 +27,10 @@ const InteractiveCard = ({
         transition-all duration-500
         hover:shadow-2xl relative overflow-hidden glass-panel
         group hover-lift card-hover
-        ${isDark ? 'bg-[#000000] border border-slate-800 hover:border-primary text-white' : 'bg-gradient-to-br from-[#1a3d16] to-[#2d5a27] text-white hover:shadow-primary/20'}
+        ${isDark 
+          ? 'bg-[#000000] border border-slate-800 hover:border-primary text-white' 
+          : 'bg-white border border-[#c8d5b9] text-[#1a3d16] hover:border-[#2d5a27] hover:shadow-[#2d5a27]/10'
+        }
         ${containerClassName}
       `}
       style={isDark ? { borderRadius: '3px' } : {}}
@@ -43,14 +46,14 @@ const InteractiveCard = ({
           animate={{ scale: [1, 1.1, 1] }}
           transition={{ duration: 2, repeat: Infinity }}
         >
-          <span className="material-symbols-outlined text-2xl" style={{fontVariationSettings: "'FILL' 1"}}>
+          <span className={`material-symbols-outlined text-2xl ${isDark ? 'text-white' : 'text-[#2d5a27]'}`} style={{fontVariationSettings: "'FILL' 1"}}>
             {icon}
           </span>
         </motion.div>
       )}
 
       {/* Title */}
-      <p className={`text-sm font-bold font-headline leading-tight group-hover:scale-105 transition-transform ${isDark ? 'font-mono uppercase tracking-widest' : ''}`}>
+      <p className={`text-sm font-bold font-headline leading-tight group-hover:scale-105 transition-transform ${isDark ? 'font-mono uppercase tracking-widest text-white' : 'text-[#1a3d16]'}`}>
         {isDark ? title.toUpperCase() : title}
       </p>
 

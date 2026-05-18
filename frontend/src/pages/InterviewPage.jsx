@@ -289,7 +289,7 @@ const InterviewPage = () => {
   // STEP-BY-STEP CONFIGURATION UI
   if (!sessionStarted) {
     return (
-      <div className="bg-slate-50 dark:bg-[#000000] min-h-screen transition-colors duration-300 pt-24 pb-16">
+      <div className="bg-[#f5f5f0] dark:bg-[#000000] min-h-screen transition-colors duration-300 pt-24 pb-16">
         <TopNavBar />
         <div className="max-w-4xl mx-auto px-4">
           <AnimatePresence mode="wait">
@@ -300,7 +300,7 @@ const InterviewPage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
               >
-                <h1 className="font-headline text-3xl font-extrabold mb-8 text-white text-center">
+                <h1 className={`font-headline text-3xl font-extrabold mb-8 text-center ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
                   Select Your Role
                 </h1>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
@@ -308,12 +308,12 @@ const InterviewPage = () => {
                     <motion.div
                       key={role.id}
                       onClick={() => { setSelectedRole(role); setConfigStep(2); }}
-                      className="border border-slate-800 bg-white dark:bg-[#000000] rounded-2xl p-6 cursor-pointer flex flex-col items-center text-center transition-all hover:border-[#2d5a27] dark:hover:border-primary hover:shadow-lg"
+                      className="border border-[#c8d5b9] dark:border-slate-800 bg-[#f0f7ec] dark:bg-[#000000] rounded-2xl p-6 cursor-pointer flex flex-col items-center text-center transition-all hover:border-[#2d5a27] dark:hover:border-primary hover:shadow-lg"
                       whileHover={{ y: -5 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <span className="text-3xl block mb-2">{role.icon}</span>
-                      <span className="font-headline font-bold text-white text-sm" style={isDark ? { fontFamily: "'Courier New', monospace" } : {}}>
+                      <span className={`font-headline font-bold text-sm ${isDark ? 'text-white' : 'text-[#1a3d16]'}`} style={isDark ? { fontFamily: "'Courier New', monospace" } : {}}>
                         {isDark ? role.name.toUpperCase().replace(/\s+/g, '_') : role.name}
                       </span>
                     </motion.div>
@@ -335,16 +335,16 @@ const InterviewPage = () => {
                     <span className="material-symbols-outlined text-slate-600 dark:text-slate-400">arrow_back</span>
                   </button>
                   <div className="flex items-center gap-3">
-                    <span className="font-headline font-bold text-white dark:text-slate-400 text-sm">
+                    <span className={`font-headline font-bold text-sm ${isDark ? 'text-slate-400' : 'text-[#2d5a27]'}`}>
                       {configStep === 1 ? 'STEP_01' : configStep === 2 ? 'STEP_02' : 'STEP_03'}
                     </span>
                   </div>
-                  <h1 className="font-headline text-3xl font-extrabold text-white">Configure Interview</h1>
+                  <h1 className={`font-headline text-3xl font-extrabold ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>Configure Interview</h1>
                 </div>
 
-                <div className="bg-white dark:bg-[#050505] border border-slate-200 dark:border-slate-800 rounded-3xl p-8 shadow-xl space-y-8">
+                <div className="bg-[#f0f7ec] dark:bg-[#050505] border border-[#c8d5b9] dark:border-slate-800 rounded-3xl p-8 shadow-xl space-y-8">
                   <div>
-                    <h3 className="font-headline font-bold text-white mb-4">Difficulty Level</h3>
+                    <h3 className={`font-headline font-bold mb-4 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>Difficulty Level</h3>
                     <div className="flex gap-3">
                       {['Easy', 'Medium', 'Hard'].map(level => (
                         <button
@@ -352,8 +352,8 @@ const InterviewPage = () => {
                           onClick={() => setDifficulty(level)}
                           className={`flex-1 py-3 px-4 rounded-xl font-bold text-sm transition-all ${
                             difficulty === level
-                              ? 'bg-[#00ffa3] text-black shadow-lg'
-                              : 'bg-slate-100 dark:bg-[#0a0a0a] text-slate-700 dark:text-white hover:bg-slate-200 dark:hover:bg-slate-700 hover:text-primary'
+                              ? (isDark ? 'bg-[#00ffa3] text-black shadow-lg' : 'bg-[#2d5a27] text-white shadow-lg')
+                              : (isDark ? 'bg-[#0a0a0a] text-white hover:bg-slate-700 hover:text-primary' : 'bg-white text-[#4a6741] border border-[#c8d5b9] hover:bg-[#e8f0e0] hover:text-[#2d5a27]')
                           }`}
                         >
                           {level}
@@ -363,7 +363,7 @@ const InterviewPage = () => {
                   </div>
 
                   <div>
-                    <h3 className="font-headline font-bold text-white mb-4">Interview Format</h3>
+                    <h3 className={`font-headline font-bold mb-4 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>Interview Format</h3>
                     <div className="flex gap-3">
                       {[
                         { id: 'QA', name: 'Q&A Text', icon: 'chat' },
@@ -374,8 +374,8 @@ const InterviewPage = () => {
                           onClick={() => setFormat(f.id)}
                           className={`flex-1 py-4 px-6 rounded-xl font-bold text-sm transition-all flex flex-col items-center gap-2 ${
                             format === f.id
-                              ? 'bg-primary text-black shadow-lg border-2 border-primary'
-                              : 'bg-slate-100 dark:bg-[#0a0a0a] text-slate-400 border-2 border-transparent hover:text-primary'
+                              ? (isDark ? 'bg-primary text-black shadow-lg border-2 border-primary' : 'bg-[#2d5a27] text-white shadow-lg border-2 border-[#1a3d16]')
+                              : (isDark ? 'bg-[#0a0a0a] text-slate-400 border-2 border-transparent hover:text-primary' : 'bg-white text-[#4a6741] border-2 border-[#c8d5b9] hover:text-[#2d5a27] hover:border-[#2d5a27]')
                           }`}
                         >
                           <span className="material-symbols-outlined">{f.icon}</span>
@@ -391,7 +391,7 @@ const InterviewPage = () => {
                         <span className="material-symbols-outlined">psychology</span>
                       </div>
                       <div>
-                        <p className="font-bold text-white text-sm">Resume Personalization</p>
+                        <p className={`font-bold text-sm ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>Resume Personalization</p>
                         <p className="text-[10px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-bold">Tailor questions to your experience</p>
                       </div>
                     </div>
@@ -408,7 +408,7 @@ const InterviewPage = () => {
 
                   <motion.button
                     onClick={() => setConfigStep(3)}
-                    className="w-full bg-[#000000] border border-slate-800 hover:border-primary text-white py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:text-primary"
+                    className={`w-full py-4 rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all ${isDark ? 'bg-[#000000] border border-slate-800 hover:border-primary text-white hover:text-primary' : 'bg-[#2d5a27] border border-[#1a3d16] text-white hover:bg-[#1a3d16]'}`}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -421,33 +421,33 @@ const InterviewPage = () => {
             {configStep === 3 && (
               <motion.div 
                 key="step3"
-                className="bg-white dark:bg-[#050505] border border-slate-200 dark:border-slate-800 rounded-3xl p-8 max-w-[560px] w-full mx-auto shadow-xl text-center"
+                className="bg-[#f0f7ec] dark:bg-[#050505] border border-[#c8d5b9] dark:border-slate-800 rounded-3xl p-8 max-w-[560px] w-full mx-auto shadow-xl text-center"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
               >
                 <div className="text-5xl mb-4">{selectedRole?.icon}</div>
-                <h1 className="text-3xl font-headline font-bold text-white mb-6">
+                <h1 className={`text-3xl font-headline font-bold mb-6 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
                   {selectedRole?.name}
                 </h1>
                 
                 <div className="flex flex-wrap justify-center gap-2 mb-8">
-                  <span className="px-4 py-1.5 rounded-full bg-slate-100 dark:bg-[#0a0a0a] text-white text-sm font-bold border border-slate-200 dark:border-slate-800">
+                  <span className={`px-4 py-1.5 rounded-full text-sm font-bold border ${isDark ? 'bg-[#0a0a0a] text-white border-slate-800' : 'bg-white text-[#2d5a27] border-[#c8d5b9]'}`}>
                     Role: {selectedRole?.name}
                   </span>
-                  <span className="px-4 py-1.5 rounded-full bg-orange-100 dark:bg-[#0a0a0a] text-orange-700 dark:text-white text-sm font-bold border border-orange-200 dark:border-slate-800">
+                  <span className={`px-4 py-1.5 rounded-full text-sm font-bold border ${isDark ? 'bg-[#0a0a0a] text-white border-slate-800' : 'bg-orange-50 text-orange-700 border-orange-200'}`}>
                     {difficulty}
                   </span>
-                  <span className="px-4 py-1.5 rounded-full bg-slate-100 dark:bg-[#0a0a0a] text-slate-700 dark:text-white text-sm font-bold border border-slate-200 dark:border-slate-800">
+                  <span className={`px-4 py-1.5 rounded-full text-sm font-bold border ${isDark ? 'bg-[#0a0a0a] text-white border-slate-800' : 'bg-white text-[#2d5a27] border-[#c8d5b9]'}`}>
                     {format === 'MCQ' ? 'Multiple Choice' : 'Q&A Text'}
                   </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-white mb-6">
+                <h3 className={`text-xl font-bold mb-6 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
                   Ready to begin your interview?
                 </h3>
 
-                <div className="bg-slate-50 dark:bg-[#0a0a0a]/50 rounded-xl p-6 text-left mb-8 border border-slate-100 dark:border-slate-700/50">
+                <div className="bg-white dark:bg-[#0a0a0a]/50 rounded-xl p-6 text-left mb-8 border border-[#c8d5b9] dark:border-slate-700/50">
                   <ul className="font-mono text-sm text-slate-700 dark:text-slate-400 space-y-2">
                     <li>✓ Read each question carefully</li>
                     <li>✓ Take your time to answer</li>
@@ -459,7 +459,7 @@ const InterviewPage = () => {
                   <motion.button
                     onClick={handleBeginInterview}
                     disabled={loading}
-                    className="w-full bg-[#000000] border border-slate-800 hover:border-primary text-white font-bold text-lg py-4 rounded-xl shadow-lg flex justify-center items-center gap-2 transition-all hover:text-primary"
+                    className={`w-full font-bold text-lg py-4 rounded-xl shadow-lg flex justify-center items-center gap-2 transition-all ${isDark ? 'bg-[#000000] border border-slate-800 hover:border-primary text-white hover:text-primary' : 'bg-[#2d5a27] border border-[#1a3d16] text-white hover:bg-[#1a3d16]'}`}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -479,24 +479,24 @@ const InterviewPage = () => {
 
   if (isFinished) {
     return (
-      <div className="bg-white dark:bg-[#000000] min-h-screen pt-24 px-4 pb-16 flex flex-col items-center justify-center">
+      <div className={`min-h-screen pt-24 px-4 pb-16 flex flex-col items-center justify-center ${isDark ? 'bg-[#000000]' : 'bg-[#f5f5f0]'}`}>
         <TopNavBar />
-        <motion.h2 
-          className="font-headline text-3xl font-bold mb-4"
+        <motion.h2
+          className={`font-headline text-3xl font-bold mb-4 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
         >
           Session Complete!
         </motion.h2>
         <motion.div 
-          className="bg-slate-50 dark:bg-[#050505] border border-slate-200 dark:border-slate-800 p-8 rounded-2xl mb-8 text-center min-w-[300px]"
+          className={`border p-8 rounded-2xl mb-8 text-center min-w-[300px] ${isDark ? 'bg-[#050505] border-slate-800' : 'bg-white border-[#c8d5b9]'}`}
           initial={{ y: 10, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
           <p className="text-slate-600 dark:text-slate-400 mb-2">Total Questions: {Math.min(qCount, 10)}</p>
           {format === 'MCQ' && (
-            <p className="text-2xl font-bold text-white mt-4">
+            <p className={`text-2xl font-bold mt-4 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
               Score: {correctCount}/{Math.min(qCount, 10)}
             </p>
           )}
@@ -525,7 +525,7 @@ const InterviewPage = () => {
   }
 
   return (
-    <div className="bg-white dark:bg-[#000000] min-h-screen transition-colors duration-300">
+    <div className="bg-[#f5f5f0] dark:bg-[#000000] min-h-screen transition-colors duration-300">
       <TopNavBar />
       
       <main className="pt-24 px-4 md:px-8 pb-24 md:pb-16 max-w-4xl mx-auto">
@@ -536,7 +536,7 @@ const InterviewPage = () => {
           >
             <div className="flex items-center gap-3 mb-2">
               <span className="text-2xl">{getRoleIcon(selectedRole?.name)}</span>
-              <h1 className="font-headline text-2xl md:text-3xl font-extrabold text-white">
+              <h1 className={`font-headline text-2xl md:text-3xl font-extrabold ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
                 {selectedRole?.name ?? 'Interview'}
               </h1>
             </div>
@@ -606,7 +606,7 @@ const InterviewPage = () => {
           ) : typedQuestion ? (
             <motion.div 
               key="question"
-              className="bg-slate-100 dark:bg-[#030712] text-white dark:text-slate-100 p-6 font-mono text-sm md:text-lg mb-6 shadow-2xl relative overflow-hidden"
+              className={`p-6 font-mono text-sm md:text-lg mb-6 shadow-2xl relative overflow-hidden ${isDark ? 'bg-[#030712] text-slate-100' : 'bg-white text-[#1a3d16]'}`}
               style={isDark ? {
                 borderRadius: '4px',
                 border: '1px solid #00ffa3',
@@ -653,7 +653,7 @@ const InterviewPage = () => {
           >
             <div className="relative group">
               <textarea
-                className="w-full h-40 md:h-48 p-4 bg-white dark:bg-[#050505] border border-slate-800 dark:border-[#1e293b] rounded-xl focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 outline-none resize-none font-body text-sm md:text-base text-white"
+                className={`w-full h-40 md:h-48 p-4 border rounded-xl focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all duration-300 outline-none resize-none font-body text-sm md:text-base ${isDark ? 'bg-[#050505] border-[#1e293b] text-white' : 'bg-white border-[#c8d5b9] text-[#1a3d16]'}`}
                 placeholder="Type your response here..."
                 value={answer}
                 onChange={e => setAnswer(e.target.value)}
@@ -669,7 +669,7 @@ const InterviewPage = () => {
             <motion.button
               onClick={handleSubmitQA}
               disabled={submitting || !answer.trim() || answer.trim().split(/\s+/).filter(Boolean).length < 3}
-              className="w-full bg-primary text-white py-4 rounded-xl font-headline font-bold text-lg shadow-lg shadow-primary/20 disabled:opacity-50 flex items-center justify-center gap-3"
+              className={`w-full py-4 rounded-xl font-headline font-bold text-lg shadow-lg disabled:opacity-50 flex items-center justify-center gap-3 ${isDark ? 'bg-primary text-white shadow-primary/20' : 'bg-[#2d5a27] text-white shadow-[#2d5a27]/20'}`}
               whileHover={{ scale: 1.01, y: -2 }}
               whileTap={{ scale: 0.99 }}
             >
@@ -707,7 +707,7 @@ const InterviewPage = () => {
             {mcqData.options.map((opt) => {
               let btnClass = isDark 
                 ? "w-full text-left p-[14px] px-4 font-mono mb-2 transition-all duration-150 " 
-                : "w-full text-left bg-white border-[0.5px] border-[#bfdbfe] p-[14px] px-4 rounded-lg cursor-pointer font-mono mb-2 transition-all duration-150 text-primary ";
+                : "w-full text-left bg-white border-[0.5px] border-[#c8d5b9] p-[14px] px-4 rounded-lg cursor-pointer font-mono mb-2 transition-all duration-150 text-[#2d5a27] ";
               
               let btnStyle = isDark ? { borderRadius: '3px' } : {};
 
@@ -734,7 +734,7 @@ const InterviewPage = () => {
                     btnClass += " bg-[var(--bg-mcq-selected)] border-[var(--border-mcq-selected)] text-[var(--text-mcq-selected)] font-bold ";
                     btnStyle.boxShadow = '0 0 8px rgba(0,255,163,0.15)';
                   } else {
-                    btnClass = "w-full text-left p-[14px] px-4 rounded-lg font-mono mb-2 border-2 border-[#1a2e1a] bg-[#f7faf7] text-white font-bold ";
+                    btnClass = "w-full text-left p-[14px] px-4 rounded-lg font-mono mb-2 border-2 border-[#2d5a27] bg-[#e8f0e0] text-[#1a3d16] font-bold ";
                   }
                 } else {
                   if (isDark) {
@@ -762,7 +762,7 @@ const InterviewPage = () => {
               <motion.button
                 onClick={handleSubmitMCQ}
                 disabled={submitting}
-                className="w-full mt-4 bg-primary text-white py-4 rounded-xl font-headline font-bold text-lg shadow-lg shadow-primary/20 disabled:opacity-50 flex items-center justify-center gap-3"
+                className={`w-full mt-4 py-4 rounded-xl font-headline font-bold text-lg shadow-lg disabled:opacity-50 flex items-center justify-center gap-3 ${isDark ? 'bg-primary text-white shadow-primary/20' : 'bg-[#2d5a27] text-white shadow-[#2d5a27]/20'}`}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 whileHover={{ scale: 1.01, y: -2 }}

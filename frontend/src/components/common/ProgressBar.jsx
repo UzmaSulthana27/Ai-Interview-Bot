@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme } from '../../context/ThemeContext';
 
 const ProgressBar = ({ 
   value = 0,
@@ -10,15 +11,20 @@ const ProgressBar = ({
   animated = false,
   className = ''
 }) => {
+  const { isDark } = useTheme();
   const percentage = Math.min((value / max) * 100, 100);
-  
+
   const variants = {
-    primary: 'bg-[#00ffa3] shadow-[0_0_10px_#00ffa3]',
-    secondary: 'bg-[#00ffa3]/80 shadow-[0_0_8px_#00ffa3/50]',
+    primary: isDark
+      ? 'bg-[#00ffa3] shadow-[0_0_10px_#00ffa3]'
+      : 'bg-[#2d5a27]',
+    secondary: isDark
+      ? 'bg-[#00ffa3]/80 shadow-[0_0_8px_rgba(0,255,163,0.5)]'
+      : 'bg-[#4a6741]',
     tertiary: 'bg-slate-400',
-    success: 'bg-[#00ffa3]',
-    warning: 'bg-[#e8a020] dark:bg-[#e8a020]',
-    error: 'bg-[#cc3300] dark:bg-[#cc3300]'
+    success: isDark ? 'bg-[#00ffa3]' : 'bg-[#2d5a27]',
+    warning: 'bg-[#e8a020]',
+    error: 'bg-[#cc3300]'
   };
   
   const sizes = {
@@ -34,7 +40,7 @@ const ProgressBar = ({
           <span className="text-sm font-label text-slate-400 dark:text-slate-300">
             {label || 'Progress'}
           </span>
-          <span className="text-sm font-bold text-white">
+          <span className={`text-sm font-bold ${isDark ? 'text-white' : 'text-[#2d5a27]'}`}>
             {Math.round(percentage)}%
           </span>
         </div>

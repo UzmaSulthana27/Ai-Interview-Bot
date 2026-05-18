@@ -23,19 +23,19 @@ const Button = ({
   const variants = {
     primary: isDark 
       ? "bg-[#00ffa3] text-[#000000] shadow-[0_0_16px_rgba(0,255,163,0.4)] hover:shadow-[0_0_28px_rgba(0,255,163,0.7)] hover:-translate-y-[1px]"
-      : "bg-primary text-[#f5f5f0] hover:bg-primary/20 shadow-[0px_20px_40px_rgba(45,90,39,0.15)]",
+      : "bg-[#2d5a27] text-[#f5f5f0] hover:bg-[#1a3d16] shadow-[0px_20px_40px_rgba(45,90,39,0.15)]",
     secondary: isDark
       ? "bg-[#000000] text-[#00ffa3] border border-[#004d38] hover:bg-[#00ffa3] hover:text-[#000000]"
-      : "bg-[#e8f0e0] text-white hover:bg-[#d0e8d0]",
+      : "bg-[#e8f0e0] text-[#2d5a27] hover:bg-[#d0e8d0]",
     outline: isDark
       ? "bg-transparent text-[#00ffa3] !border-[1px] !border-solid !border-[#00ffa3] hover:bg-[#00ffa3]/10 hover:shadow-[0_0_12px_rgba(0,255,163,0.2)]"
-      : "bg-white border-0.5px border-[#2d5a27] text-primary hover:bg-[#f0f5ec]",
+      : "bg-white border-0.5px border-[#2d5a27] text-[#2d5a27] hover:bg-[#f0f5ec]",
     gradient: isDark
       ? "bg-[#00ffa3] text-[#000000] shadow-[0_0_16px_rgba(0,255,163,0.4)] hover:shadow-[0_0_28px_rgba(0,255,163,0.7)] hover:-translate-y-[1px]"
       : "bg-gradient-to-r from-[#1a3d16] to-[#2d5a27] text-[#f5f5f0] hover:opacity-90 shadow-lg shadow-[#2d5a27]/20",
     ghost: isDark
       ? "bg-transparent text-[#00ffa3] hover:bg-[#00ffa3]/10"
-      : "bg-transparent text-primary hover:bg-primary/10",
+      : "bg-transparent text-[#2d5a27] hover:bg-[#2d5a27]/10",
     danger: isDark
       ? "bg-[#1a0505] text-[#ff6b6b] border border-[#7f1d1d] hover:bg-[#3f0f0f]"
       : "bg-[#cc3300] text-white hover:bg-[#bb2e00]"

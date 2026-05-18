@@ -11,7 +11,10 @@ import Footer from '../components/layout/Footer';
 import LoginModal from '../components/common/LoginModal';
 import SignupModal from '../components/common/SignupModal';
 
+import { useTheme } from '../context/ThemeContext';
+
 const LandingPage = () => {
+  const { isDark } = useTheme();
   const location = useLocation();
   const navigate = useNavigate();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
@@ -62,7 +65,7 @@ const LandingPage = () => {
   };
 
   return (
-    <div className="bg-[#f5f5f0] dark:bg-[#000000] text-white dark:text-[#00ffa3] font-body transition-colors duration-300">
+    <div className={`font-body transition-colors duration-300 ${isDark ? 'bg-black text-slate-300' : 'bg-[#f5f5f0] text-[#1a3d16]'}`}>
       <TopNavBar 
         onLoginClick={openLoginModal} 
         onSignupClick={openSignupModal} 

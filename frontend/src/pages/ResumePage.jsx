@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import TopNavBar from '../components/layout/TopNavBar';
+import { useTheme } from '../context/ThemeContext';
 import Footer from '../components/layout/Footer';
 import Button from '../components/common/Button';
 import Card from '../components/common/Card';
@@ -13,6 +14,7 @@ const ResumePage = () => {
   const [uploading, setUploading] = useState(false);
   const [analysis, setAnalysis] = useState(null);
   const [showAnalysis, setShowAnalysis] = useState(false);
+  const { isDark } = useTheme();
   const { showToast, ToastContainer } = useToast();
 
   const handleFileSelect = (e) => {
@@ -114,7 +116,7 @@ const ResumePage = () => {
         <div className="max-w-4xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="font-headline text-3xl md:text-4xl font-extrabold mb-4 text-white dark:text-[#00ffa3]">
+            <h1 className={`font-headline text-3xl md:text-4xl font-extrabold mb-4 transition-colors duration-300 ${isDark ? 'text-white dark:text-[#00ffa3]' : 'text-[#1a3d16]'}`}>
               Resume Analysis
             </h1>
             <p className="text-slate-600 dark:text-slate-400 text-lg">
@@ -130,21 +132,21 @@ const ResumePage = () => {
               className="border-2 border-dashed border-outline-variant rounded-xl p-12 text-center hover:border-primary transition-colors"
             >
               <div className="flex flex-col items-center gap-4">
-                <div className="w-16 h-16 rounded-full signature-glow flex items-center justify-center">
-                  <span className="material-symbols-outlined text-white text-3xl">
+                <div className={`w-16 h-16 rounded-full flex items-center justify-center ${isDark ? 'signature-glow' : 'bg-[#e8f0e0] border border-[#c8d5b9]'}`}>
+                  <span className={`material-symbols-outlined text-3xl ${isDark ? 'text-white' : 'text-[#2d5a27]'}`}>
                     upload_file
                   </span>
                 </div>
                 
                 {file ? (
-                  <div className="flex items-center gap-3 bg-[#e8f0e0] dark:bg-[#00ffa3]/10 px-6 py-3 rounded-xl">
-                    <span className="material-symbols-outlined text-primary dark:text-[#00ffa3]">description</span>
-                    <span className="font-label font-bold text-primary dark:text-[#00ffa3]">{file.name}</span>
+                  <div className={`flex items-center gap-3 px-6 py-3 rounded-xl ${isDark ? 'bg-[#00ffa3]/10' : 'bg-[#e8f0e0]'}`}>
+                    <span className={`material-symbols-outlined ${isDark ? 'text-[#00ffa3]' : 'text-[#2d5a27]'}`}>description</span>
+                    <span className={`font-label font-bold ${isDark ? 'text-[#00ffa3]' : 'text-[#2d5a27]'}`}>{file.name}</span>
                     <button 
                       onClick={() => setFile(null)}
-                      className="ml-2 hover:bg-primary/10 rounded-full p-1"
+                      className={`ml-2 rounded-full p-1 ${isDark ? 'hover:bg-primary/10' : 'hover:bg-[#2d5a27]/10'}`}
                     >
-                      <span className="material-symbols-outlined text-primary text-sm">close</span>
+                      <span className={`material-symbols-outlined text-sm ${isDark ? 'text-[#00ffa3]' : 'text-[#2d5a27]'}`}>close</span>
                     </button>
                   </div>
                 ) : (
@@ -190,7 +192,7 @@ const ResumePage = () => {
 
             <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
               <div className="p-4">
-                <span className="material-symbols-outlined text-primary mb-2" 
+                <span className={`material-symbols-outlined mb-2 ${isDark ? 'text-primary' : 'text-[#2d5a27]'}`} 
                       style={{fontVariationSettings: "'FILL' 1"}}>
                   verified
                 </span>
@@ -199,7 +201,7 @@ const ResumePage = () => {
                 </p>
               </div>
               <div className="p-4">
-                <span className="material-symbols-outlined text-secondary mb-2" 
+                <span className={`material-symbols-outlined mb-2 ${isDark ? 'text-secondary' : 'text-[#2d5a27]'}`} 
                       style={{fontVariationSettings: "'FILL' 1"}}>
                   speed
                 </span>
@@ -208,7 +210,7 @@ const ResumePage = () => {
                 </p>
               </div>
               <div className="p-4">
-                <span className="material-symbols-outlined text-tertiary mb-2" 
+                <span className={`material-symbols-outlined mb-2 ${isDark ? 'text-tertiary' : 'text-[#2d5a27]'}`} 
                       style={{fontVariationSettings: "'FILL' 1"}}>
                   psychology
                 </span>

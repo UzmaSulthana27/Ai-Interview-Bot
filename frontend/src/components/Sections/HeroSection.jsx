@@ -67,7 +67,7 @@ const HeroSection = ({ onStartTrial }) => {
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center relative z-10">
         
         <motion.div 
-          className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold mb-6 cursor-pointer ${isDark ? 'bg-[var(--bg-badge)] border border-slate-800 text-slate-300' : 'bg-[#e8f0e0] text-primary'}`}
+          className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold mb-6 cursor-pointer ${isDark ? 'bg-[var(--bg-badge)] border border-slate-800 text-slate-300' : 'bg-[#e8f0e0] text-[#2d5a27]'}`}
           style={isDark ? { borderRadius: '2px' } : { borderRadius: '20px' }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -103,22 +103,22 @@ const HeroSection = ({ onStartTrial }) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
         >
-          <div className="absolute top-0 left-0 w-1.5 h-full bg-primary" />
+          <div className={`absolute top-0 left-0 w-1.5 h-full ${isDark ? 'bg-primary' : 'bg-[#2d5a27]'}`} />
           
-          <div className="flex justify-between items-center mb-6 border-b border-[#00ffa3]/20 pb-4">
+          <div className={`flex justify-between items-center mb-6 pb-4 border-b ${isDark ? 'border-[#00ffa3]/20' : 'border-[#c8d5b9]'}`}>
             <span className="text-slate-500 font-bold text-sm md:text-base tracking-widest">
               {isDark ? '// SYSTEM_INITIALIZED' : '$ AI_SYSTEM'}
             </span>
             <div className="flex gap-2">
               <div className="w-2.5 h-2.5 rounded-full bg-red-500/30"></div>
               <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/30"></div>
-              <div className="w-2.5 h-2.5 rounded-full bg-[#00ffa3]/50"></div>
+              <div className={`w-2.5 h-2.5 rounded-full ${isDark ? 'bg-[#00ffa3]/50' : 'bg-[#2d5a27]/50'}`}></div>
             </div>
           </div>
 
-          <h1 className={`font-headline text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight transition-colors duration-300 ${isDark ? 'text-slate-100' : 'text-white'}`}>
+          <h1 className={`font-headline text-2xl md:text-4xl lg:text-5xl font-extrabold tracking-tight transition-colors duration-300 ${isDark ? 'text-slate-100' : 'text-[#1a3d16]'}`}>
             <TypingText text="Elevate Your Career with " />
-            <span className="italic text-white underline decoration-primary/40 decoration-4 underline-offset-8">AI</span>
+            <span className={`italic underline decoration-4 underline-offset-8 ${isDark ? 'text-white decoration-primary/40' : 'text-[#1a3d16] decoration-[#2d5a27]/40'}`}>AI</span>
           </h1>
         </motion.div>
 
@@ -143,7 +143,7 @@ const HeroSection = ({ onStartTrial }) => {
             onClick={onStartTrial}
             className={isDark 
               ? "w-full sm:w-auto bg-transparent text-white border border-slate-700 px-10 py-4 font-mono uppercase tracking-[2px] font-bold hover:bg-primary hover:text-black hover:border-primary transition-all"
-              : "w-full sm:w-auto bg-primary text-[#f5f5f0] px-10 py-5 rounded-[8px] font-headline font-extrabold text-xl shadow-xl shadow-primary/20"}
+              : "w-full sm:w-auto bg-[#2d5a27] text-white px-10 py-5 rounded-[8px] font-headline font-extrabold text-xl shadow-xl shadow-[#2d5a27]/20 hover:bg-[#1a3d16] transition-all"}
             style={isDark ? { borderRadius: '2px' } : {}}
             whileHover={isDark 
               ? { scale: 1.02, boxShadow: "0 0 20px rgba(0,255,163,0.3)" }
@@ -172,7 +172,7 @@ const HeroSection = ({ onStartTrial }) => {
               className={`text-center p-4 rounded-2xl transition-colors duration-300 ${isDark ? 'hover:bg-primary/5' : 'hover:bg-slate-50'}`}
               whileHover={{ scale: 1.05 }}
             >
-              <h3 className="text-3xl md:text-4xl font-headline font-bold text-slate-100 mb-1">
+              <h3 className={`text-3xl md:text-4xl font-headline font-bold mb-1 ${isDark ? 'text-slate-100' : 'text-[#2d5a27]'}`}>
                 <StatCounter end={stat.value} suffix={stat.suffix} />
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-400">{stat.label}</p>
@@ -191,7 +191,7 @@ const HeroSection = ({ onStartTrial }) => {
           <div className="relative rounded-3xl overflow-hidden shadow-[0_0_50px_rgba(45,90,39,0.15)] border border-white/10 dark:border-white/5 glass-panel backdrop-blur-md">
             <div className="aspect-video flex items-center justify-center relative overflow-hidden bg-black">
               <img 
-                src="/dark_backgroun_interviewer.png" 
+              src={isDark ? "/dark_backgroun_interviewer.png" : "/light_backgroun_interviewer.png"} 
                 alt="Astra AI Interview" 
                 className="w-full h-full object-cover relative z-10 transition-transform duration-1000 group-hover:scale-105"
                 style={{ 
@@ -212,24 +212,24 @@ const HeroSection = ({ onStartTrial }) => {
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             >
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-full signature-glow flex items-center justify-center">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isDark ? 'signature-glow' : 'bg-[#2d5a27]'}`}>
                   <span className="material-symbols-outlined text-white" 
                         style={{fontVariationSettings: "'FILL' 1"}}>
                     analytics
                   </span>
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider font-bold text-primary">
+                  <p className={`text-[10px] uppercase tracking-wider font-bold ${isDark ? 'text-primary' : 'text-[#2d5a27]'}`}>
                     Live Insight
                   </p>
-                  <p className="font-headline font-bold text-white transition-colors duration-300">
+                  <p className={`font-headline font-bold transition-colors duration-300 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
                     Confidence Score
                   </p>
                 </div>
               </div>
               <div className="h-2 w-full bg-[#e8f0e0] rounded-full overflow-hidden mb-2">
                 <motion.div 
-                  className="h-full signature-glow"
+                  className={`h-full ${isDark ? 'signature-glow' : 'bg-[#2d5a27]'}`}
                   initial={{ width: 0 }}
                   animate={{ width: '85%' }}
                   transition={{ duration: 2, delay: 1 }}

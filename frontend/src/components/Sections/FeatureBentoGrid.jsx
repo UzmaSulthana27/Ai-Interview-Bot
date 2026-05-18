@@ -29,7 +29,7 @@ const FeatureBentoGrid = () => {
           transition={{ duration: 0.6 }}
         >
           <motion.h2 
-            className="font-headline text-3xl md:text-4xl font-bold mb-4 text-white transition-colors duration-300"
+            className={`font-headline text-3xl md:text-4xl font-bold mb-4 transition-colors duration-300 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}
             whileHover={{ scale: 1.02 }}
           >
             Sophisticated Intelligence
@@ -63,12 +63,12 @@ const FeatureBentoGrid = () => {
                 className="w-12 h-12 bg-[#e8f0e0] dark:bg-[#000000]/40 rounded-xl flex items-center justify-center mb-6"
                 whileHover={{ rotate: 10, scale: 1.1 }}
               >
-                <span className="material-symbols-outlined text-primary dark:text-[#c8e6c0]" 
+                <span className={`material-symbols-outlined ${isDark ? 'text-[#c8e6c0]' : 'text-[#2d5a27]'}`} 
                       style={{fontVariationSettings: "'FILL' 1"}}>
                   description
                 </span>
               </motion.div>
-              <h3 className="font-headline text-2xl font-bold mb-3 text-white transition-colors duration-300">
+              <h3 className={`font-headline text-2xl font-bold mb-3 transition-colors duration-300 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
                 Resume Analysis
               </h3>
               <p className="text-slate-600 dark:text-slate-400 max-w-md transition-colors duration-300">
@@ -83,14 +83,14 @@ const FeatureBentoGrid = () => {
               >
                 {/* Active Scan Line */}
                 <motion.div 
-                  className="absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary to-transparent z-20"
+                  className={`absolute left-0 right-0 h-[2px] bg-gradient-to-r from-transparent ${isDark ? 'via-primary' : 'via-[#2d5a27]'} to-transparent z-20`}
                   animate={{ top: ['0%', '100%', '0%'] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                 />
                 
                 <div className="flex justify-between items-center mb-2 border-b border-slate-100 dark:border-slate-800 pb-2">
                   <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined text-xs text-primary dark:text-slate-400">description</span>
+                    <span className={`material-symbols-outlined text-xs ${isDark ? 'text-slate-400' : 'text-[#2d5a27]'}`}>description</span>
                     <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-tighter">resume_v2.pdf</span>
                   </div>
                   <div className="flex gap-1">
@@ -105,7 +105,7 @@ const FeatureBentoGrid = () => {
                     {['REACT_JS', 'NODE_JS', 'PYTHON', 'SYSTEM_DESIGN'].map((skill, i) => (
                       <motion.span 
                         key={i}
-                        className="px-2 py-1 bg-[#e8f0e0] dark:bg-slate-800/50 text-primary dark:text-slate-300 text-[9px] font-mono rounded border border-slate-800 dark:border-slate-700"
+                        className={`px-2 py-1 bg-[#e8f0e0] dark:bg-slate-800/50 text-[9px] font-mono rounded border border-slate-800 dark:border-slate-700 ${isDark ? 'text-slate-300' : 'text-[#2d5a27]'}`}
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.1 }}
@@ -118,11 +118,11 @@ const FeatureBentoGrid = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">
                       <span className="text-[9px] text-slate-400 dark:text-slate-500 font-mono">MATCH_CONFIDENCE</span>
-                      <span className="text-[9px] text-white font-mono">94.2%</span>
+                      <span className={`text-[9px] font-mono ${isDark ? 'text-white' : 'text-[#2d5a27]'}`}>94.2%</span>
                     </div>
                     <div className="h-1.5 w-full bg-slate-100 dark:bg-[#002e26] rounded-full overflow-hidden">
                       <motion.div 
-                        className="h-full bg-primary dark:bg-primary"
+                        className={`h-full ${isDark ? 'bg-primary' : 'bg-[#2d5a27]'}`}
                         initial={{ width: 0 }}
                         animate={{ width: '94.2%' }}
                         transition={{ duration: 1.5, delay: 0.5 }}
@@ -132,14 +132,14 @@ const FeatureBentoGrid = () => {
                 </div>
 
                 <div className="mt-auto p-3 rounded-lg bg-[#e8f0e0]/50 dark:bg-slate-800/20 border border-slate-800">
-                   <p className="text-[9px] font-mono text-primary dark:text-slate-300 flex items-center gap-2">
-                    <span className="w-1 h-1 bg-primary rounded-full animate-pulse"></span>
+                   <p className={`text-[9px] font-mono flex items-center gap-2 ${isDark ? 'text-slate-300' : 'text-[#2d5a27]'}`}>
+                    <span className={`w-1 h-1 rounded-full animate-pulse ${isDark ? 'bg-primary' : 'bg-[#2d5a27]'}`}></span>
                     {isDark ? 'STATUS: EXTRACTING_SEMANTIC_NODES...' : 'Analyzing professional history...'}
                    </p>
                 </div>
               </motion.div>
             </div>
-            <div className="absolute bottom-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -mr-32 -mb-32"></div>
+            <div className={`absolute bottom-0 right-0 w-64 h-64 rounded-full blur-3xl -mr-32 -mb-32 ${isDark ? 'bg-primary/5' : 'bg-[#2d5a27]/5'}`}></div>
           </motion.div>
 
           {/* Side Feature: Mock Interviews */}
@@ -153,14 +153,14 @@ const FeatureBentoGrid = () => {
             }}
           >
             <motion.div 
-              className="mx-auto w-16 h-16 bg-[#e8f0e0] dark:bg-[#050505] rounded-full flex items-center justify-center mb-6 shadow-lg shadow-primary/20 border border-transparent dark:border-slate-800"
+              className={`mx-auto w-16 h-16 bg-[#e8f0e0] dark:bg-[#050505] rounded-full flex items-center justify-center mb-6 shadow-lg border border-transparent dark:border-slate-800 ${isDark ? 'shadow-primary/20' : 'shadow-[#2d5a27]/20'}`}
               whileHover={{ scale: 1.1, rotate: 5 }}
             >
-              <span className="material-symbols-outlined text-white text-3xl">
+              <span className={`material-symbols-outlined text-3xl ${isDark ? 'text-white' : 'text-[#2d5a27]'}`}>
                 video_chat
               </span>
             </motion.div>
-            <h3 className="font-headline text-2xl font-bold mb-3 text-white transition-colors duration-300">
+            <h3 className={`font-headline text-2xl font-bold mb-3 transition-colors duration-300 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
               Mock Interviews
             </h3>
             <p className="text-slate-600 dark:text-slate-400 transition-colors duration-300 relative z-10">
@@ -169,7 +169,7 @@ const FeatureBentoGrid = () => {
             </p>
             <div className="mt-6 h-32 rounded-xl overflow-hidden relative border border-white/5 shadow-inner bg-black">
                <img 
-                  src={isDark ? "/dark_backgroun_interviewer.png" : "/ai_interview_man_robot.jpg"} 
+                  src={isDark ? "/dark_backgroun_interviewer.png" : "/light_backgroun_interviewer.png"} 
                   alt="Mock Interview" 
                   className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-700"
                />
@@ -191,13 +191,13 @@ const FeatureBentoGrid = () => {
               className="shrink-0 w-14 h-14 bg-[#e8f0e0] dark:bg-[#000000] rounded-xl flex items-center justify-center"
               whileHover={{ scale: 1.1, rotate: -5 }}
             >
-              <span className="material-symbols-outlined text-primary dark:text-[#c8e6c0]" 
+              <span className={`material-symbols-outlined ${isDark ? 'text-[#c8e6c0]' : 'text-[#2d5a27]'}`} 
                     style={{fontVariationSettings: "'FILL' 1"}}>
                 graphic_eq
               </span>
             </motion.div>
             <div>
-              <h3 className="font-headline text-xl font-bold text-white mb-1 transition-colors duration-300">
+              <h3 className={`font-headline text-xl font-bold mb-1 transition-colors duration-300 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
                 Real-time Feedback
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-400 transition-colors duration-300">
@@ -207,7 +207,7 @@ const FeatureBentoGrid = () => {
           </motion.div>
 
           <motion.div 
-            className="md:col-span-7 glass-panel dark:bg-[#050505] text-white rounded-2xl p-8 flex items-center justify-between overflow-hidden relative group shadow-xl border border-white/5 w-full"
+            className={`md:col-span-7 rounded-2xl p-8 flex items-center justify-between overflow-hidden relative group shadow-xl border w-full ${isDark ? 'glass-panel bg-[#050505] text-white border-white/5' : 'bg-white text-[#1a3d16] border-[#c8d5b9]'}`}
             variants={itemVariants}
             whileHover={{ 
               y: -8,
@@ -215,10 +215,10 @@ const FeatureBentoGrid = () => {
             }}
           >
             <div className="relative z-10 origin-left">
-              <h3 className="font-headline text-xl font-bold mb-1">
+              <h3 className={`font-headline text-xl font-bold mb-1 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
                 Predictive Analytics
               </h3>
-              <p className="text-sm opacity-90 max-w-xs">
+              <p className={`text-sm opacity-90 max-w-xs ${isDark ? '' : 'text-[#4a6741]'}`}>
                 Know exactly which areas need improvement before the real interview.
               </p>
             </div>
@@ -226,7 +226,7 @@ const FeatureBentoGrid = () => {
               {[16, 24, 32, 20, 28].map((height, i) => (
                 <motion.div 
                   key={i}
-                  className="w-2 bg-primary dark:bg-white rounded-full"
+                  className={`w-2 rounded-full ${isDark ? 'bg-white' : 'bg-[#2d5a27]'}`}
                   animate={{ height: [height * 2, height * 3, height * 2] }}
                   transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.1 }}
                 />
