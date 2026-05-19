@@ -51,9 +51,10 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     setToken(null);
-    ['authToken', 'user', 'userId', 'userName', 'jobRole'].forEach(k =>
-      localStorage.removeItem(k)
-    );
+    [
+      'authToken', 'user', 'userId', 'userName', 'jobRole',
+      'isPremium', 'sessionsUsed', 'sessionsLeft'
+    ].forEach(k => localStorage.removeItem(k));
     setError(null);
   };
 

@@ -7,6 +7,7 @@ import Footer from '../components/layout/Footer';
 import apiService from '../api/apiService';
 import InterviewFeedback from '../components/interview/InterviewFeedback';
 import UpgradePopup from '../components/UpgradePopup';
+import { useSession } from '../context/SessionContext';
 
 const Spinner = () => (
   <motion.div 
@@ -88,6 +89,7 @@ const roles = [
 const InterviewPage = () => {
   const navigate = useNavigate();
   const { isDark } = useTheme();
+  const { updateSessionInfo, setShowUpgradePopup, showUpgradePopup, sessionsLeft, isPremium, refreshStatus } = useSession();
   
   const [sessionStarted, setSessionStarted] = useState(false);
   const [loading, setLoading]               = useState(false);
@@ -117,9 +119,6 @@ const InterviewPage = () => {
   const [isCorrect, setIsCorrect]           = useState(null);
   const [correctCount, setCorrectCount]     = useState(0);
 
-  // Trial/Premium handling
-  const [showUpgradePopup, setShowUpgradePopup] = useState(false);
-
   const typingTimer = useRef(null);
   const userId     = localStorage.getItem('userId');
 
@@ -128,14 +127,25 @@ const InterviewPage = () => {
       navigate('/login');
       return;
     }
+    refreshStatus();
     return () => clearInterval(typingTimer.current);
-  }, [userId, navigate]);
+  }, [userId, navigate, refreshStatus]);
 
   const handleBeginInterview = async () => {
     setLoading(true);
     setLoadingMsg('⏳ connecting to AI...');
     try {
       const res = await apiService.startInterviewSession(selectedRole.name, userId, difficulty, format, useResume);
+      
+      // Update session count from response
+      if (res.data.sessionsUsed !== undefined) {
+        updateSessionInfo(
+          res.data.sessionsUsed,
+          res.data.sessionsLeft,
+          res.data.isPremium
+        );
+      }
+
       setSessionId(res.data.sessionId);
       if (res.data.question) {
         setQCount(1);
@@ -143,17 +153,17 @@ const InterviewPage = () => {
       }
       setSessionStarted(true);
       setLoadingMsg('');
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
       setLoadingMsg('');
-      
-      // Handle trial expired error
-      if (e.response?.status === 403 && e.response?.data?.error === 'TRIAL_EXPIRED') {
+      if (err.response?.status === 403 &&
+          err.response?.data?.error === 'TRIAL_EXPIRED') {
+
         setShowUpgradePopup(true);
+        navigate('/home');
         return;
       }
-      
-      setErrorMsg('Failed to connect to AI.');
+      console.error('Start interview error:', err);
+      alert('Failed to start interview. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -300,9 +310,22 @@ const InterviewPage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
               >
-                <h1 className={`font-headline text-3xl font-extrabold mb-8 text-center ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
-                  Select Your Role
-                </h1>
+                <div className="text-center mb-8">
+                  <h1 className={`font-headline text-3xl font-extrabold mb-2 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
+                    Select Your Role
+                  </h1>
+                  <div className="inline-block mt-1">
+                    {isPremium ? (
+                      <span className="text-xs font-mono px-3 py-1.5 rounded-full bg-[#f0f7ec] dark:bg-[#0f172a] text-[#2d5a27] dark:text-[#00ffa3] border border-[#c8d5b9] dark:border-primary/20">
+                        ⚡ Premium Member (Unlimited Sessions)
+                      </span>
+                    ) : (
+                      <span className="text-xs font-mono px-3 py-1.5 rounded-full bg-white dark:bg-[#050505] text-[#2d5a27] dark:text-slate-400 border border-[#c8d5b9] dark:border-slate-800">
+                        🔑 {sessionsLeft} sessions remaining
+                      </span>
+                    )}
+                  </div>
+                </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-12">
                   {roles.map((role) => (
                     <motion.div
@@ -330,16 +353,29 @@ const InterviewPage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
               >
-                <div className="flex items-center gap-4 mb-8">
-                  <button onClick={() => setConfigStep(1)} className="p-2 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-colors">
-                    <span className="material-symbols-outlined text-slate-600 dark:text-slate-400">arrow_back</span>
-                  </button>
-                  <div className="flex items-center gap-3">
-                    <span className={`font-headline font-bold text-sm ${isDark ? 'text-slate-400' : 'text-[#2d5a27]'}`}>
-                      {configStep === 1 ? 'STEP_01' : configStep === 2 ? 'STEP_02' : 'STEP_03'}
-                    </span>
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+                  <div className="flex items-center gap-4">
+                    <button onClick={() => setConfigStep(1)} className="p-2 hover:bg-slate-200 dark:hover:bg-slate-800 rounded-full transition-colors">
+                      <span className="material-symbols-outlined text-slate-600 dark:text-slate-400">arrow_back</span>
+                    </button>
+                    <div className="flex items-center gap-3">
+                      <span className={`font-headline font-bold text-sm ${isDark ? 'text-slate-400' : 'text-[#2d5a27]'}`}>
+                        {configStep === 1 ? 'STEP_01' : configStep === 2 ? 'STEP_02' : 'STEP_03'}
+                      </span>
+                    </div>
+                    <h1 className={`font-headline text-3xl font-extrabold ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>Configure Interview</h1>
                   </div>
-                  <h1 className={`font-headline text-3xl font-extrabold ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>Configure Interview</h1>
+                  <div>
+                    {isPremium ? (
+                      <span className="text-xs font-mono px-3 py-1.5 rounded-full bg-[#f0f7ec] dark:bg-[#0f172a] text-[#2d5a27] dark:text-[#00ffa3] border border-[#c8d5b9] dark:border-primary/20">
+                        ⚡ Premium
+                      </span>
+                    ) : (
+                      <span className="text-xs font-mono px-3 py-1.5 rounded-full bg-white dark:bg-[#050505] text-[#2d5a27] dark:text-slate-400 border border-[#c8d5b9] dark:border-slate-800">
+                        🔑 {sessionsLeft} left
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 <div className="bg-[#f0f7ec] dark:bg-[#050505] border border-[#c8d5b9] dark:border-slate-800 rounded-3xl p-8 shadow-xl space-y-8">
@@ -427,9 +463,20 @@ const InterviewPage = () => {
                 exit={{ opacity: 0, scale: 0.9 }}
               >
                 <div className="text-5xl mb-4">{selectedRole?.icon}</div>
-                <h1 className={`text-3xl font-headline font-bold mb-6 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
+                <h1 className={`text-3xl font-headline font-bold mb-2 ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
                   {selectedRole?.name}
                 </h1>
+                <div className="mb-6">
+                  {isPremium ? (
+                    <span className="text-xs font-mono px-3 py-1.5 rounded-full bg-[#f0f7ec] dark:bg-[#0f172a] text-[#2d5a27] dark:text-[#00ffa3] border border-[#c8d5b9] dark:border-primary/20">
+                      ⚡ Premium Member (Unlimited Sessions)
+                    </span>
+                  ) : (
+                    <span className="text-xs font-mono px-3 py-1.5 rounded-full bg-[#f5f5f0] dark:bg-[#050505] text-[#2d5a27] dark:text-slate-400 border border-[#c8d5b9] dark:border-slate-800">
+                      🔑 {sessionsLeft} sessions left
+                    </span>
+                  )}
+                </div>
                 
                 <div className="flex flex-wrap justify-center gap-2 mb-8">
                   <span className={`px-4 py-1.5 rounded-full text-sm font-bold border ${isDark ? 'bg-[#0a0a0a] text-white border-slate-800' : 'bg-white text-[#2d5a27] border-[#c8d5b9]'}`}>
@@ -539,6 +586,18 @@ const InterviewPage = () => {
               <h1 className={`font-headline text-2xl md:text-3xl font-extrabold ${isDark ? 'text-white' : 'text-[#1a3d16]'}`}>
                 {selectedRole?.name ?? 'Interview'}
               </h1>
+              {!isPremium && (
+                <span style={{
+                  fontFamily: 'monospace',
+                  fontSize: 10,
+                  color: 'var(--text-muted)',
+                  border: 'var(--border-default)',
+                  padding: '2px 8px',
+                  borderRadius: 4,
+                }}>
+                  {sessionsLeft} sessions left
+                </span>
+              )}
             </div>
             
             <div className="flex gap-2 mt-2 mb-3">
@@ -826,10 +885,6 @@ const InterviewPage = () => {
         onClose={() => {
           setShowUpgradePopup(false);
           navigate('/home');
-        }}
-        onUpgrade={() => {
-          localStorage.setItem('isPremium', 'true');
-          setShowUpgradePopup(false);
         }}
       />
     </div>

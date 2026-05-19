@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { AuthProvider } from './context/AuthContext';
+import { useSession } from './context/SessionContext';
 import ProtectedRoute from './components/common/ProtectedRoute';
 import LandingPage from './pages/LandingPage';
 import DashboardPage from './pages/DashboardPage';
@@ -34,6 +35,16 @@ const ScanlineOverlay = () => {
   );
 };
 
+// Runs once on app boot — always syncs premium/session status from the backend
+// This prevents stale localStorage from ever granting premium access
+const AppInit = () => {
+  const { refreshStatus } = useSession();
+  useEffect(() => {
+    refreshStatus();
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  return null;
+};
+
 function App() {
   return (
     <ThemeProvider>
@@ -41,6 +52,7 @@ function App() {
       <AuthProvider>
         <Router>
           <ScrollToTop />
+          <AppInit />
           <Routes>
             {/* Public Routes */}
             <Route path="/" element={<LandingPage />} />

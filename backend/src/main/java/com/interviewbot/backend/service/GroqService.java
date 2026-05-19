@@ -20,6 +20,14 @@ public class GroqService {
 
     private final RestTemplate restTemplate = new RestTemplate();
 
+    public String generateQuestion(String jobRole, String difficulty) {
+        return generateQuestion(jobRole, difficulty, List.of(), null);
+    }
+
+    public String generateMCQQuestion(String jobRole, String difficulty) {
+        return generateMCQQuestion(jobRole, difficulty, List.of(), null);
+    }
+
     // For Q/A format:
     public String generateQuestion(String jobRole, String difficulty, List<String> previousQuestions, String resumeProfile) {
         String avoidText = "";

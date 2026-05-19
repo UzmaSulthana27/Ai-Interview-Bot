@@ -18,11 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.interviewbot.backend.model.InterviewSession;
 import com.interviewbot.backend.model.QuestionAnswer;
+import com.interviewbot.backend.model.User;
 import com.interviewbot.backend.repository.QARepository;
 import com.interviewbot.backend.repository.SessionRepository;
 import com.interviewbot.backend.repository.UserRepository;
 import com.interviewbot.backend.service.GroqService;
 import com.interviewbot.backend.service.InterviewService;
+import jakarta.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/api/interview")
@@ -60,52 +63,74 @@ public class InterviewController {
 	        @RequestParam Long userId,
 	        @RequestParam(defaultValue = "Medium") String difficulty,
 	        @RequestParam(defaultValue = "QA") String format,
-	        @RequestParam(defaultValue = "false") boolean useResume) {
-        try {
-            // Validate user existence
-            if (!userRepository.existsById(userId)) {
-                return ResponseEntity.badRequest().body(Map.of(
-                    "error", "Invalid User ID",
-                    "message", "User with ID " + userId + " does not exist."
-                ));
-            }
+	        HttpServletRequest request) {
 
-            // Save session
-            InterviewSession session = new InterviewSession();
-            session.setUserId(userId);
-            session.setJobRole(jobRole);
-            session.setDifficulty(difficulty);
-            session.setFormat(format);
-            sessionRepository.save(session);
+	    // ── STEP 1: Find user ──────────────────────────
+	    User user = userRepository.findById(userId)
+	        .orElseThrow(() -> new RuntimeException("User not found"));
 
-            String resumeProfile = null;
-            if (useResume) {
-                resumeProfile = resumeAnalysisRepository.findTopByUserIdOrderByCreatedAtDesc(userId)
-                        .map(com.interviewbot.backend.model.ResumeAnalysis::getExperienceSummary)
-                        .orElse(null);
-            }
+	    // ── STEP 2: Check Cloudflare header ────────────
+	    // Cloudflare sends real IP even behind proxy
+	    // Log it for abuse detection
+	    String userIp = request.getHeader("CF-Connecting-IP");
+	    if (userIp == null) userIp = request.getRemoteAddr();
+	    System.out.println("Request from IP: " + userIp);
 
-            // Generate question based on format
-            String questionData;
-            if (format.equalsIgnoreCase("MCQ")) {
-                questionData = groqService.generateMCQQuestion(jobRole, difficulty, List.of(), resumeProfile);
-            } else {
-                questionData = groqService.generateQuestion(jobRole, difficulty, List.of(), resumeProfile);
-            }
+	    // ── STEP 3: FREE TRIAL CHECK ───────────────────
+	    // Block if user has used 3 or more sessions
+	    // AND is not a premium user
+	    if (!Boolean.TRUE.equals(user.getIsPremium())
+	            && user.getSessionsUsed() >= 3) {
 
-            Map<String, Object> response = new HashMap<>();
-            response.put("sessionId", session.getId());
-            response.put("question", questionData != null ? questionData : "Error: Could not generate question.");
-            response.put("format", format);
-            response.put("difficulty", difficulty);
+	        return ResponseEntity.status(403).body(Map.of(
+	            "error",        "TRIAL_EXPIRED",
+	            "message",      "You have used all 3 free sessions. Please upgrade to continue.",
+	            "sessionsUsed", user.getSessionsUsed(),
+	            "sessionsLeft", 0,
+	            "isPremium",    false
+	        ));
+	    }
+	    // ──────────────────────────────────────────────
 
-            return ResponseEntity.ok(response);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().body(Map.of(
-                "error", "Failed to start interview session: " + e.getMessage()
-            ));
-        }
+	    // ── STEP 4: Increment session count ───────────
+	    // Do this BEFORE calling Groq to prevent abuse
+	    // Only increment for free users
+	    if (!Boolean.TRUE.equals(user.getIsPremium())) {
+	        user.setSessionsUsed(user.getSessionsUsed() + 1);
+	        user.setLastSessionAt(LocalDateTime.now());
+	        userRepository.save(user);
+	    }
+
+	    // ── STEP 5: Create session in DB ──────────────
+	    InterviewSession session = new InterviewSession();
+	    session.setUserId(userId);
+	    session.setJobRole(jobRole);
+	    session.setDifficulty(difficulty);
+	    session.setFormat(format);
+	    sessionRepository.save(session);
+
+	    // ── STEP 6: Generate AI question ──────────────
+	    String questionData;
+	    if (format.equals("MCQ")) {
+	        questionData = groqService.generateMCQQuestion(jobRole, difficulty);
+	    } else {
+	        questionData = groqService.generateQuestion(jobRole, difficulty);
+	    }
+
+	    // ── STEP 7: Return with session info ──────────
+	    int sessionsLeft = Boolean.TRUE.equals(user.getIsPremium())
+	        ? 999
+	        : Math.max(0, 3 - user.getSessionsUsed());
+
+	    return ResponseEntity.ok(Map.of(
+	        "sessionId",    session.getId(),
+	        "question",     questionData,
+	        "format",       format,
+	        "difficulty",   difficulty,
+	        "sessionsUsed", user.getSessionsUsed(),
+	        "sessionsLeft", sessionsLeft,
+	        "isPremium",    user.getIsPremium()
+	    ));
 	}
 	    
 	@PostMapping("/answer")

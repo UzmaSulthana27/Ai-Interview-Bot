@@ -53,7 +53,7 @@ const TypingText = ({ text, className = "", delay = 0 }) => {
   );
 };
 
-const HeroSection = ({ onStartTrial }) => {
+const HeroSection = ({ onStartTrial, buttonText }) => {
   const { isDark } = useTheme();
   const scrollToFeatures = () => {
     const featuresSection = document.getElementById('features');
@@ -150,7 +150,7 @@ const HeroSection = ({ onStartTrial }) => {
               : { scale: 1.05, y: -4, boxShadow: "0 25px 30px -5px rgba(45, 90, 39, 0.3)" }}
             whileTap={{ scale: 0.98 }}
           >
-            {isDark ? "> INITIALIZE_INTERVIEW" : "Start Interview"}
+            {buttonText || (isDark ? "> INITIALIZE_INTERVIEW" : "Start Interview")}
           </motion.button>
         </motion.div>
 

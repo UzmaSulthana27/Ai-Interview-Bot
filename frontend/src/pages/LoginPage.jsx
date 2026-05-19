@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import { useSession } from '../context/SessionContext';
 import apiService from '../api/apiService';
 import Input from '../components/common/Input';
 import Button from '../components/common/Button';
@@ -24,6 +25,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const { login, setAuthError } = useAuth();
   const { isDark } = useTheme();
+  const { updateSessionInfo } = useSession();
 
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [errors, setErrors]     = useState({});
@@ -65,12 +67,19 @@ const LoginPage = () => {
       const response = await apiService.login(formData.email, formData.password);
       const { user, token } = response.data;
       
-      // Store trial info in localStorage
-      localStorage.setItem('userId', user.id);
-      localStorage.setItem('userName', user.fullName);
-      localStorage.setItem('isPremium', user.isPremium);
-      localStorage.setItem('trialUsed', user.trialUsed);
-      localStorage.setItem('sessionsUsed', user.sessionsUsed);
+      const sessionsUsed = response.data.sessionsUsed !== undefined ? response.data.sessionsUsed : (user.sessionsUsed || 0);
+      const sessionsLeft = response.data.sessionsLeft !== undefined ? response.data.sessionsLeft : Math.max(0, 3 - sessionsUsed);
+      const isPremium = response.data.isPremium !== undefined ? response.data.isPremium : (user.isPremium || false);
+      const userId = response.data.userId || user.id;
+      const userName = response.data.name || user.fullName;
+
+      localStorage.setItem('userId',       userId);
+      localStorage.setItem('userName',     userName);
+      localStorage.setItem('isPremium',    isPremium);
+      localStorage.setItem('sessionsUsed', sessionsUsed);
+      localStorage.setItem('sessionsLeft', sessionsLeft);
+      
+      updateSessionInfo(sessionsUsed, sessionsLeft, isPremium);
       
       login(user, token);
       navigate('/home');

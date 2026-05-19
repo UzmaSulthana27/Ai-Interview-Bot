@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '../context/ThemeContext';
 import TopNavBar from '../components/layout/TopNavBar';
@@ -9,177 +9,142 @@ import HowItWorks from '../components/Sections/HowItWorks';
 import FinalCTA from '../components/Sections/FinalCTA';
 import UpgradePopup from '../components/UpgradePopup';
 import { useNavigate } from 'react-router-dom';
+import { useSession } from '../context/SessionContext';
 
 const HomePage = () => {
   const navigate = useNavigate();
   const { isDark } = useTheme();
-  const [showUpgradePopup, setShowUpgradePopup] = useState(false);
+  
+  const {
+    sessionsUsed,
+    sessionsLeft,
+    isPremium,
+    showUpgradePopup,
+    setShowUpgradePopup,
+    refreshStatus
+  } = useSession();
 
-  const isPremium = localStorage.getItem('isPremium') === 'true';
-  const trialUsed = localStorage.getItem('trialUsed') === 'true';
+  // Define local state to satisfy the required handleStartInterview logic structure
+  const [selectedRole, setSelectedRole] = useState('Java Developer');
+  const [selectedDifficulty, setSelectedDifficulty] = useState('Medium');
+  const [selectedFormat, setSelectedFormat] = useState('QA');
+
+  useEffect(() => { 
+    refreshStatus(); 
+  }, []);
 
   const handleStartInterview = () => {
-    // If trial is used and not premium, show upgrade popup
-    if (trialUsed && !isPremium) {
+    if (!selectedRole) {
+      alert('Please select a role first!');
+      return;
+    }
+    if (!isPremium && sessionsLeft <= 0) {
       setShowUpgradePopup(true);
       return;
     }
-    // Otherwise navigate to interview
+    localStorage.setItem('jobRole', selectedRole);
+    localStorage.setItem('difficulty', selectedDifficulty);
+    localStorage.setItem('format', selectedFormat);
     navigate('/interview');
   };
 
   const renderTrialBanner = () => {
     if (isPremium) {
-      // Premium Member
+      // State 1 — Premium user
       return (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          style={isDark ? {
-            background: 'var(--bg-premium)',
-            border: '1px solid #00ffa3',
-            borderRadius: '4px',
-            padding: '16px',
-            marginTop: '24px',
-            marginBottom: '24px',
-            fontFamily: "'Courier New', monospace",
-            fontSize: '14px',
-            color: '#00ffa3',
-            textAlign: 'center',
-            fontWeight: '600',
-            textShadow: '0 0 6px rgba(0, 255, 163, 0.5)',
-            boxShadow: '0 0 16px rgba(0, 255, 163, 0.1)'
-          } : {
-            background: '#f0f7ec',
-            border: 'none',
-            borderRadius: '12px',
-            padding: '16px',
-            marginTop: '24px',
-            marginBottom: '24px',
-            fontFamily: 'monospace',
-            fontSize: '14px',
-            color: '#2d5a27',
-            textAlign: 'center',
-            fontWeight: '600',
-          }}
-        >
-          ✓ Premium Member — Unlimited Sessions
-        </motion.div>
-      );
-    }
-
-    if (!trialUsed) {
-      // Free Trial Available
-      return (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          style={isDark ? {
-            background: 'var(--bg-trial-free)',
-            border: '1px solid #00ffa3',
-            borderRadius: '4px',
-            padding: '16px',
-            marginTop: '24px',
-            marginBottom: '24px',
-            fontFamily: "'Courier New', monospace",
-            fontSize: '14px',
-            color: '#00ffa3',
-            textAlign: 'center',
-            fontWeight: '600',
-            boxShadow: '0 0 16px rgba(0, 255, 163, 0.1)'
-          } : {
-            background: '#f0f7ec',
-            border: 'none',
-            borderRadius: '12px',
-            padding: '16px',
-            marginTop: '24px',
-            marginBottom: '24px',
-            fontFamily: 'monospace',
-            fontSize: '14px',
-            color: '#2d5a27',
-            textAlign: 'center',
-            fontWeight: '600',
-          }}
-        >
-          ⚡ Free Trial — 1 session available
-        </motion.div>
-      );
-    }
-
-    // Trial Used, Not Premium
-    return (
-      <motion.div
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        style={isDark ? {
-          background: 'var(--bg-trial-warning)',
-          border: '1px solid #ffbd2e',
-          borderRadius: '4px',
-          padding: '16px',
-          marginTop: '24px',
-          marginBottom: '24px',
-          fontFamily: "'Courier New', monospace",
-          fontSize: '14px',
-          color: '#ffbd2e',
+        <div style={{
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '16px',
-          boxShadow: '0 0 16px rgba(255,189,46,0.1)'
-        } : {
-          background: '#fff8e8',
-          border: '2px solid #e8c84a',
-          borderRadius: '12px',
-          padding: '16px',
-          marginTop: '24px',
-          marginBottom: '24px',
+          gap: 8,
+          padding: '10px 16px',
+          background: 'var(--bg-premium)',
+          border: 'var(--border-success)',
+          borderRadius: 8,
+          marginBottom: 20,
           fontFamily: 'monospace',
-          fontSize: '14px',
-          color: '#7a5c00',
+          fontSize: 13,
+          maxWidth: '800px',
+          margin: '20px auto'
+        }}>
+          <span style={{ color: 'var(--text-success)' }}>✓</span>
+          <span style={{ color: 'var(--text-primary)' }}>
+            Premium Member — Unlimited sessions
+          </span>
+        </div>
+      );
+    }
+
+    if (sessionsLeft > 0) {
+      // State 2 — Free trial available (sessionsLeft > 0)
+      return (
+        <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          gap: '16px',
-        }}
-      >
-        <span style={{ fontWeight: '600' }}>🔒 Free trial used — Upgrade for unlimited access</span>
+          padding: '10px 16px',
+          background: 'var(--bg-trial-free)',
+          border: 'var(--border-default)',
+          borderRadius: 8,
+          marginBottom: 20,
+          maxWidth: '800px',
+          margin: '20px auto'
+        }}>
+          <span style={{ fontFamily:'monospace', fontSize:13, color:'var(--text-primary)' }}>
+            ⚡ Free Trial — {sessionsLeft} session{sessionsLeft !== 1 ? 's' : ''} remaining
+          </span>
+          <div style={{ display:'flex', gap:6 }}>
+            {[1,2,3].map(i => (
+              <div key={i} style={{
+                width: 10, height: 10, borderRadius: '50%',
+                background: i <= sessionsUsed
+                  ? 'var(--text-muted)'
+                  : 'var(--primary)',
+              }}/>
+            ))}
+          </div>
+        </div>
+      );
+    }
+
+    // State 3 — Trial expired (sessionsLeft === 0 AND not premium)
+    return (
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '10px 16px',
+        background: 'var(--bg-trial-warning)',
+        border: '1px solid #e8c84a',
+        borderRadius: 8,
+        marginBottom: 20,
+        maxWidth: '800px',
+        margin: '20px auto'
+      }}>
+        <span style={{ fontFamily:'monospace', fontSize:13, color:'var(--text-primary)' }}>
+          🔒 Free trial ended — upgrade for unlimited access
+        </span>
         <button
           onClick={() => setShowUpgradePopup(true)}
-          style={isDark ? {
-            background: '#ffbd2e',
-            color: '#000',
+          style={{
+            background: 'var(--primary)',
+            color: 'var(--primary-text)',
             border: 'none',
-            borderRadius: '3px',
-            padding: '8px 12px',
-            fontSize: '12px',
-            fontWeight: '600',
+            padding: '6px 14px',
+            borderRadius: 6,
+            fontFamily: 'monospace',
+            fontSize: 12,
             cursor: 'pointer',
-            whiteSpace: 'nowrap',
-          } : {
-            background: '#e8c84a',
-            color: '#7a5c00',
-            border: 'none',
-            borderRadius: '8px',
-            padding: '8px 12px',
-            fontSize: '12px',
-            fontWeight: '600',
-            cursor: 'pointer',
-            whiteSpace: 'nowrap',
-          }}
-          onMouseEnter={(e) => {
-            if (isDark) e.target.style.boxShadow = '0 0 12px rgba(255,189,46,0.6)';
-            else e.target.style.background = '#d9b824';
-          }}
-          onMouseLeave={(e) => {
-            if (isDark) e.target.style.boxShadow = 'none';
-            else e.target.style.background = '#e8c84a';
           }}
         >
-          Upgrade Now →
+          Upgrade →
         </button>
-      </motion.div>
+      </div>
     );
   };
+
+  const buttonText = !isPremium && sessionsLeft <= 0
+    ? '🔒 Upgrade to Start'
+    : '$ start --interview';
 
   return (
     <div className={`font-body transition-colors duration-300 ${isDark ? 'bg-black text-slate-300' : 'bg-[#f5f5f0] text-[#1a3d16]'}`}>
@@ -191,7 +156,7 @@ const HomePage = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <HeroSection onStartTrial={handleStartInterview} />
+          <HeroSection onStartTrial={handleStartInterview} buttonText={buttonText} />
           {renderTrialBanner()}
           <FeatureBentoGrid />
           <HowItWorks />
@@ -204,11 +169,6 @@ const HomePage = () => {
       <UpgradePopup
         isOpen={showUpgradePopup}
         onClose={() => setShowUpgradePopup(false)}
-        onUpgrade={() => {
-          localStorage.setItem('isPremium', 'true');
-          setShowUpgradePopup(false);
-          window.location.reload();
-        }}
       />
     </div>
   );

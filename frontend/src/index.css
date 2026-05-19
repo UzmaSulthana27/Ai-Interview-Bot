@@ -6,6 +6,105 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Backgrounds */
+    --bg-page          : #f5f5f0;
+    --bg-card          : #ffffff;
+    --bg-card-hover    : #f0f7ec;
+    --bg-terminal      : #f5f5f0;
+    --bg-badge         : rgba(45, 90, 39, 0.1);
+    --bg-input         : #ffffff;
+    --bg-sidebar-card  : #ffffff;
+    --bg-cta-card      : #f0f7ec;
+    --bg-selected      : #e8f0e0;
+    --bg-navbar        : #f5f5f0;
+    --bg-overlay       : rgba(245, 245, 240, 0.95);
+    --bg-footer        : #f5f5f0;
+    --bg-pill-selected : #2d5a27;
+    --bg-pill-default  : #ffffff;
+    --bg-bottom-nav    : rgba(245, 245, 240, 0.97);
+    --bg-diff-selected : #2d5a27;
+    --bg-diff-default  : #ffffff;
+    --bg-success       : #2d5a27;
+    --bg-mcq-selected  : #e8f0e0;
+    --bg-mcq-correct   : #d1fae5;
+    --text-mcq-correct : #065f46;
+    --bg-mcq-wrong     : #fee2e2;
+    --bg-trial-free    : #ffffff;
+    --bg-trial-warning : #fffbeb;
+    --bg-premium       : #f0f7ec;
+    --bg-mcq-option    : #ffffff;
+
+    /* Text */
+    --text-primary         : #1a3d16;
+    --text-secondary       : #4a6741;
+    --text-muted           : #6b8e5e;
+    --text-logo            : #1a3d16;
+    --text-nav-active      : #2d5a27;
+    --text-nav-default     : #6b8e5e;
+    --text-badge           : #2d5a27;
+    --text-terminal        : #1a3d16;
+    --text-terminal-label  : #6b8e5e;
+    --text-cta-title       : #1a3d16;
+    --text-cta-sub         : #4a6741;
+    --text-pill-selected   : #ffffff;
+    --text-pill-default    : #2d5a27;
+    --text-stat-value      : #1a3d16;
+    --text-success         : #2d5a27;
+    --text-error           : #cc0000;
+    --text-heading         : #1a3d16;
+    --text-mcq-default     : #4a6741;
+    --text-mcq-selected    : #1a3d16;
+    --text-mcq-wrong       : #991b1b;
+    --text-diff-selected   : #ffffff;
+    --text-diff-default    : #4a6741;
+
+    /* Borders */
+    --border-default       : 1px solid #c8d5b9;
+    --border-active        : 1px solid #2d5a27;
+    --border-selected      : 1px solid #2d5a27;
+    --border-navbar        : 1px solid #c8d5b9;
+    --border-terminal      : 1px solid #c8d5b9;
+    --border-card          : 1px solid #c8d5b9;
+    --border-footer        : 1px solid #c8d5b9;
+    --border-success       : 1px solid #2d5a27;
+    --border-error         : 1px solid #cc0000;
+    --border-input         : 1px solid #c8d5b9;
+    --border-input-focus   : 1px solid #2d5a27;
+    --border-cta           : 1px solid #c8d5b9;
+    --border-mcq-default   : 1px solid #c8d5b9;
+    --border-mcq-selected  : 1px solid #2d5a27;
+    --border-mcq-correct   : 1px solid #10b981;
+    --border-mcq-wrong     : 1px solid #f87171;
+
+    /* Brand & Interactive */
+    --primary              : #2d5a27;
+    --primary-hover        : #1a3d16;
+    --primary-text         : #ffffff;
+    --accent               : #2d5a27;
+    --cursor-color         : #2d5a27;
+    --progress-fill        : #2d5a27;
+    --progress-bg          : #e8f0e0;
+    --bar-fill             : #2d5a27;
+    --bar-bg               : #e8f0e0;
+    --spinner-border       : #c8d5b9;
+    --spinner-top          : #2d5a27;
+    --nav-active-line      : 1px solid #2d5a27;
+    --delete-hover-bg      : #fee2e2;
+    --delete-hover-color   : #cc0000;
+    --role-icon-bg         : transparent;
+    --step-circle-bg       : #2d5a27;
+    --step-circle-text     : #ffffff;
+    --step-line            : #c8d5b9;
+
+    /* Glow shadows */
+    --glow-primary         : 0 0 10px rgba(45,90,39,0.1);
+    --glow-primary-strong  : 0 0 20px rgba(45,90,39,0.2);
+    --glow-card            : 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --glow-terminal        : none;
+    --glow-text            : none;
+  }
+
   html {
     scroll-behavior: smooth;
   }
