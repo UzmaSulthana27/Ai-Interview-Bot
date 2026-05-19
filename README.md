@@ -2,7 +2,7 @@
 
 > **Status:** ACTIVE_NODE  
 > **Uptime:** 99.9%  
-> **Current Version:** 2.1.0-STABLE  
+> **Current Version:** 2.2.0-STABLE  
 > **Primary Objective:** Master technical interviews through high-fidelity AI simulations.
 
 ---
@@ -29,7 +29,7 @@
 *   **Auto-Bios**: Unique AI-generated bios automatically assigned upon login.
 *   **Resume Vault**: Upload, manage, and instantly delete your resumes from a centralized dashboard.
 
-### 2. 📄 SEMANTIC_PARSER (Resume Analysis)
+### 3. 📄 SEMANTIC_PARSER (Resume Analysis)
 *   **Skill Extraction**: Automatically identifies technical skills from PDF/Word resumes.
 *   **Experience Mapping**: Generates a summary of your professional trajectory.
 *   **Topic Suggestion**: Tailors the interview pool to your specific experience.
@@ -41,7 +41,10 @@
 
 ### 5. 💎 ACCESS_MODES (Subscription System)
 *   **FREE_TRIAL**: 3 full interview sessions for every new user.
-*   **PREMIUM_LINK**: Unlimited sessions, advanced role selection, and deeper analytics.
+*   **PREMIUM_UPGRADE**: Paid premium upgrade ($19.99) secured by backend validation.
+    *   *Virtual Card Interface*: Multi-step checkout popup featuring a live-updating credit card display.
+    *   *Card Validation*: Strict checks on amount, 16-digit card numbers, expiration formats, and CVVs.
+    *   *Session Syncing*: Real-time backend verification on page loads and logouts to prevent client-side bypasses.
 
 ---
 
